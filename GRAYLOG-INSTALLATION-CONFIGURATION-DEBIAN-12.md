@@ -633,6 +633,11 @@ sudo tail -f /var/log/graylog-server/server.log
 - **Labo** : `http://127.0.0.1:9000` ou `http://<IP_LOCAL>:9000`
 - **Production** : `https://127.0.0.1:9000` ou `https://<IP_PUBLIC>:9000`
 
+test :
+
+```bash
+ss -tulnp | grep -E '9000|9200|27017'
+```
 ---
 
 🎉 Bon logging ! 🚀
