@@ -420,7 +420,7 @@ node_id_file = /opt/graylog/graylog-server/config/node-id
 # echo -n 'ton_mdp' | sha256sum
 #################################################
 root_password_sha2 = e3afed0047b08059d0fada10f400c1e5dfb2c6f9f4d91a5a6a433d0e3d6e4e8f
-
+root_timezone = Europe/Pari
 
 #####################################################
 # CLÉ SECRÈTE POUR LE CHIFFREMENT INTERNE
@@ -445,7 +445,7 @@ mongodb_uri = mongodb://127.0.0.1:27017/graylog
 # WEB  : interface web de supervision
 ############################################
 rest_listen_uri = http://127.0.0.1:9000/api/
-web_listen_uri  = http://127.0.0.1:9000/
+web_listen_uri = http://127.0.0.1:9000/
 
 
 #################################################
@@ -454,7 +454,7 @@ web_listen_uri  = http://127.0.0.1:9000/
 # ou indisponible. Nécessite un dossier dédié.
 #################################################
 message_journal_enabled = true
-message_journal_dir     = /opt/graylog/graylog-server/data/journal
+message_journal_dir = /opt/graylog/graylog-server/data/journal
 
 
 ############################################
