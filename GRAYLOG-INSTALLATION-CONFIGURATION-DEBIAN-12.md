@@ -391,40 +391,120 @@ web_listen_uri = http://0.0.0.0:9000/api/
 elasticsearch_hosts = http://127.0.0.1:9200
 ```
 
-Voici un fichier fonctionnel 
+Voici un fichier fonctionnel :
+
+Mise à jour complète et corrigée de ton fichier /etc/graylog/server/server.conf pour :
+
+- Debian 12
+- Graylog 6.3 (.tar.gz)
+- MongoDB 7
+- OpenSearch 2.14 sans TLS (sécurité désactivée)
+- Avec ajout de la variable password_secret obligatoire
 
 ```bash
 sudo nano /etc/graylog/server/server.conf
 ```
 ```bash
-# Fichier contenant l'identifiant du nœud Graylog
+############################################
+# IDENTIFIANT UNIQUE DU NŒUD GRAYLOG       #
+# Sert à identifier de façon persistante ce
+# serveur dans un cluster Graylog. Ne doit
+# pas changer entre les redémarrages.
+############################################
 node_id_file = /opt/graylog/graylog-server/config/node-id
 
-# Mot de passe root hashé SHA256 (à générer avec sha256sum)
+
+#################################################
+# MOT DE PASSE DE L’UTILISATEUR root DE L’UI WEB
+# SHA256 du mot de passe admin. À générer via :
+# echo -n 'ton_mdp' | sha256sum
+#################################################
 root_password_sha2 = e3afed0047b08059d0fada10f400c1e5dfb2c6f9f4d91a5a6a433d0e3d6e4e8f
 
-# URI MongoDB pour stocker les métadonnées de Graylog
+
+#####################################################
+# CLÉ SECRÈTE POUR LE CHIFFREMENT INTERNE
+# Sert à sécuriser les sessions web, tokens JWT,
+# stockages de mots de passe internes, etc.
+# À générer via openssl rand -base64 96
+#####################################################
+password_secret = tYxa3M58qlFl01Nk2uAqCfYlRb0uF1qPmfI7kzXNaUJ7vWuQ2ZRM3FOLmGnG0E3g5RwYPGKg1wrCm3NQRGGbth8XasApUIeHqXsAYQn4W1aUvgbZzFVZ3NBhABYjmb9e
+
+
+############################################
+# CONNEXION À MONGODB 7
+# Adresse de la base MongoDB utilisée par Graylog
+# pour stocker la config, les utilisateurs, etc.
+############################################
 mongodb_uri = mongodb://127.0.0.1:27017/graylog
 
-# URI de l'API REST interne (adresse d’écoute du backend)
+
+############################################
+# ADRESSES D'ÉCOUTE DE GRAYLOG
+# REST : interface API interne (backend)
+# WEB  : interface web de supervision
+############################################
 rest_listen_uri = http://127.0.0.1:9000/api/
+web_listen_uri  = http://127.0.0.1:9000/
 
-# URI Web pour accéder à l’interface d’administration
-web_listen_uri = http://127.0.0.1:9000/
 
-# Activer le journal de messages (message buffering)
+#################################################
+# JOURNAL DE MESSAGES
+# Sert de tampon disque si OpenSearch est lent
+# ou indisponible. Nécessite un dossier dédié.
+#################################################
 message_journal_enabled = true
+message_journal_dir     = /opt/graylog/graylog-server/data/journal
 
-# Répertoire du journal de messages (doit exister et être accessible en écriture)
-message_journal_dir = /opt/graylog/graylog-server/data/journal
 
-# Répertoire de données pour les index temporaires, journaux, etc.
+############################################
+# RÉPERTOIRE DES DONNÉES GRAYLOG
+# Contient les index temporaires, buffers, etc.
+############################################
 data_dir = /opt/graylog/graylog-server/data
 
-# Fichier de log (optionnel mais conseillé si tu ne lances pas via systemd)
-# logging_configuration_file = /opt/graylog/graylog-server/config/log4j2.xml
-```
 
+#################################################
+# CONFIGURATION D’OPENSEARCH 2.14 (sans sécurité)
+# Utilisé comme backend de stockage des logs
+# Elasticsearch est compatible, mais ici on précise
+# que c’est OpenSearch pour éviter les vérifications.
+#################################################
+
+# Adresse de l’instance OpenSearch
+elasticsearch_hosts = http://127.0.0.1:9200
+
+# Spécifie qu’on utilise OpenSearch (pas Elasticsearch)
+elasticsearch_version = OpenSearch
+
+# Ignore la vérification de version incompatible
+elasticsearch_disable_version_check = true
+
+# Nombre de shards créés par index de log
+elasticsearch_shards = 1
+
+# Nombre de réplicas (0 pour une seule instance sans cluster)
+elasticsearch_replicas = 0
+
+# Désactive la coloration syntaxique (highlight) dans les résultats
+allow_highlighting = false
+```
+✅ À vérifier côté OpenSearch déja vu plus haut :
+Si tu as bien désactivé la sécurité dans opensearch.yml, tu dois avoir :
+
+```bash
+sudo nano /usr/share/opensearch/config/opensearch.yml
+```
+Y ajouter :
+
+```bash
+plugins.security.disabled: true
+```
+Et la commande suivante doit retourner un JSON sans erreur :
+
+```bash
+curl http://127.0.0.1:9200
+```
 ---
 
 ## 7. ▶️ Démarrer les services
