@@ -145,6 +145,86 @@ sudo useradd -r -M -s /usr/sbin/nologin opensearch
 sudo chown -R opensearch:opensearch /usr/share/opensearch
 ```
 
+### 💡 Des modifications vont devoir être effectués :
+
+Recommandation :
+
+Tu es visiblement en train de mettre en place Graylog avec OpenSearch :
+
+➡️ Je recommande de désactiver temporairement le plugin de sécurité (plugins.security.disabled: true) pour valider que tout fonctionne, puis configurer les certificats SSL ensuite si besoin.
+
+Si /etc/opensearch n'existe pas, cela signifie que ton installation d'OpenSearch :
+
+- a été faite via une archive .tar.gz (et non via apt ou yum),
+- ou que la configuration est ailleurs (ex: /usr/share/opensearch/config/).
+
+✅ Étapes pour retrouver et modifier opensearch.yml
+Localise le fichier opensearch.yml :
+
+```bash
+sudo find / -name opensearch.yml 2>/dev/null
+```
+
+Tu devrais voir un chemin du type :
+
+```bash
+/usr/share/opensearch/config/opensearch.yml
+```
+
+Édite ce fichier :
+
+```bash
+sudo nano /usr/share/opensearch/config/opensearch.yml
+```
+
+Ajoute cette ligne tout en bas pour désactiver la sécurité :
+
+```bash
+plugins.security.disabled: true
+```
+
+Redémarre OpenSearch :
+
+```bash
+sudo systemctl restart opensearch
+```
+
+Teste ensuite avec :
+
+```bash
+curl http://localhost:9200
+```
+
+Tu devrais voir une réponse JSON avec des infos sur OpenSearch.
+
+```bash
+{
+  "name" : "srv-labo",
+  "cluster_name" : "opensearch",
+  "cluster_uuid" : "iM-KPxoYRQ-dVvECnHrbzw",
+  "version" : {
+    "distribution" : "opensearch",
+    "number" : "2.14.0",
+    "build_type" : "tar",
+    "build_hash" : "aaa555453f4713d652b52436874e11ba258d8f03",
+    "build_date" : "2024-05-09T18:51:00.973564994Z",
+    "build_snapshot" : false,
+    "lucene_version" : "9.10.0",
+    "minimum_wire_compatibility_version" : "7.10.0",
+    "minimum_index_compatibility_version" : "7.0.0"
+  },
+  "tagline" : "The OpenSearch Project: https://opensearch.org/"
+}
+```
+
+Parfait ! 🎉 OpenSearch est maintenant en ligne et opérationnel :
+
+- ✅ Réponse valide de curl http://localhost:9200
+- ✅ OpenSearch version 2.14.0 active
+- ✅ Mode tar confirmé (installation via archive, d'où l'absence de /etc/opensearch)
+- ✅ Plus d’erreur de plugin bloquant (plugins.security...)
+- ✅ Graylog devrait maintenant pouvoir se connecter à OpenSearch
+
 ---
 
 ### Créer le service systemd
@@ -350,6 +430,12 @@ sudo tail -f /var/log/graylog-server/server.log
 
 - **Labo** : `http://127.0.0.1:9000` ou `http://<IP_LOCAL>:9000`
 - **Production** : `https://127.0.0.1:9000` ou `https://<IP_PUBLIC>:9000`
+
+
+
+
+
+
 
 ---
 
