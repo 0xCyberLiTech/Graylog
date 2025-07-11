@@ -44,7 +44,7 @@
 # 📘 Procédure d'installation de Graylog 6.3 sur Debian 12 (Bookworm)
 
 ## 📑 Sommaire
-1. [🛠️ Prérequis](#1-🛠️-prérequis)(#5-communication) |
+1. [🛠️ Prérequis](#1-🛠️-prérequis)
 2. [📦 Installer MongoDB 7](#2-📦-installer-mongodb-7)  
 3. [📦 Installer OpenSearch 2.14](#3-📦-installer-opensearch-214)  
 4. [☕ Installer Java 17](#4-☕-installer-java-17)  
