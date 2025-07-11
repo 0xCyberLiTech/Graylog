@@ -303,6 +303,94 @@ web_listen_uri = http://0.0.0.0:9000/api/
 elasticsearch_hosts = http://127.0.0.1:9200
 ```
 
+### Rentrons dans le détail de cette section ( 6. ⚙️ Configurer Graylog) :
+
+🧾 Objectif de cette section :
+
+Tu vas modifier le fichier de configuration de Graylog pour :
+
+- Définir un secret interne (utilisé pour sécuriser les sessions)
+- Définir le mot de passe admin (sous forme de hash sécurisé)
+- Définir quelques réglages de fuseau horaire, d’accès web, et de lien avec OpenSearch
+
+✅ Étapes détaillées :
+
+⚠️ - Les valeurs qui sont données ici sont fictives en guise d'exmple : - ⚠️
+
+- 1. Générer un password_secret.
+
+C’est une chaîne aléatoire utilisée par Graylog pour le chiffrement interne.
+
+Tape dans ton terminal :
+
+```bash
+pwgen -N 1 -s 96
+```
+
+Si pwgen n’est pas installé :
+
+```bash
+sudo apt install -y pwgen
+```
+
+Relancer la commande :
+
+```bash
+pwgen -N 1 -s 96
+```
+
+Par exemple, cela va te donner un résultat comme :
+
+```bash
+7p0gEqEgNyyusvPj58H4CU7bOyr7MWKd5gOQFhcLWNwOljOX5DJi0VA2LK4q86HMEipmEbAmc8WMfitHLgKQuY2a0S3jzDm0 (96 caractères)
+```
+
+Tu recopieras cette valeur dans le champ password_secret du fichier de config.
+
+- 2. Créer le mot de passe de l’utilisateur admin :
+
+Tape la commande suivante pour hasher ton mot de passe admin (remplace "MonMotDePasse" par celui que tu veux utiliser) :
+
+```bash
+echo -n "MonMotDePasse" | sha256sum | awk '{print $1}'
+```
+
+Ex :
+
+```bash
+echo -n "S@B85-2025-SID" | sha256sum | awk '{print $1}'
+```
+
+Exemple de sortie :
+
+```bash
+bb694409e5c1a9d6b4c00bdd543f62cefd2e746087d4c22396e9051d3897297f (un long hash SHA-256)
+```
+
+Tu recopieras ce hash dans le champ root_password_sha2.
+
+⚠️ -  Important : Ne mets jamais le mot de passe en clair dans le fichier de conf, seulement le hash. - ⚠️
+
+3. Modifier le fichier de configuration :
+
+Édite le fichier suivant :
+
+```bash
+sudo nano /etc/graylog/server/server.conf
+```
+
+Et ajoute ou modifie les lignes suivantes (remplace les <...> par les vraies valeurs que tu viens d’obtenir) :
+
+Properties :
+
+```bash
+password_secret = xF7hVZB8csdQpiqYvz9uLmDKMa2XYZ...   # ← ta clé aléatoire
+root_password_sha2 = 5e884898da28047151d0e56f8dcXYZ...  # ← ton hash SHA256
+root_timezone = Europe/Paris
+web_listen_uri = http://0.0.0.0:9000/api/
+elasticsearch_hosts = http://127.0.0.1:9200
+```
+
 ---
 
 ## 7. ▶️ Démarrer les services
@@ -430,12 +518,6 @@ sudo tail -f /var/log/graylog-server/server.log
 
 - **Labo** : `http://127.0.0.1:9000` ou `http://<IP_LOCAL>:9000`
 - **Production** : `https://127.0.0.1:9000` ou `https://<IP_PUBLIC>:9000`
-
-
-
-
-
-
 
 ---
 
