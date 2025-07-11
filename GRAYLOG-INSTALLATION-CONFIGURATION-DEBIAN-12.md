@@ -4,7 +4,7 @@
 </a>
 
 <p align="center">
-  <em>Tuto, installation & configurations d'un serveur Graylog sur Debian 12.</em><br>
+  <em>Tuto, installation & configurations d'un serveur Graylog 6.3 sur Debian 12.</em><br>
   <b>📊 Monitoring – 📈 Performance – ⚙️ Fiabilité</b>
 </p>
 
@@ -81,6 +81,14 @@ Pour réactiver :
 ```bash
 sudo systemctl unmask sleep.target suspend.target hibernate.target hybrid-sleep.target
 ```
+
+ℹ️ Ajouter l'utilisateur actuel au groupe sudoers (pour éviter d'utiliser root)
+
+```bash
+sudo adduser "$USER" sudo
+```
+
+Déconnectez-vous puis reconnectez-vous avant de poursuivre pour que le changement de groupe soit pris en compte.
 
 ---
 
