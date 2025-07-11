@@ -44,33 +44,38 @@
 # 📘 Procédure d'installation de Graylog 6.3 sur Debian 12 (Bookworm)
 
 ## 📑 Sommaire
-1. [Prérequis](#1-🛠️-prérequis)  
-2. [Installation de MongoDB 7](#2-📦-installer-mongodb-7)  
-3. [Installation d’OpenSearch 2.14](#3-📦-installer-opensearch-backend)  
-4. [Installation de Java 17](#4-☕-installer-java-17)  
-5. [Installation de Graylog](#5-📥-installer-graylog)  
-6. [Configuration de Graylog](#6-⚙️-configurer-graylog)  
-7. [Démarrage des services](#7-▶️-démarrer-les-services)  
-8. [Accès à l’interface Web Graylog](#8-🌐-accéder-à-linterface-graylog)  
-9. [Résumé des composants](#9-📊-résumé)  
-10. [OpenSearch : plugin sécurité & URL indisponible](#10-⚠️-complément--opensearch-et-url-non-disponible)  
-11. [Optimisation Java Heap selon la RAM](#11-🧠-adapter-le-java-heap-à-la-ram)  
+1. [🛠️ Prérequis](#1-🛠️-prérequis)  
+2. [📦 Installer MongoDB 7](#2-📦-installer-mongodb-7)  
+3. [📦 Installer OpenSearch 2.14](#3-📦-installer-opensearch-214)  
+4. [☕ Installer Java 17](#4-☕-installer-java-17)  
+5. [📥 Installer Graylog](#5-📥-installer-graylog)  
+6. [⚙️ Configurer Graylog](#6-⚙️-configurer-graylog)  
+7. [▶️ Démarrer les services](#7-▶️-démarrer-les-services)  
+8. [🌐 Accéder à l’interface Graylog](#8-🌐-accéder-à-linterface-graylog)  
+9. [📊 Résumé](#9-📊-résumé)  
+10. [⚠️ OpenSearch : plugin sécurité & URL indisponible](#10-⚠️-opensearch--plugin-sécurité--url-indisponible)  
+11. [🧠 Adapter le Java Heap à la RAM](#11-🧠-adapter-le-java-heap-à-la-ram)  
+12. [✅ Finalisation](#12-✅-finalisation)  
 
 ---
 
 ## 1. 🛠️ Prérequis
 
-- Debian 12 64‑bit à jour
-- **8 Go de RAM mini** (16 Go recommandés)
-- Ports ouverts : **27017** (MongoDB) • **9200** (OpenSearch) • **9000** (Graylog)
-- Fuseau horaire & NTP :
+- **Debian 12 64‑bit** à jour
+- **8 Go de RAM minimum** (16 Go recommandés)
+- Ports ouverts :  
+  - `27017` → MongoDB  
+  - `9200` → OpenSearch  
+  - `9000` → Graylog
+
+### 📅 Fuseau horaire & NTP
 
 ```bash
 sudo timedatectl set-timezone Europe/Paris
 sudo apt update && sudo apt install -y ntp
 ```
 
-- Désactiver la veille prolongée (si environnement graphique) :
+### 💤 Désactiver la mise en veille (environnement graphique)
 
 ```bash
 sudo systemctl mask sleep.target suspend.target hibernate.target hybrid-sleep.target
@@ -82,13 +87,15 @@ Pour réactiver :
 sudo systemctl unmask sleep.target suspend.target hibernate.target hybrid-sleep.target
 ```
 
-ℹ️ Ajouter l'utilisateur actuel au groupe sudoers (pour éviter d'utiliser root)
+### 👤 Ajout de l’utilisateur courant au groupe `sudo`
+
+Si vous installez Graylog avec un utilisateur non-root, donnez-lui les droits d’administration :
 
 ```bash
 sudo adduser "$USER" sudo
 ```
 
-Déconnectez-vous puis reconnectez-vous avant de poursuivre pour que le changement de groupe soit pris en compte.
+> Déconnectez-vous / reconnectez-vous pour que l’ajout au groupe soit pris en compte.
 
 ---
 
@@ -100,7 +107,7 @@ sudo apt install -y gnupg curl
 
 curl -fsSL https://www.mongodb.org/static/pgp/server-7.0.asc   | sudo gpg -o /usr/share/keyrings/mongodb-server-7.0.gpg --dearmor
 
-echo "deb [signed-by=/usr/share/keyrings/mongodb-server-7.0.gpg]   https://repo.mongodb.org/apt/debian bookworm/mongodb-org/7.0 main"   | sudo tee /etc/apt/sources.list.d/mongodb-org-7.0.list
+echo "deb [signed-by=/usr/share/keyrings/mongodb-server-7.0.gpg] https://repo.mongodb.org/apt/debian bookworm/mongodb-org/7.0 main"   | sudo tee /etc/apt/sources.list.d/mongodb-org-7.0.list
 
 sudo apt update
 sudo apt install -y mongodb-org
@@ -109,7 +116,7 @@ sudo systemctl enable --now mongod
 
 ---
 
-## 3. 📦 Installer OpenSearch (backend)
+## 3. 📦 Installer OpenSearch 2.14
 
 ```bash
 wget https://artifacts.opensearch.org/releases/bundle/opensearch/2.14.0/opensearch-2.14.0-linux-x64.tar.gz
@@ -119,10 +126,10 @@ sudo useradd -r -M -s /usr/sbin/nologin opensearch
 sudo chown -R opensearch:opensearch /usr/share/opensearch
 ```
 
-Créer le service systemd :
+### Créer le service systemd
 
-```ini
-# /etc/systemd/system/opensearch.service
+```bash
+sudo tee /etc/systemd/system/opensearch.service <<EOF
 [Unit]
 Description=OpenSearch
 After=network.target
@@ -135,6 +142,7 @@ LimitNOFILE=65536
 
 [Install]
 WantedBy=multi-user.target
+EOF
 ```
 
 ```bash
@@ -169,7 +177,7 @@ sudo apt install -y graylog-server
 ### 🔐 Générer les secrets
 
 ```bash
-sudo apt install -y pwgen            # si nécessaire
+sudo apt install -y pwgen            # Si nécessaire
 pwgen -N 1 -s 96                     # → password_secret
 echo -n "MonMotDePasse" | sha256sum  # → root_password_sha2
 ```
@@ -201,10 +209,10 @@ sudo systemctl enable --now graylog-server
 http://<IP_SERVEUR>:9000
 ```
 
-Identifiants par défaut : **admin / MonMotDePasse**  
+Identifiants par défaut :  
+**admin / MonMotDePasse**
 
-> 🔒 **Production** : connecter‐vous en **HTTPS** !  
-> Exemple : `https://<IP_SERVEUR>:9000`
+> 🔒 **En production** : activez **HTTPS** !
 
 ---
 
@@ -218,35 +226,35 @@ Identifiants par défaut : **admin / MonMotDePasse**
 
 ---
 
-## 10. ⚠️ Complément : OpenSearch & URL Graylog indisponible
+## 10. ⚠️ OpenSearch : plugin sécurité & URL indisponible
 
 ### Symptôme
 
-Accès à `http://10.100.80.63:9000` indisponible → souvent dû au plugin de sécurité OpenSearch.
+Accès à `http://<IP>:9000` indisponible → souvent dû au plugin de sécurité d’OpenSearch.
 
 ### Solution rapide (labo/dev)
 
-1. Localiser puis éditer `opensearch.yml` :
+1. Trouver puis modifier `opensearch.yml` :
 
 ```bash
 sudo find / -name opensearch.yml
 sudo nano /usr/share/opensearch/config/opensearch.yml
 ```
 
-2. Désactiver le plugin :
+2. Désactiver la sécurité :
 
 ```yaml
 plugins.security.disabled: true
 ```
 
-3. Redémarrer :
+3. Redémarrer le service :
 
 ```bash
 sudo systemctl restart opensearch
 curl http://localhost:9200
 ```
 
-Réponse JSON attendue → OpenSearch OK.
+> Une réponse JSON valide confirme que OpenSearch fonctionne.
 
 ---
 
@@ -255,11 +263,11 @@ Réponse JSON attendue → OpenSearch OK.
 ### Règles
 
 - **≤ 32 Go** (sinon perte de Compressed OOPs)
-- En pratique : 25 % de la RAM, max 8 Go pour OpenSearch si 16 Go RAM totale.
+- En pratique : 25 % de la RAM, max 8 Go pour OpenSearch si 16 Go RAM.
 
-### Exemple (RAM = 16 Go)
+### Exemple (RAM = 16 Go)
 
-**OpenSearch**
+#### OpenSearch
 
 ```bash
 sudo nano /usr/share/opensearch/config/jvm.options
@@ -270,7 +278,7 @@ sudo nano /usr/share/opensearch/config/jvm.options
 -Xmx4g
 ```
 
-**Graylog**
+#### Graylog
 
 ```bash
 sudo nano /etc/default/graylog-server
@@ -280,7 +288,7 @@ sudo nano /etc/default/graylog-server
 GRAYLOG_SERVER_JAVA_OPTS="-Xms2g -Xmx2g"
 ```
 
-> Redémarrer les services après tout changement de heap :
+Redémarrer les services :
 
 ```bash
 sudo systemctl restart opensearch
@@ -289,20 +297,22 @@ sudo systemctl restart graylog-server
 
 ---
 
-## ✅ Finalisation
+## 12. ✅ Finalisation
 
-- Vérifier les connexions :
+### 🔍 Logs
 
 ```bash
 sudo tail -f /var/log/graylog-server/server.log
 ```
 
-- Lorsque tout est vert, connectez‐vous sur :
+### 🌐 Accès
 
-  - **Labo** : `http://127.0.0.1:9000` ou `http://<IP_LOCAL>:9000`
-  - **Production** : `https://127.0.0.1:9000` ou `https://<IP_LOCAL>:9000`
+- **Labo** : `http://127.0.0.1:9000` ou `http://<IP_LOCAL>:9000`
+- **Production** : `https://127.0.0.1:9000` ou `https://<IP_PUBLIC>:9000`
 
-Bon logging ! 🚀
+---
+
+🎉 Bon logging ! 🚀
 
 ---
 
