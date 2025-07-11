@@ -28,14 +28,28 @@
 
 ---
 
-### 🧭 **Sommaire :**
+### 🎯 **Objectif de ce dépôt.**
 
-.
-.
-.
-.
-.
-.
+> Ce dépôt a pour vocation de centraliser un ensemble de notions clés concernant la journalisation des logs avec Graylog. Il s'adresse aux passionnés, étudiants et professionnels souhaitant mieux comprendre les enjeux de cet équipement de
+> sécurité fondamental, apprendre à mettre en place ses configurations efficaces, et se familiariser avec les concepts et bonnes pratiques pour maintenir la performance et la stabilité de leurs systèmes
+> d'information face aux menaces externes.
+
+---
+
+<h1 align="center"> 🚧 **Page en cours de développement** 🚧</h1>
+<h3 align="center"> 🔧 Travail en cours... Merci de revenir plus tard !</h3>
+
+---
+
+<h2 align="left">💡</h2>
+<h3 align="left">👋 </h3>
+
+- 
+- 
+-
+- 
+- 
+-
 
 ---
 
