@@ -397,23 +397,32 @@ Voici un fichier fonctionnel
 sudo nano /etc/graylog/server/server.conf
 ```
 ```bash
-# Identifiant unique du nœud Graylog
-node_id_file = /etc/graylog/server/node-id
+# Fichier contenant l'identifiant du nœud Graylog
+node_id_file = /opt/graylog/graylog-server/config/node-id
 
-# Le mot de passe root hashé (à générer avec echo -n "motdepasse" | sha256sum)
+# Mot de passe root hashé SHA256 (à générer avec sha256sum)
 root_password_sha2 = e3afed0047b08059d0fada10f400c1e5dfb2c6f9f4d91a5a6a433d0e3d6e4e8f
 
-# L’adresse de connexion à MongoDB (Graylog stocke sa configuration ici)
-mongodb_uri = mongodb://localhost:27017/graylog
+# URI MongoDB pour stocker les métadonnées de Graylog
+mongodb_uri = mongodb://127.0.0.1:27017/graylog
 
-# L'adresse d'écoute interne de Graylog
-rest_listen_uri = http://0.0.0.0:9000/api/
+# URI de l'API REST interne (adresse d’écoute du backend)
+rest_listen_uri = http://127.0.0.1:9000/api/
 
-# L'adresse d'écoute publique (identique pour un usage local)
-web_listen_uri = http://0.0.0.0:9000/
+# URI Web pour accéder à l’interface d’administration
+web_listen_uri = http://127.0.0.1:9000/
 
-# Chemin vers le journal des logs
+# Activer le journal de messages (message buffering)
 message_journal_enabled = true
+
+# Répertoire du journal de messages (doit exister et être accessible en écriture)
+message_journal_dir = /opt/graylog/graylog-server/data/journal
+
+# Répertoire de données pour les index temporaires, journaux, etc.
+data_dir = /opt/graylog/graylog-server/data
+
+# Fichier de log (optionnel mais conseillé si tu ne lances pas via systemd)
+# logging_configuration_file = /opt/graylog/graylog-server/config/log4j2.xml
 ```
 
 ---
