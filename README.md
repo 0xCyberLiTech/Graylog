@@ -4,7 +4,7 @@
 </a>
 
 <p align="center">
-  <em>Tuto et configurations d'un serveur Graylog.</em><br>
+  <em>Tuto, installation & configurations d'un serveur Graylog sur Debian 12.</em><br>
   <b>📊 Monitoring – 📈 Performance – ⚙️ Fiabilité</b>
 </p>
 
