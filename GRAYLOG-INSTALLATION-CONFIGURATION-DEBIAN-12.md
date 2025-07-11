@@ -72,6 +72,8 @@
 
 ```bash
 sudo timedatectl set-timezone Europe/Paris
+```
+```bash
 sudo apt update && sudo apt install -y ntp
 ```
 
@@ -103,14 +105,23 @@ sudo adduser "$USER" sudo
 
 ```bash
 sudo apt update
+```
+```bash
 sudo apt install -y gnupg curl
-
+```
+```bash
 curl -fsSL https://www.mongodb.org/static/pgp/server-7.0.asc   | sudo gpg -o /usr/share/keyrings/mongodb-server-7.0.gpg --dearmor
-
+```
+```bash
 echo "deb [signed-by=/usr/share/keyrings/mongodb-server-7.0.gpg] https://repo.mongodb.org/apt/debian bookworm/mongodb-org/7.0 main"   | sudo tee /etc/apt/sources.list.d/mongodb-org-7.0.list
-
+```
+```bash
 sudo apt update
+```
+```bash
 sudo apt install -y mongodb-org
+```
+```bash
 sudo systemctl enable --now mongod
 ```
 
@@ -120,11 +131,21 @@ sudo systemctl enable --now mongod
 
 ```bash
 wget https://artifacts.opensearch.org/releases/bundle/opensearch/2.14.0/opensearch-2.14.0-linux-x64.tar.gz
-tar -xzf opensearch-2.14.0-linux-x64.tar.gz
+```
+```bash
+tar -xvzf opensearch-2.14.0-linux-x64.tar.gz
+```
+```bash
 sudo mv opensearch-2.14.0 /usr/share/opensearch
+```
+```bash
 sudo useradd -r -M -s /usr/sbin/nologin opensearch
+```
+```bash
 sudo chown -R opensearch:opensearch /usr/share/opensearch
 ```
+
+---
 
 ### Créer le service systemd
 
@@ -147,7 +168,11 @@ EOF
 
 ```bash
 sudo systemctl daemon-reload
+```
+```bash
 sudo systemctl enable opensearch
+```
+```bash
 sudo systemctl start opensearch
 ```
 
@@ -165,8 +190,14 @@ sudo apt install -y openjdk-17-jre-headless
 
 ```bash
 wget https://packages.graylog2.org/repo/packages/graylog-6.3-repository_latest.deb
+```
+```bash
 sudo dpkg -i graylog-6.3-repository_latest.deb
+```
+```bash
 sudo apt update
+```
+```bash
 sudo apt install -y graylog-server
 ```
 
@@ -184,7 +215,7 @@ echo -n "MonMotDePasse" | sha256sum  # → root_password_sha2
 
 ### Modifier `/etc/graylog/server/server.conf`
 
-```ini
+```
 password_secret = <clé aléatoire générée>
 root_password_sha2 = <hash sha256>
 root_timezone = Europe/Paris
@@ -198,6 +229,8 @@ elasticsearch_hosts = http://127.0.0.1:9200
 
 ```bash
 sudo systemctl daemon-reload
+```
+```bash
 sudo systemctl enable --now graylog-server
 ```
 
@@ -238,8 +271,12 @@ Accès à `http://<IP>:9000` indisponible → souvent dû au plugin de sécurit�
 
 ```bash
 sudo find / -name opensearch.yml
+```
+```bash
 sudo nano /usr/share/opensearch/config/opensearch.yml
 ```
+
+---
 
 2. Désactiver la sécurité :
 
@@ -251,6 +288,8 @@ plugins.security.disabled: true
 
 ```bash
 sudo systemctl restart opensearch
+```
+```bash
 curl http://localhost:9200
 ```
 
@@ -273,7 +312,7 @@ curl http://localhost:9200
 sudo nano /usr/share/opensearch/config/jvm.options
 ```
 
-```ini
+```
 -Xms4g
 -Xmx4g
 ```
@@ -292,6 +331,8 @@ Redémarrer les services :
 
 ```bash
 sudo systemctl restart opensearch
+```
+```bash
 sudo systemctl restart graylog-server
 ```
 
@@ -323,5 +364,3 @@ sudo tail -f /var/log/graylog-server/server.log
 <p align="center">
   <b>🔒 Un guide proposé par <a href="https://github.com/0xCyberLiTech">0xCyberLiTech</a> • Pour des tutoriels accessibles à tous. 🔒</b>
 </p>
-
-
