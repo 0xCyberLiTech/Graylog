@@ -34,7 +34,7 @@
 
 | Catégorie | Sujet | Accès Rapide |
 |:---:|:---|:---:|
-| **Installation** | Installation & configuration de Graylog sur Debian 12.| [<img src="https://img.shields.io/badge/EXPLORER-brightgreen?style=for-the-badge&logo=github&logoColor=white">]() |
+| **Installation** | Installation & configuration de Graylog sur Debian 12.| [<img src="https://img.shields.io/badge/EXPLORER-brightgreen?style=for-the-badge&logo=github&logoColor=white">](GRAYLOG-INSTALLATION-CONFIGURATION-DEBIAN-12.md) |
 
 </div>
 
