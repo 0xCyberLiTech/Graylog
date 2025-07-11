@@ -391,6 +391,31 @@ web_listen_uri = http://0.0.0.0:9000/api/
 elasticsearch_hosts = http://127.0.0.1:9200
 ```
 
+Voici un fichier fonctionnel 
+
+```bash
+sudo nano /etc/graylog/server/server.conf
+```
+```bash
+# Identifiant unique du nœud Graylog
+node_id_file = /etc/graylog/server/node-id
+
+# Le mot de passe root hashé (à générer avec echo -n "motdepasse" | sha256sum)
+root_password_sha2 = e3afed0047b08059d0fada10f400c1e5dfb2c6f9f4d91a5a6a433d0e3d6e4e8f
+
+# L’adresse de connexion à MongoDB (Graylog stocke sa configuration ici)
+mongodb_uri = mongodb://localhost:27017/graylog
+
+# L'adresse d'écoute interne de Graylog
+rest_listen_uri = http://0.0.0.0:9000/api/
+
+# L'adresse d'écoute publique (identique pour un usage local)
+web_listen_uri = http://0.0.0.0:9000/
+
+# Chemin vers le journal des logs
+message_journal_enabled = true
+```
+
 ---
 
 ## 7. ▶️ Démarrer les services
