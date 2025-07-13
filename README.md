@@ -36,6 +36,8 @@
 > sécurité fondamental, apprendre à mettre en place ses configurations efficaces, et se familiariser avec les concepts et bonnes pratiques pour maintenir la performance et la stabilité de leurs systèmes
 > d'information face aux menaces externes.
 
+### 🧭 **Sommaire :**
+
 ---
 
 <div align="center" style="margin-bottom: 10px;">
@@ -50,8 +52,6 @@ Légende des couleurs des boutons :
 
 ---
 
-### 🧭 **Sommaire :**
-
 <div align="center">
 
 | Catégorie | Sujet | Accès Rapide |
@@ -62,10 +62,9 @@ Légende des couleurs des boutons :
 
 ---
 
+## 🧠 Introduction à Graylog
 
-# 🧠 Introduction à Graylog
-
-## Qu'est-ce que Graylog ?
+### Qu'est-ce que Graylog ?
 
 **Graylog** est une solution de gestion centralisée des journaux (*logs*) conçue pour collecter, stocker, analyser et visualiser des données de log provenant de différentes sources du système informatique.
 
@@ -76,7 +75,7 @@ Il est particulièrement utilisé dans les domaines suivants :
 
 ---
 
-## À quoi sert Graylog concrètement ?
+### À quoi sert Graylog concrètement ?
 
 Graylog agit comme un **centre de pilotage des événements** :
 
@@ -89,7 +88,7 @@ Graylog agit comme un **centre de pilotage des événements** :
 
 ---
 
-## Comment ça fonctionne ?
+### Comment ça fonctionne ?
 
 Graylog repose sur plusieurs composants clés :
 | Composant       | Rôle                                                                 |
@@ -101,7 +100,7 @@ Graylog repose sur plusieurs composants clés :
 
 ---
 
-## Pourquoi utiliser Graylog ?
+### Pourquoi utiliser Graylog ?
 
 - ✅ Interface web moderne, ergonomique et accessible
 - 🚀 Capacité à gérer un grand volume de logs
@@ -111,7 +110,7 @@ Graylog repose sur plusieurs composants clés :
 
 ---
 
-## Cas d’usage typiques
+### Cas d’usage typiques
 
 - Collecter les logs de tous les serveurs d’une infrastructure Linux.
 - Superviser les connexions SSH ou les tentatives de brute force.
@@ -121,7 +120,7 @@ Graylog repose sur plusieurs composants clés :
 
 ---
 
-## Conclusion
+### Conclusion
 
 Graylog est un outil puissant de centralisation et d’analyse des logs, **indispensable dans un contexte de supervision et de cybersécurité**. Il permet de garder le contrôle, d’agir rapidement en cas de problème, et d’assurer la traçabilité de toutes les activités système.
 
