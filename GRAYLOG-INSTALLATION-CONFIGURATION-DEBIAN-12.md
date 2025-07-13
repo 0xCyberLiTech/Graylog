@@ -205,6 +205,30 @@ curl -X GET "localhost:9200"
 
 Tu dois obtenir une réponse JSON avec le nom du cluster.
 
+Ce que tu dois voir si tout est OK :
+
+Une réponse en JSON qui ressemble à ça (exemple simplifié) :
+
+```bash
+{
+  "name" : "nom-de-ton-serveur",
+  "cluster_name" : "elasticsearch",
+  "cluster_uuid" : "un-identifiant-unique",
+  "version" : {
+    "number" : "8.x.x",
+    "build_flavor" : "default",
+    "build_type" : "deb",
+    "build_hash" : "...",
+    "build_date" : "...",
+    "build_snapshot" : false,
+    "lucene_version" : "...",
+    "minimum_wire_compatibility_version" : "...",
+    "minimum_index_compatibility_version" : "..."
+  },
+  "tagline" : "You Know, for Search"
+}
+```
+
 ---
 
 ## Étape 5 : Installer Graylog
@@ -241,7 +265,19 @@ Si `pwgen` n’est pas installé, installer avec :
 sudo apt install pwgen -y
 ```
 
-Copie la sortie (une longue chaîne alphanumérique).
+Relance la commande `pwgen` :
+
+```bash
+pwgen -N 1 -s 96
+```
+
+Par exemple, cela va te donner un résultat comme :
+
+```bash
+7p0gEqEgNyyusvPj58H4CU7bOyr7MWKd5gOQFhcLWNwOljOX5DJi0VA2LK4q86HMEipmEbAmc8WMfitHLgKQuY2a0S3jzDm0 (96 caractères)
+```
+
+Copie la sortie (une longue chaîne alphanumérique), tu en auras besoin après.
 
 ### 6.2 Modifier la configuration principale
 
@@ -253,19 +289,27 @@ sudo nano /etc/graylog/server/server.conf
 
 Trouve et modifie les paramètres suivants :
 
-- `password_secret` : colle la clé générée plus haut.
+- `password_secret` : colle la clé générée plus haut avec `pwgen -N 1 -s 96`.
 
 ```conf
 password_secret = <ta_cle_secrete>
 ```
 
-- `root_password_sha2` : c’est le mot de passe admin (chiffré en SHA-256). Pour le générer :
+- `root_password_sha2` : c’est le mot de passe admin (chiffré en SHA-256).
 
-```bash
-echo -n "monmotdepasse" | sha256sum
+Pour créer le mot de passe de l’utilisateur admin :
+
+Tape la commande suivante pour hasher ton mot de passe admin (remplace "MonMotDePasse" par celui que tu veux utiliser) :
+
+```conf
+echo -n "MonMotDePasse" | sha256sum | awk '{print $1}'
 ```
 
-Remplace `monmotdepasse` par ton mot de passe souhaité pour l’utilisateur admin.
+Ex :
+
+```conf
+echo -n "S@B85-2025-SID" | sha256sum | awk '{print $1}'
+```
 
 Colle la valeur (sans espace) dans la ligne :
 
