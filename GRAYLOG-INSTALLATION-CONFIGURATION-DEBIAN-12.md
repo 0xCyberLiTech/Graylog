@@ -58,17 +58,47 @@
 
 ---
 
-## Étape 1 : Mise à jour du système
+## Étape 1 : Installer sudo si ce n'est pas déja fait :
+
+### Rappel sur la commande  `sudo` :
+
+- sudo (superuser do) permet d’exécuter une commande avec les privilèges administrateur (root) sans se connecter en root.
+
+- C’est utile pour les opérations qui nécessitent des droits élevés, comme l’installation de logiciels, la modification de fichiers système, etc.
+
+- Par défaut, la plupart des distributions Linux l’ont installé, mais il peut arriver qu’il manque sur certaines installations minimales.
+
+Se connecter en root :
+
+```bash
+su -
+```
+
+Mettre à jour la liste des paquets (optionnel mais recommandé) :
+
+```bash
+apt update
+```
+
+Installer sudo :
+
+```bash
+apt install sudo
+```
+
+Ajouter votre utilisateur au groupe sudo (remplacez votre_utilisateur par votre nom d’utilisateur) :
+
+```bash
+usermod -aG sudo votre_utilisateur
+```
+
+Se déconnecter puis se reconnecter pour que les changements prennent effet.
 
 Avant toute installation, on met à jour la liste des paquets et les paquets installés pour éviter des conflits.
 
 ```bash
 sudo apt update && sudo apt upgrade -y
 ```
-
-*Explication* :  
-- `apt update` : met à jour la liste des paquets disponibles.  
-- `apt upgrade -y` : installe les dernières versions des paquets installés sans demander confirmation.
 
 ---
 
