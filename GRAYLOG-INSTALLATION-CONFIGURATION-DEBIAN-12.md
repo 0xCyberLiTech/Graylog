@@ -41,606 +41,310 @@
 
 ---
 
-# 📘 Procédure d'installation de Graylog 6.3 sur Debian 12 (Bookworm)
+# 📘 Procédure d'Installation de Graylog (dernière version stable) sur Debian 12
 
-## 📑 Sommaire
-1. [🛠️ Prérequis](#1-🛠️-prérequis)
-2. [📦 Installer MongoDB 7](#2-📦-installer-mongodb-7)  
-3. [📦 Installer OpenSearch 2.14](#3-📦-installer-opensearch-214)  
-4. [☕ Installer Java 17](#4-☕-installer-java-17)  
-5. [📥 Installer Graylog](#5-📥-installer-graylog)  
-6. [⚙️ Configurer Graylog](#6-⚙️-configurer-graylog)  
-7. [▶️ Démarrer les services](#7-▶️-démarrer-les-services)  
-8. [🌐 Accéder à l’interface Graylog](#8-🌐-accéder-à-linterface-graylog)  
-9. [📊 Résumé](#9-📊-résumé)  
-10. [⚠️ OpenSearch : plugin sécurité & URL indisponible](#10-⚠️-opensearch--plugin-sécurité--url-indisponible)  
-11. [🧠 Adapter le Java Heap à la RAM](#11-🧠-adapter-le-java-heap-à-la-ram)  
-12. [✅ Finalisation](#12-✅-finalisation)  
+**Auteur** : CyberLiTech  
+**Date** : 2025-07  
+**Objectif** : Installer Graylog pas à pas sur Debian 12, avec des explications détaillées.
 
 ---
 
-## 1. 🛠️ Prérequis
+## Prérequis
 
-- **Debian 12 64‑bit** à jour
-- **8 Go de RAM minimum** (16 Go recommandés)
-- Ports ouverts :  
-  - `27017` → MongoDB  
-  - `9200` → OpenSearch  
-  - `9000` → Graylog
-
-### 📅 Fuseau horaire & NTP
-
-```bash
-sudo timedatectl set-timezone Europe/Paris
-```
-```bash
-sudo apt update && sudo apt install -y ntp
-```
-
-### 💤 Désactiver la mise en veille (environnement graphique)
-
-```bash
-sudo systemctl mask sleep.target suspend.target hibernate.target hybrid-sleep.target
-```
-
-Pour réactiver :
-
-```bash
-sudo systemctl unmask sleep.target suspend.target hibernate.target hybrid-sleep.target
-```
-
-### 👤 Ajout de l’utilisateur courant au groupe `sudo`
-
-Si vous installez Graylog avec un utilisateur non-root, donnez-lui les droits d’administration :
-
-```bash
-sudo adduser "$USER" sudo
-```
-
-> Déconnectez-vous / reconnectez-vous pour que l’ajout au groupe soit pris en compte.
+- Un serveur Debian 12 à jour, accès root ou utilisateur avec `sudo`.
+- Connexion internet sur la machine.
+- Au moins 4 Go de RAM recommandés.
+- Temps estimé : environ 30-45 minutes.
 
 ---
 
-## 2. 📦 Installer MongoDB 7
+## Étape 1 : Mise à jour du système
+
+Avant toute installation, on met à jour la liste des paquets et les paquets installés pour éviter des conflits.
+
+```bash
+sudo apt update && sudo apt upgrade -y
+```
+
+*Explication* :  
+- `apt update` : met à jour la liste des paquets disponibles.  
+- `apt upgrade -y` : installe les dernières versions des paquets installés sans demander confirmation.
+
+---
+
+## Étape 2 : Installer Java (OpenJDK 17)
+
+Graylog nécessite Java 17 (OpenJDK). Debian 12 le propose en paquet officiel.
+
+```bash
+sudo apt install openjdk-17-jre-headless -y
+```
+
+*Vérification* :
+
+```bash
+java -version
+```
+
+Tu dois obtenir quelque chose comme :
+
+```
+openjdk version "17.0.x" 202x-xx-xx
+```
+
+---
+
+## Étape 3 : Installer MongoDB
+
+Graylog utilise MongoDB pour stocker les métadonnées.
+
+### 3.1 Ajouter la clé publique officielle MongoDB
+
+```bash
+wget -qO - https://www.mongodb.org/static/pgp/server-6.0.asc | sudo tee /usr/share/keyrings/mongodb-server-6.0.gpg > /dev/null
+```
+
+### 3.2 Ajouter le dépôt MongoDB
+
+Créons le fichier `/etc/apt/sources.list.d/mongodb-org-6.0.list` :
+
+```bash
+echo "deb [arch=amd64 signed-by=/usr/share/keyrings/mongodb-server-6.0.gpg] https://repo.mongodb.org/apt/debian bookworm/mongodb-org/6.0 main" | sudo tee /etc/apt/sources.list.d/mongodb-org-6.0.list
+```
+
+### 3.3 Mettre à jour et installer MongoDB
 
 ```bash
 sudo apt update
-```
-```bash
-sudo apt install -y gnupg curl
-```
-```bash
-curl -fsSL https://www.mongodb.org/static/pgp/server-7.0.asc   | sudo gpg -o /usr/share/keyrings/mongodb-server-7.0.gpg --dearmor
-```
-```bash
-echo "deb [signed-by=/usr/share/keyrings/mongodb-server-7.0.gpg] https://repo.mongodb.org/apt/debian bookworm/mongodb-org/7.0 main"   | sudo tee /etc/apt/sources.list.d/mongodb-org-7.0.list
-```
-```bash
-sudo apt update
-```
-```bash
 sudo apt install -y mongodb-org
 ```
+
+### 3.4 Démarrer et activer MongoDB
+
 ```bash
-sudo systemctl enable --now mongod
+sudo systemctl start mongod
+sudo systemctl enable mongod
 ```
+
+### 3.5 Vérifier le statut
+
+```bash
+sudo systemctl status mongod
+```
+
+Tu dois voir que le service est actif (running).
 
 ---
 
-## 3. 📦 Installer OpenSearch 2.14
+## Étape 4 : Installer Elasticsearch
+
+Graylog utilise Elasticsearch comme moteur de recherche.
+
+### 4.1 Importer la clé Elasticsearch
 
 ```bash
-wget https://artifacts.opensearch.org/releases/bundle/opensearch/2.14.0/opensearch-2.14.0-linux-x64.tar.gz
-```
-```bash
-tar -xvzf opensearch-2.14.0-linux-x64.tar.gz
-```
-```bash
-sudo mv opensearch-2.14.0 /usr/share/opensearch
-```
-```bash
-sudo useradd -r -M -s /usr/sbin/nologin opensearch
-```
-```bash
-sudo chown -R opensearch:opensearch /usr/share/opensearch
+wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | sudo tee /usr/share/keyrings/elasticsearch-keyring.gpg > /dev/null
 ```
 
-### 💡 Des modifications vont devoir être effectués :
-
-Recommandation :
-
-Tu es visiblement en train de mettre en place Graylog avec OpenSearch :
-
-➡️ Je recommande de désactiver temporairement le plugin de sécurité (plugins.security.disabled: true) pour valider que tout fonctionne, puis configurer les certificats SSL ensuite si besoin.
-
-Si /etc/opensearch n'existe pas, cela signifie que ton installation d'OpenSearch :
-
-- a été faite via une archive .tar.gz (et non via apt ou yum),
-- ou que la configuration est ailleurs (ex: /usr/share/opensearch/config/).
-
-✅ Étapes pour retrouver et modifier opensearch.yml
-Localise le fichier opensearch.yml :
+### 4.2 Ajouter le dépôt Elasticsearch
 
 ```bash
-sudo find / -name opensearch.yml 2>/dev/null
+echo "deb [signed-by=/usr/share/keyrings/elasticsearch-keyring.gpg] https://artifacts.elastic.co/packages/8.x/apt stable main" | sudo tee /etc/apt/sources.list.d/elastic-8.x.list
 ```
 
-Tu devrais voir un chemin du type :
+### 4.3 Mettre à jour et installer Elasticsearch
 
-```bash
-/usr/share/opensearch/config/opensearch.yml
-```
-
-Édite ce fichier :
-
-```bash
-sudo nano /usr/share/opensearch/config/opensearch.yml
-```
-
-Ajoute cette ligne tout en bas pour désactiver la sécurité :
-
-```bash
-plugins.security.disabled: true
-```
-
-Redémarre OpenSearch :
-
-```bash
-sudo systemctl restart opensearch
-```
-
-Teste ensuite avec :
-
-```bash
-curl http://localhost:9200
-```
-
-Tu devrais voir une réponse JSON avec des infos sur OpenSearch.
-
-```bash
-{
-  "name" : "srv-labo",
-  "cluster_name" : "opensearch",
-  "cluster_uuid" : "iM-KPxoYRQ-dVvECnHrbzw",
-  "version" : {
-    "distribution" : "opensearch",
-    "number" : "2.14.0",
-    "build_type" : "tar",
-    "build_hash" : "aaa555453f4713d652b52436874e11ba258d8f03",
-    "build_date" : "2024-05-09T18:51:00.973564994Z",
-    "build_snapshot" : false,
-    "lucene_version" : "9.10.0",
-    "minimum_wire_compatibility_version" : "7.10.0",
-    "minimum_index_compatibility_version" : "7.0.0"
-  },
-  "tagline" : "The OpenSearch Project: https://opensearch.org/"
-}
-```
-
-Parfait ! 🎉 OpenSearch est maintenant en ligne et opérationnel :
-
-- ✅ Réponse valide de curl http://localhost:9200
-- ✅ OpenSearch version 2.14.0 active
-- ✅ Mode tar confirmé (installation via archive, d'où l'absence de /etc/opensearch)
-- ✅ Plus d’erreur de plugin bloquant (plugins.security...)
-- ✅ Graylog devrait maintenant pouvoir se connecter à OpenSearch
-
----
-
-### Créer le service systemd
-
-```bash
-sudo tee /etc/systemd/system/opensearch.service <<EOF
-[Unit]
-Description=OpenSearch
-After=network.target
-
-[Service]
-User=opensearch
-ExecStart=/usr/share/opensearch/bin/opensearch
-Restart=always
-LimitNOFILE=65536
-
-[Install]
-WantedBy=multi-user.target
-EOF
-```
-
-```bash
-sudo systemctl daemon-reload
-```
-```bash
-sudo systemctl enable opensearch
-```
-```bash
-sudo systemctl start opensearch
-```
-
----
-
-## 4. ☕ Installer Java 17
-
-```bash
-sudo apt install -y openjdk-17-jre-headless
-```
-
----
-
-## 5. 📥 Installer Graylog
-
-```bash
-wget https://packages.graylog2.org/repo/packages/graylog-6.3-repository_latest.deb
-```
-```bash
-sudo dpkg -i graylog-6.3-repository_latest.deb
-```
 ```bash
 sudo apt update
-```
-```bash
-sudo apt install -y graylog-server
+sudo apt install elasticsearch -y
 ```
 
----
+### 4.4 Configurer Elasticsearch
 
-## 6. ⚙️ Configurer Graylog
-
-### 🔐 Générer les secrets
+Éditer le fichier `/etc/elasticsearch/elasticsearch.yml` :
 
 ```bash
-sudo apt install -y pwgen            # Si nécessaire
-pwgen -N 1 -s 96                     # → password_secret
-echo -n "MonMotDePasse" | sha256sum  # → root_password_sha2
+sudo nano /etc/elasticsearch/elasticsearch.yml
 ```
 
-### Modifier `/etc/graylog/server/server.conf`
+Ajouter ou modifier les lignes suivantes :
 
-```
-password_secret = <clé aléatoire générée>
-root_password_sha2 = <hash sha256>
-root_timezone = Europe/Paris
-web_listen_uri = http://0.0.0.0:9000/api/
-elasticsearch_hosts = http://127.0.0.1:9200
+```yaml
+network.host: 127.0.0.1
+http.port: 9200
+discovery.type: single-node
 ```
 
-### Rentrons dans le détail de cette section ( 6. ⚙️ Configurer Graylog) :
+> *Explication* :  
+> - `network.host` définit l'interface réseau écoutée (ici uniquement localhost pour la sécurité).  
+> - `discovery.type: single-node` indique que c'est un cluster à un seul nœud.
 
-🧾 Objectif de cette section :
+Sauvegarde et ferme (`Ctrl+O`, `Entrée`, `Ctrl+X`).
 
-Tu vas modifier le fichier de configuration de Graylog pour :
-
-- Définir un secret interne (utilisé pour sécuriser les sessions)
-- Définir le mot de passe admin (sous forme de hash sécurisé)
-- Définir quelques réglages de fuseau horaire, d’accès web, et de lien avec OpenSearch
-
-✅ Étapes détaillées :
-
-⚠️ - Les valeurs qui sont données ici sont fictives en guise d'exmple : - ⚠️
-
-- 1. Générer un password_secret.
-
-C’est une chaîne aléatoire utilisée par Graylog pour le chiffrement interne.
-
-Tape dans ton terminal :
-
-```bash
-pwgen -N 1 -s 96
-```
-
-Si pwgen n’est pas installé :
-
-```bash
-sudo apt install -y pwgen
-```
-
-Relancer la commande :
-
-```bash
-pwgen -N 1 -s 96
-```
-
-Par exemple, cela va te donner un résultat comme :
-
-```bash
-7p0gEqEgNyyusvPj58H4CU7bOyr7MWKd5gOQFhcLWNwOljOX5DJi0VA2LK4q86HMEipmEbAmc8WMfitHLgKQuY2a0S3jzDm0 (96 caractères)
-```
-
-Tu recopieras cette valeur dans le champ password_secret du fichier de config.
-
-- 2. Créer le mot de passe de l’utilisateur admin :
-
-Tape la commande suivante pour hasher ton mot de passe admin (remplace "MonMotDePasse" par celui que tu veux utiliser) :
-
-```bash
-echo -n "MonMotDePasse" | sha256sum | awk '{print $1}'
-```
-
-Ex :
-
-```bash
-echo -n "S@B85-2025-SID" | sha256sum | awk '{print $1}'
-```
-
-Exemple de sortie :
-
-```bash
-bb694409e5c1a9d6b4c00bdd543f62cefd2e746087d4c22396e9051d3897297f (un long hash SHA-256)
-```
-
-Tu recopieras ce hash dans le champ root_password_sha2.
-
-⚠️ -  Important : Ne mets jamais le mot de passe en clair dans le fichier de conf, seulement le hash. - ⚠️
-
-3. Modifier le fichier de configuration :
-
-Édite le fichier suivant :
-
-```bash
-sudo nano /etc/graylog/server/server.conf
-```
-
-Et ajoute ou modifie les lignes suivantes (remplace les <...> par les vraies valeurs que tu viens d’obtenir) :
-
-Properties :
-
-```bash
-password_secret = xF7hVZB8csdQpiqYvz9uLmDKMa2XYZ...   # ← ta clé aléatoire
-root_password_sha2 = 5e884898da28047151d0e56f8dcXYZ...  # ← ton hash SHA256
-root_timezone = Europe/Paris
-web_listen_uri = http://0.0.0.0:9000/api/
-elasticsearch_hosts = http://127.0.0.1:9200
-```
-
-Voici un fichier fonctionnel :
-
-Mise à jour complète et corrigée de ton fichier /etc/graylog/server/server.conf pour :
-
-- Debian 12
-- Graylog 6.3 (.tar.gz)
-- MongoDB 7
-- OpenSearch 2.14 sans TLS (sécurité désactivée)
-- Avec ajout de la variable password_secret obligatoire
-
-```bash
-sudo nano /etc/graylog/server/server.conf
-```
-```bash
-############################################
-# IDENTIFIANT UNIQUE DU NŒUD GRAYLOG       #
-# Sert à identifier de façon persistante ce
-# serveur dans un cluster Graylog. Ne doit
-# pas changer entre les redémarrages.
-############################################
-node_id_file = /opt/graylog/graylog-server/config/node-id
-
-
-#################################################
-# MOT DE PASSE DE L’UTILISATEUR root DE L’UI WEB
-# SHA256 du mot de passe admin. À générer via :
-# echo -n 'ton_mdp' | sha256sum
-#################################################
-root_password_sha2 = e3afed0047b08059d0fada10f400c1e5dfb2c6f9f4d91a5a6a433d0e3d6e4e8f
-root_timezone = Europe/Pari
-
-#####################################################
-# CLÉ SECRÈTE POUR LE CHIFFREMENT INTERNE
-# Sert à sécuriser les sessions web, tokens JWT,
-# stockages de mots de passe internes, etc.
-# À générer via openssl rand -base64 96
-#####################################################
-password_secret = tYxa3M58qlFl01Nk2uAqCfYlRb0uF1qPmfI7kzXNaUJ7vWuQ2ZRM3FOLmGnG0E3g5RwYPGKg1wrCm3NQRGGbth8XasApUIeHqXsAYQn4W1aUvgbZzFVZ3NBhABYjmb9e
-
-
-############################################
-# CONNEXION À MONGODB 7
-# Adresse de la base MongoDB utilisée par Graylog
-# pour stocker la config, les utilisateurs, etc.
-############################################
-mongodb_uri = mongodb://127.0.0.1:27017/graylog
-
-
-############################################
-# ADRESSES D'ÉCOUTE DE GRAYLOG
-# REST : interface API interne (backend)
-# WEB  : interface web de supervision
-############################################
-rest_listen_uri = http://127.0.0.1:9000/api/
-web_listen_uri = http://127.0.0.1:9000/
-
-
-#################################################
-# JOURNAL DE MESSAGES
-# Sert de tampon disque si OpenSearch est lent
-# ou indisponible. Nécessite un dossier dédié.
-#################################################
-message_journal_enabled = true
-message_journal_dir = /opt/graylog/graylog-server/data/journal
-
-
-############################################
-# RÉPERTOIRE DES DONNÉES GRAYLOG
-# Contient les index temporaires, buffers, etc.
-############################################
-data_dir = /opt/graylog/graylog-server/data
-
-
-#################################################
-# CONFIGURATION D’OPENSEARCH 2.14 (sans sécurité)
-# Utilisé comme backend de stockage des logs
-# Elasticsearch est compatible, mais ici on précise
-# que c’est OpenSearch pour éviter les vérifications.
-#################################################
-
-# Adresse de l’instance OpenSearch
-elasticsearch_hosts = http://127.0.0.1:9200
-
-# Spécifie qu’on utilise OpenSearch (pas Elasticsearch)
-elasticsearch_version = OpenSearch
-
-# Ignore la vérification de version incompatible
-elasticsearch_disable_version_check = true
-
-# Nombre de shards créés par index de log
-elasticsearch_shards = 1
-
-# Nombre de réplicas (0 pour une seule instance sans cluster)
-elasticsearch_replicas = 0
-
-# Désactive la coloration syntaxique (highlight) dans les résultats
-allow_highlighting = false
-```
-✅ À vérifier côté OpenSearch déja vu plus haut :
-Si tu as bien désactivé la sécurité dans opensearch.yml, tu dois avoir :
-
-```bash
-sudo nano /usr/share/opensearch/config/opensearch.yml
-```
-Y ajouter :
-
-```bash
-plugins.security.disabled: true
-```
-Et la commande suivante doit retourner un JSON sans erreur :
-
-```bash
-curl http://127.0.0.1:9200
-```
----
-
-## 7. ▶️ Démarrer les services
+### 4.5 Démarrer et activer Elasticsearch
 
 ```bash
 sudo systemctl daemon-reload
+sudo systemctl enable elasticsearch
+sudo systemctl start elasticsearch
 ```
+
+### 4.6 Vérifier qu'Elasticsearch fonctionne
+
 ```bash
-sudo systemctl enable --now graylog-server
+curl -X GET "localhost:9200"
+```
+
+Tu dois obtenir une réponse JSON avec le nom du cluster.
+
+---
+
+## Étape 5 : Installer Graylog
+
+### 5.1 Ajouter la clé et le dépôt Graylog
+
+```bash
+wget https://packages.graylog2.org/repo/packages/graylog-5.1-repository_latest.deb
+sudo dpkg -i graylog-5.1-repository_latest.deb
+sudo apt update
+```
+
+### 5.2 Installer Graylog server
+
+```bash
+sudo apt install graylog-server -y
 ```
 
 ---
 
-## 8. 🌐 Accéder à l’interface Graylog
+## Étape 6 : Configuration de Graylog
 
+### 6.1 Générer un mot de passe secret (secret key)
+
+Graylog nécessite une clé secrète pour sécuriser les sessions.
+
+```bash
+pwgen -N 1 -s 96
 ```
-http://<IP_SERVEUR>:9000
+
+Si `pwgen` n’est pas installé, installer avec :
+
+```bash
+sudo apt install pwgen -y
 ```
 
-Identifiants par défaut :  
-**admin / MonMotDePasse**
+Copie la sortie (une longue chaîne alphanumérique).
 
-> 🔒 **En production** : activez **HTTPS** !
+### 6.2 Modifier la configuration principale
+
+Ouvre le fichier :
+
+```bash
+sudo nano /etc/graylog/server/server.conf
+```
+
+Trouve et modifie les paramètres suivants :
+
+- `password_secret` : colle la clé générée plus haut.
+
+```conf
+password_secret = <ta_cle_secrete>
+```
+
+- `root_password_sha2` : c’est le mot de passe admin (chiffré en SHA-256). Pour le générer :
+
+```bash
+echo -n "monmotdepasse" | sha256sum
+```
+
+Remplace `monmotdepasse` par ton mot de passe souhaité pour l’utilisateur admin.
+
+Colle la valeur (sans espace) dans la ligne :
+
+```conf
+root_password_sha2 = <valeur_sha256>
+```
+
+- Vérifie également que la ligne suivante est présente (pour utiliser Elasticsearch en localhost) :
+
+```conf
+elasticsearch_hosts = http://127.0.0.1:9200
+```
+
+Sauvegarde et quitte.
 
 ---
 
-## 9. 📊 Résumé
-
-| Composant          | Port  | Rôle                              |
-|--------------------|-------|-----------------------------------|
-| MongoDB 7          | 27017 | Base de données Graylog           |
-| OpenSearch 2.14    | 9200  | Moteur d’indexation               |
-| Graylog 6.3        | 9000  | Interface & API                   |
-
----
-
-## 10. ⚠️ OpenSearch : plugin sécurité & URL indisponible
-
-### Symptôme
-
-Accès à `http://<IP>:9000` indisponible → souvent dû au plugin de sécurité d’OpenSearch.
-
-### Solution rapide (labo/dev)
-
-1. Trouver puis modifier `opensearch.yml` :
+## Étape 7 : Démarrer Graylog
 
 ```bash
-sudo find / -name opensearch.yml
-```
-```bash
-sudo nano /usr/share/opensearch/config/opensearch.yml
-```
-
----
-
-2. Désactiver la sécurité :
-
-```yaml
-plugins.security.disabled: true
-```
-
-3. Redémarrer le service :
-
-```bash
-sudo systemctl restart opensearch
-```
-```bash
-curl http://localhost:9200
-```
-
-> Une réponse JSON valide confirme que OpenSearch fonctionne.
-
----
-
-## 11. 🧠 Adapter le Java Heap à la RAM
-
-### Règles
-
-- **≤ 32 Go** (sinon perte de Compressed OOPs)
-- En pratique : 25 % de la RAM, max 8 Go pour OpenSearch si 16 Go RAM.
-
-### Exemple (RAM = 16 Go)
-
-#### OpenSearch
-
-```bash
-sudo nano /usr/share/opensearch/config/jvm.options
-```
-
-```
--Xms4g
--Xmx4g
-```
-
-#### Graylog
-
-```bash
-sudo nano /etc/default/graylog-server
-```
-
-```bash
-GRAYLOG_SERVER_JAVA_OPTS="-Xms2g -Xmx2g"
-```
-
-Redémarrer les services :
-
-```bash
-sudo systemctl restart opensearch
-```
-```bash
-sudo systemctl restart graylog-server
+sudo systemctl daemon-reload
+sudo systemctl enable graylog-server
+sudo systemctl start graylog-server
 ```
 
 ---
 
-## 12. ✅ Finalisation
+## Étape 8 : Vérifier que Graylog fonctionne
 
-### 🔍 Logs
-
-```bash
-sudo tail -f /var/log/graylog-server/server.log
-```
-
-### 🌐 Accès
-
-- **Labo** : `http://127.0.0.1:9000` ou `http://<IP_LOCAL>:9000`
-- **Production** : `https://127.0.0.1:9000` ou `https://<IP_PUBLIC>:9000`
-
-test :
+Tu peux regarder les logs :
 
 ```bash
-ss -tulnp | grep -E '9000|9200|27017'
+sudo journalctl -u graylog-server -f
 ```
+
+La première ligne importante attendue est :
+
+```
+Server running, Graylog web interface is available.
+```
+
 ---
 
-🎉 Bon logging ! 🚀
+## Étape 9 : Accéder à l’interface web Graylog
+
+- Ouvre un navigateur web et rends-toi sur :
+
+```
+http://<adresse_ip_de_ton_serveur>:9000/
+```
+
+- Connecte-toi avec :
+
+  - Login : `admin`
+  - Mot de passe : celui que tu as défini (étape 6.2)
+
+---
+
+## Résumé rapide
+
+| Composant      | Port       | Rôle                                      |
+|----------------|------------|-------------------------------------------|
+| MongoDB        | 27017      | Base de données pour métadonnées          |
+| Elasticsearch  | 9200       | Moteur de recherche                        |
+| Graylog server | 9000       | Interface web / collecte des logs         |
+
+---
+
+## Conseils supplémentaires
+
+- Si tu veux accéder à Graylog via HTTPS plus tard, tu devras configurer un reverse proxy (ex : Nginx) avec certificat SSL.
+- N’hésite pas à consulter la documentation officielle Graylog : https://docs.graylog.org/
+- Pour assurer la sécurité, ne laisse pas Elasticsearch ou MongoDB exposés publiquement.
+
+---
+
+## Nettoyage
+
+Tu peux supprimer le paquet du dépôt Graylog si tu le souhaites :
+
+```bash
+rm graylog-5.1-repository_latest.deb
+```
+
+---
+
+# Fin de la procédure d'installation
 
 ---
 
