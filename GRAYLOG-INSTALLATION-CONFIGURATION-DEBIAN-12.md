@@ -317,13 +317,37 @@ Colle la valeur (sans espace) dans la ligne :
 root_password_sha2 = <valeur_sha256>
 ```
 
-- Vérifie également que la ligne suivante est présente (pour utiliser Elasticsearch en localhost) :
+### 6.3 Autres variables importantes à vérifier dans server.conf `/etc/graylog/server/server.conf` :
+
+- `root_timezone` : Définit le fuseau horaire utilisé par Graylog.  
+
+Exemple :  
 
 ```conf
+root_timezone = Europe/Paris
+```
+
+- `web_listen_uri` : URL sur laquelle l’API web Graylog écoute.
+
+Exemple : 
+
+```
+web_listen_uri = http://0.0.0.0:9000/api/
+```
+
+Cette configuration permet à Graylog d’écouter sur toutes les interfaces réseau (utile pour accès distant).
+
+- `elasticsearch_hosts` : Adresse(s) du(des) serveur(s) Elasticsearch.
+
+Exemple :
+
+```
 elasticsearch_hosts = http://127.0.0.1:9200
 ```
 
-Sauvegarde et quitte.
+Par défaut, Graylog se connecte à Elasticsearch local.
+
+N’oublie pas de sauvegarder et redémarrer Graylog après modification.
 
 ---
 
