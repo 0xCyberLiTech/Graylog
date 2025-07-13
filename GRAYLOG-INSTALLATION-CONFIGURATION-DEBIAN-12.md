@@ -36,12 +36,7 @@
 
 ---
 
-<h1 align="center"> 🚧 **Page en cours de développement** 🚧</h1>
-<h3 align="center"> 🔧 Travail en cours... Merci de revenir plus tard !</h3>
-
----
-
-# 📘 Installation Graylog stable sur Debian 12.
+## 📘 Installation Graylog stable sur Debian 12.
 
 **Auteur** : CyberLiTech  
 **Date** : 2025-07  
@@ -49,7 +44,7 @@
 
 ---
 
-## Prérequis
+### Prérequis
 
 - Un serveur Debian 12 à jour, accès root ou utilisateur avec `sudo`.
 - Connexion internet sur la machine.
@@ -58,7 +53,7 @@
 
 ---
 
-## Étape 1 : Installer sudo si ce n'est pas déja fait :
+### Étape 1 : Installer sudo si ce n'est pas déja fait :
 
 ### Rappel sur la commande  `sudo` :
 
@@ -102,7 +97,7 @@ sudo apt update && sudo apt upgrade -y
 
 ---
 
-## Étape 2 : Installer Java (OpenJDK 17)
+### Étape 2 : Installer Java (OpenJDK 17)
 
 Graylog nécessite Java 17 (OpenJDK). Debian 12 le propose en paquet officiel.
 
@@ -124,17 +119,17 @@ openjdk version "17.0.x" 202x-xx-xx
 
 ---
 
-## Étape 3 : Installer MongoDB
+### Étape 3 : Installer MongoDB
 
 Graylog utilise MongoDB pour stocker les métadonnées.
 
-### 3.1 Ajouter la clé publique officielle MongoDB
+#### 3.1 Ajouter la clé publique officielle MongoDB
 
 ```bash
 wget -qO - https://www.mongodb.org/static/pgp/server-6.0.asc | sudo tee /usr/share/keyrings/mongodb-server-6.0.gpg > /dev/null
 ```
 
-### 3.2 Ajouter le dépôt MongoDB
+#### 3.2 Ajouter le dépôt MongoDB
 
 Créons le fichier `/etc/apt/sources.list.d/mongodb-org-6.0.list` :
 
@@ -142,21 +137,21 @@ Créons le fichier `/etc/apt/sources.list.d/mongodb-org-6.0.list` :
 echo "deb [arch=amd64 signed-by=/usr/share/keyrings/mongodb-server-6.0.gpg] https://repo.mongodb.org/apt/debian bookworm/mongodb-org/6.0 main" | sudo tee /etc/apt/sources.list.d/mongodb-org-6.0.list
 ```
 
-### 3.3 Mettre à jour et installer MongoDB
+#### 3.3 Mettre à jour et installer MongoDB
 
 ```bash
 sudo apt update
 sudo apt install -y mongodb-org
 ```
 
-### 3.4 Démarrer et activer MongoDB
+#### 3.4 Démarrer et activer MongoDB
 
 ```bash
 sudo systemctl start mongod
 sudo systemctl enable mongod
 ```
 
-### 3.5 Vérifier le statut
+#### 3.5 Vérifier le statut
 
 ```bash
 sudo systemctl status mongod
@@ -166,30 +161,30 @@ Tu dois voir que le service est actif (running).
 
 ---
 
-## Étape 4 : Installer Elasticsearch
+### Étape 4 : Installer Elasticsearch
 
 Graylog utilise Elasticsearch comme moteur de recherche.
 
-### 4.1 Importer la clé Elasticsearch
+#### 4.1 Importer la clé Elasticsearch
 
 ```bash
 wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | sudo tee /usr/share/keyrings/elasticsearch-keyring.gpg > /dev/null
 ```
 
-### 4.2 Ajouter le dépôt Elasticsearch
+#### 4.2 Ajouter le dépôt Elasticsearch
 
 ```bash
 echo "deb [signed-by=/usr/share/keyrings/elasticsearch-keyring.gpg] https://artifacts.elastic.co/packages/8.x/apt stable main" | sudo tee /etc/apt/sources.list.d/elastic-8.x.list
 ```
 
-### 4.3 Mettre à jour et installer Elasticsearch
+#### 4.3 Mettre à jour et installer Elasticsearch
 
 ```bash
 sudo apt update
 sudo apt install elasticsearch -y
 ```
 
-### 4.4 Configurer Elasticsearch
+#### 4.4 Configurer Elasticsearch
 
 Éditer le fichier `/etc/elasticsearch/elasticsearch.yml` :
 
@@ -219,7 +214,7 @@ Sauvegarde et ferme (`Ctrl+O`, `Entrée`, `Ctrl+X`).
 
 Ces réglages permettent à Elasticsearch de fonctionner en mode "single-node" (pas de cluster multi-nœuds), d’écouter uniquement sur l’interface locale (localhost) pour des raisons de sécurité, et d’utiliser le port 9200 par défaut.
 
-### 4.5 Démarrer et activer Elasticsearch
+#### 4.5 Démarrer et activer Elasticsearch
 
 ```bash
 sudo systemctl daemon-reload
@@ -227,7 +222,7 @@ sudo systemctl enable elasticsearch
 sudo systemctl start elasticsearch
 ```
 
-### 4.6 Vérifier qu'Elasticsearch fonctionne
+#### 4.6 Vérifier qu'Elasticsearch fonctionne
 
 ```bash
 curl -X GET "localhost:9200"
@@ -261,9 +256,9 @@ Une réponse en JSON qui ressemble à ça (exemple simplifié) :
 
 ---
 
-## Étape 5 : Installer Graylog
+### Étape 5 : Installer Graylog
 
-### 5.1 Ajouter la clé et le dépôt Graylog
+#### 5.1 Ajouter la clé et le dépôt Graylog
 
 ```bash
 wget https://packages.graylog2.org/repo/packages/graylog-5.1-repository_latest.deb
@@ -271,7 +266,7 @@ sudo dpkg -i graylog-5.1-repository_latest.deb
 sudo apt update
 ```
 
-### 5.2 Installer Graylog server
+#### 5.2 Installer Graylog server
 
 ```bash
 sudo apt install graylog-server -y
@@ -279,9 +274,9 @@ sudo apt install graylog-server -y
 
 ---
 
-## Étape 6 : Configuration de Graylog
+### Étape 6 : Configuration de Graylog
 
-### 6.1 Générer un mot de passe secret (secret key)
+#### 6.1 Générer un mot de passe secret (secret key)
 
 Graylog nécessite une clé secrète pour sécuriser les sessions.
 
@@ -309,7 +304,7 @@ Par exemple, cela va te donner un résultat comme :
 
 Copie la sortie (une longue chaîne alphanumérique), tu en auras besoin après.
 
-### 6.2 Modifier la configuration principale
+#### 6.2 Modifier la configuration principale
 
 Ouvre le fichier :
 
@@ -347,7 +342,7 @@ Colle la valeur (sans espace) dans la ligne :
 root_password_sha2 = <valeur_sha256>
 ```
 
-### 6.3 Autres variables importantes à vérifier dans server.conf `/etc/graylog/server/server.conf` :
+#### 6.3 Autres variables importantes à vérifier dans server.conf `/etc/graylog/server/server.conf` :
 
 - `root_timezone` : Définit le fuseau horaire utilisé par Graylog.  
 
@@ -381,7 +376,7 @@ N’oublie pas de sauvegarder et redémarrer Graylog après modification.
 
 ---
 
-## Étape 7 : Démarrer Graylog
+### Étape 7 : Démarrer Graylog
 
 ```bash
 sudo systemctl daemon-reload
@@ -391,7 +386,7 @@ sudo systemctl start graylog-server
 
 ---
 
-## Étape 8 : Vérifier que Graylog fonctionne
+### Étape 8 : Vérifier que Graylog fonctionne
 
 Tu peux regarder les logs :
 
@@ -407,7 +402,7 @@ Server running, Graylog web interface is available.
 
 ---
 
-## Étape 9 : Accéder à l’interface web Graylog
+### Étape 9 : Accéder à l’interface web Graylog
 
 - Ouvre un navigateur web et rends-toi sur :
 
@@ -422,7 +417,7 @@ http://<adresse_ip_de_ton_serveur>:9000/
 
 ---
 
-## Résumé rapide
+### Résumé rapide
 
 | Composant      | Port       | Rôle                                      |
 |----------------|------------|-------------------------------------------|
@@ -432,7 +427,7 @@ http://<adresse_ip_de_ton_serveur>:9000/
 
 ---
 
-## Conseils supplémentaires
+### Conseils supplémentaires
 
 - Si tu veux accéder à Graylog via HTTPS plus tard, tu devras configurer un reverse proxy (ex : Nginx) avec certificat SSL.
 - N’hésite pas à consulter la documentation officielle Graylog : https://docs.graylog.org/
@@ -440,7 +435,7 @@ http://<adresse_ip_de_ton_serveur>:9000/
 
 ---
 
-## Nettoyage
+### Nettoyage
 
 Tu peux supprimer le paquet du dépôt Graylog si tu le souhaites :
 
@@ -450,7 +445,7 @@ rm graylog-5.1-repository_latest.deb
 
 ---
 
-# Fin de la procédure d'installation
+## Fin de la procédure d'installation
 
 ---
 
