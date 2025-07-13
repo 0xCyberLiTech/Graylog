@@ -167,7 +167,13 @@ sudo apt install elasticsearch -y
 sudo nano /etc/elasticsearch/elasticsearch.yml
 ```
 
-Ajouter ou modifier les lignes suivantes :
+Dans le fichier /etc/elasticsearch/elasticsearch.yml, tu dois ajouter ou modifier ces lignes précisément pour que la configuration soit correcte.
+
+Concrètement :
+
+Si ces lignes n’existent pas encore dans le fichier, tu les ajoutes à la fin du fichier.
+
+Si elles existent déjà, il faut les retrouver et les modifier pour qu'elles correspondent exactement à :
 
 ```yaml
 network.host: 127.0.0.1
@@ -180,6 +186,8 @@ discovery.type: single-node
 > - `discovery.type: single-node` indique que c'est un cluster à un seul nœud.
 
 Sauvegarde et ferme (`Ctrl+O`, `Entrée`, `Ctrl+X`).
+
+Ces réglages permettent à Elasticsearch de fonctionner en mode "single-node" (pas de cluster multi-nœuds), d’écouter uniquement sur l’interface locale (localhost) pour des raisons de sécurité, et d’utiliser le port 9200 par défaut.
 
 ### 4.5 Démarrer et activer Elasticsearch
 
