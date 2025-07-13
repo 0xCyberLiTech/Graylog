@@ -41,7 +41,7 @@
 
 ---
 
-# 📘 Procédure d'Installation de Graylog (dernière version stable) sur Debian 12
+# 📘 Installation Graylog stable sur Debian 12.
 
 **Auteur** : CyberLiTech  
 **Date** : 2025-07  
