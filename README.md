@@ -62,6 +62,71 @@ Légende des couleurs des boutons :
 
 ---
 
+
+# 🧠 Introduction à Graylog
+
+## Qu'est-ce que Graylog ?
+
+**Graylog** est une solution de gestion centralisée des journaux (*logs*) conçue pour collecter, stocker, analyser et visualiser des données de log provenant de différentes sources du système informatique.
+
+Il est particulièrement utilisé dans les domaines suivants :
+- 🔒 **Cybersécurité** : détection d’activités suspectes et d’intrusions.
+- 🛠️ **Supervision système** : surveillance de l’état des serveurs, applications et réseaux.
+- 📊 **Audit et conformité** : conservation des traces pour répondre à des obligations légales (RGPD, PCI-DSS, etc.).
+
+---
+
+## À quoi sert Graylog concrètement ?
+
+Graylog agit comme un **centre de pilotage des événements** :
+
+- 📥 **Collecte** des logs provenant de : serveurs Linux/Windows, routeurs, pare-feu, applications, etc.
+- 🧹 **Normalisation** des données pour les rendre lisibles et exploitables.
+- 🔎 **Recherche** rapide grâce à Elasticsearch.
+- 📈 **Visualisation** à travers des tableaux de bord personnalisables.
+- ⚠️ **Alertes** automatiques en cas d'événements critiques.
+- 🗄️ **Archivage** sécurisé des données de log.
+
+---
+
+## Comment ça fonctionne ?
+
+Graylog repose sur plusieurs composants clés :
+| Composant       | Rôle                                                                 |
+|----------------|----------------------------------------------------------------------|
+| **MongoDB**     | Stocke les métadonnées et les configurations de Graylog             |
+| **Elasticsearch** | Sert de moteur de recherche pour interroger les logs               |
+| **Graylog Server** | Composant principal qui reçoit, traite et affiche les logs        |
+| **Interface Web** | Permet à l'utilisateur d'interagir avec les données via un navigateur |
+
+---
+
+## Pourquoi utiliser Graylog ?
+
+- ✅ Interface web moderne, ergonomique et accessible
+- 🚀 Capacité à gérer un grand volume de logs
+- 🧩 Architecture modulaire et évolutive
+- 🔐 Idéal pour la détection d’anomalies, de fuites ou d’attaques
+- 💡 Parfait pour les analystes SOC, admins systèmes, DevOps et responsables conformité
+
+---
+
+## Cas d’usage typiques
+
+- Collecter les logs de tous les serveurs d’une infrastructure Linux.
+- Superviser les connexions SSH ou les tentatives de brute force.
+- Être alerté en cas de crash applicatif ou de saturation CPU/RAM.
+- Visualiser les connexions entrantes/sortantes d’un pare-feu.
+- Auditer les accès aux services critiques (ex : bases de données).
+
+---
+
+## Conclusion
+
+Graylog est un outil puissant de centralisation et d’analyse des logs, **indispensable dans un contexte de supervision et de cybersécurité**. Il permet de garder le contrôle, d’agir rapidement en cas de problème, et d’assurer la traçabilité de toutes les activités système.
+
+---
+
 **Mise à jour :** Juillet 2025
 
 ---
