@@ -173,7 +173,19 @@ Vérification :
 mongod --version
 
 ```bash
-sudo systemctl status mongod
+db version v8.0.11
+Build Info: {
+    "version": "8.0.11",
+    "gitVersion": "bed99f699da6cb2b74262aa6d473446c41476643",
+    "openSSLVersion": "OpenSSL 3.0.16 11 Feb 2025",
+    "modules": [],
+    "allocator": "tcmalloc-google",
+    "environment": {
+        "distmod": "debian12",
+        "distarch": "x86_64",
+        "target_arch": "x86_64"
+    }
+}
 ```
 
 ### Étape 4 : Installer Elasticsearch
