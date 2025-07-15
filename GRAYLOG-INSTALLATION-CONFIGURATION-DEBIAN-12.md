@@ -292,6 +292,26 @@ Et tester avec :
 curl http://localhost:9200
 ```
 
+```bash
+{
+  "name" : "srv-labo",
+  "cluster_name" : "elasticsearch",
+  "cluster_uuid" : "Bveck-i5SSCnkY490hWErQ",
+  "version" : {
+    "number" : "8.18.3",
+    "build_flavor" : "default",
+    "build_type" : "deb",
+    "build_hash" : "28fc77664903e7de48ba5632e5d8bfeb5e3ed39c",
+    "build_date" : "2025-06-18T22:08:41.171261054Z",
+    "build_snapshot" : false,
+    "lucene_version" : "9.12.1",
+    "minimum_wire_compatibility_version" : "7.17.0",
+    "minimum_index_compatibility_version" : "7.0.0"
+  },
+  "tagline" : "You Know, for Search"
+}
+```
+
 Tu devrais maintenant obtenir une réponse JSON sans HTTPS ni demande d’authentification.
 
 
