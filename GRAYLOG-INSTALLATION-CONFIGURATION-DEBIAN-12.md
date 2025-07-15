@@ -389,6 +389,13 @@ Tu dois mettre ici l’adresse IP locale de ton serveur ou son nom DNS si applic
 
 Cette configuration permet à Graylog d’écouter sur toutes les interfaces réseau (utile pour accès distant).
 
+Exemple final recommandé :
+
+```
+http_bind_address = 0.0.0.0:9000
+http_publish_uri = http://192.168.1.100:9000/
+```
+
 ##### 6.33 - `elasticsearch_hosts` : Adresse(s) du(des) serveur(s) Elasticsearch.
 
 Exemple :
