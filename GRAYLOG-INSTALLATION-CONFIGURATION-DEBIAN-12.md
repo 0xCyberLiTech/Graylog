@@ -407,11 +407,22 @@ Une réponse en JSON qui ressemble à ça (exemple simplifié) :
 
 ### Étape 5 : Installer Graylog
 
+Vous pouvez retrouver la liste des dépots disponnible : https://packages.graylog2.org/packages
+
 #### 5.1 Ajouter la clé et le dépôt Graylog
 
 ```bash
 wget https://packages.graylog2.org/repo/packages/graylog-5.1-repository_latest.deb
 sudo dpkg -i graylog-5.1-repository_latest.deb
+sudo apt update
+```
+Pour :
+
+#### 6.3 Ajouter la clé et le dépôt Graylog
+
+```bash
+wget https://packages.graylog2.org/repo/packages/graylog-6.3-repository_latest.deb
+sudo dpkg -i graylog-6.3-repository_latest.deb
 sudo apt update
 ```
 
