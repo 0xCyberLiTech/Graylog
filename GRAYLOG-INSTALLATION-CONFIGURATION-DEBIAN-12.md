@@ -343,10 +343,16 @@ Si ces lignes n’existent pas encore dans le fichier, tu les ajoutes à la fin 
 
 Si elles existent déjà, il faut les retrouver et les modifier pour qu'elles correspondent exactement à :
 
-```yaml
+```
+# --- Réseau minimal pour un nœud de dev -------------------
 network.host: 127.0.0.1
 http.port: 9200
 discovery.type: single-node
+
+# --- (Optionnel) Désactiver la sécurité / TLS -------------
+xpack.security.enabled: false
+xpack.security.http.ssl.enabled: false
+xpack.security.transport.ssl.enabled: false
 ```
 
 > *Explication* :  
