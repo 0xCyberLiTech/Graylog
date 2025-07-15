@@ -188,28 +188,124 @@ Build Info: {
 }
 ```
 
-### Étape 4 : Installer Elasticsearch
+### Étape 4 : Installer Elasticsearch.
 
 Graylog utilise Elasticsearch comme moteur de recherche.
 
-#### 4.1 Importer la clé Elasticsearch
+#### 4.1 Paquets de base.
 
 ```bash
-curl -fsSL https://artifacts.elastic.co/GPG-KEY-elasticsearch | \
-  gpg --dearmor | sudo tee /usr/share/keyrings/elasticsearch-keyring.gpg > /dev/null
+sudo apt-get install -y gnupg ca-certificates curl apt-transport-https
 ```
-#### 4.2 Ajouter le dépôt Elasticsearch
+
+#### 4.2 Nettoyer d’anciennes lignes ou doublons (facultatif mais conseillé).
+
+Assure‑toi qu’il n’y a qu’un seul fichier .list et qu’il contient exactement :
+
+deb [signed-by=/usr/share/keyrings/elasticsearch-keyring.gpg] \
+  https://artifacts.elastic.co/packages/8.x/apt stable main
 
 ```bash
-echo "deb [signed-by=/usr/share/keyrings/elasticsearch-keyring.gpg] https://artifacts.elastic.co/packages/8.x/apt stable main" | sudo tee /etc/apt/sources.list.d/elastic-8.x.list
+sudo rm -f /etc/apt/sources.list.d/elastic-8.x.list
 ```
 
-#### 4.3 Mettre à jour et installer Elasticsearch
+#### 4.3 Importer la clé *au format binaire* (indispensable).
+
+```bash
+curl -fsSL https://artifacts.elastic.co/GPG-KEY-elasticsearch \
+  | gpg --dearmor | sudo tee /usr/share/keyrings/elasticsearch-8.gpg >/dev/null
+```
+
+#### 4.4 Recréer le dépôt (une seule ligne, pas de doublon).
+
+```bash
+echo "deb [signed-by=/usr/share/keyrings/elasticsearch-8.gpg] \
+  https://artifacts.elastic.co/packages/8.x/apt stable main" \
+  | sudo tee /etc/apt/sources.list.d/elastic-8.x.list
+```
+
+#### 4.5 Recharger l’index.
 
 ```bash
 sudo apt update
-sudo apt install elasticsearch -y
 ```
+
+#### 4.6 Vérifier qu’un paquet est proposé.
+
+```bash
+apt-cache policy elasticsearch
+```
+
+#### 4.7 Installer (mode silencieux).
+
+```bash
+sudo apt install -y elasticsearch
+```
+
+##### 4.8 HTTPS ?
+
+Avant la version 8, installer Elasticsearch posait parfois des questions interactives (mot de passe, configuration TLS, etc.) ou bien il fallait configurer certaines choses manuellement ensuite.
+
+Depuis la 8.x :
+
+L’installation ne te pose plus de question.
+
+Par défaut, Elasticsearch 8.x active :
+
+🔐 HTTPS/TLS sur le port 9200
+🔐 Sécurité avec mot de passe (authentification native)
+🔐 Certificats auto-signés générés automatiquement
+
+C’est ça que signifie « non-interactive » : tout est activé automatiquement sans interaction, ce qui peut bloquer Graylog (qui attend un Elasticsearch sans sécurité ni HTTPS par défaut).
+
+Est-ce qu'on peut désactiver HTTPS et la sécurité dans Elasticsearch 8.x ?
+Oui, c’est possible. Voici comment faire.
+
+🛠️ Comment désactiver HTTPS et la sécurité dans Elasticsearch 8.x
+Édite le fichier de configuration :
+
+```bash
+sudo nano /etc/elasticsearch/elasticsearch.yml
+```
+
+Ajoute ou modifie les lignes suivantes (en bas du fichier par exemple) :
+
+```
+xpack.security.enabled: false
+xpack.security.transport.ssl.enabled: false
+xpack.security.http.ssl.enabled: false
+```
+
+Ces options :
+
+- désactivent le système d’authentification de X-Pack,
+- désactivent l’utilisation de TLS/HTTPS.
+- Tu peux ensuite redémarrer le service :
+
+```bash
+sudo systemctl restart elasticsearch
+```
+
+Et tester avec :
+
+```bash
+curl http://localhost:9200
+```
+
+Tu devrais maintenant obtenir une réponse JSON sans HTTPS ni demande d’authentification.
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 #### 4.4 Configurer Elasticsearch
 
