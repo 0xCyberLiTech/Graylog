@@ -123,43 +123,58 @@ openjdk version "17.0.x" 202x-xx-xx
 
 Graylog utilise MongoDB pour stocker les métadonnées.
 
-#### 3.1 Ajouter la clé publique officielle MongoDB
+#### 3.1 Paquets de base
 
 ```bash
-wget -qO - https://www.mongodb.org/static/pgp/server-6.0.asc | sudo tee /usr/share/keyrings/mongodb-server-6.0.gpg > /dev/null
+sudo apt-get install -y gnupg curl
 ```
 
-#### 3.2 Ajouter le dépôt MongoDB
-
-Créons le fichier `/etc/apt/sources.list.d/mongodb-org-6.0.list` :
+#### 3.2 Clé GPG officielle MongoDB 8.0
 
 ```bash
-echo "deb [arch=amd64 signed-by=/usr/share/keyrings/mongodb-server-6.0.gpg] https://repo.mongodb.org/apt/debian bookworm/mongodb-org/6.0 main" | sudo tee /etc/apt/sources.list.d/mongodb-org-6.0.list
+curl -fsSL https://www.mongodb.org/static/pgp/server-8.0.asc \
+  | sudo gpg --dearmor -o /usr/share/keyrings/mongodb-server-8.0.gpg
 ```
 
-#### 3.3 Mettre à jour et installer MongoDB
+#### 3.3 Dépôt pour Debian 12 (bookworm).
 
 ```bash
-sudo apt update
-sudo apt install -y mongodb-org
+echo "deb [signed-by=/usr/share/keyrings/mongodb-server-8.0.gpg] \
+  http://repo.mongodb.org/apt/debian bookworm/mongodb-org/8.0 main" \
+  | sudo tee /etc/apt/sources.list.d/mongodb-org-8.0.list
 ```
 
-#### 3.4 Démarrer et activer MongoDB
+#### 3.4 Mise à jour de l’index et installation.
 
 ```bash
-sudo systemctl start mongod
-sudo systemctl enable mongod
+sudo apt-get update
 ```
 
-#### 3.5 Vérifier le statut
+```bash
+sudo apt-get install -y mongodb-org
+```
+
+#### 3.5 Lancer et activer le service.
+
+```bash
+sudo systemctl enable --now mongod
+```
+
+#### 3.6 Redémarrer le service mongod.
+
+```bash
+sudo systemctl restart mongod
+```
+
+#### 3.7 Vérification du statut
+
+Vérification :
+
+mongod --version
 
 ```bash
 sudo systemctl status mongod
 ```
-
-Tu dois voir que le service est actif (running).
-
----
 
 ### Étape 4 : Installer Elasticsearch
 
