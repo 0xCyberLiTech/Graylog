@@ -138,6 +138,11 @@ curl -fsSL https://www.mongodb.org/static/pgp/server-8.0.asc \
 
 #### 3.3 Dépôt pour Debian 12 (bookworm).
 
+Nettoyer d’anciennes lignes ou doublons (facultatif mais conseillé).
+Assure‑toi qu’il n’y a qu’un seul fichier .list et qu’il contient exactement :
+
+sudo rm -f /etc/apt/sources.list.d/mongodb-org-8.0.list
+
 ```bash
 echo "deb [signed-by=/usr/share/keyrings/mongodb-server-8.0.gpg] \
   http://repo.mongodb.org/apt/debian bookworm/mongodb-org/8.0 main" \
