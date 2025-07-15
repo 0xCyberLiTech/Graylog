@@ -119,7 +119,7 @@ openjdk version "17.0.x" 202x-xx-xx
 
 ---
 
-### Étape 3 : Installer MongoDB
+### Étape 3 : Installer MongoDB 8.0
 
 Graylog utilise MongoDB pour stocker les métadonnées.
 
