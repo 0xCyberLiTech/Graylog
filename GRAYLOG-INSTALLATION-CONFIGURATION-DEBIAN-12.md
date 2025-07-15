@@ -183,9 +183,9 @@ Graylog utilise Elasticsearch comme moteur de recherche.
 #### 4.1 Importer la clé Elasticsearch
 
 ```bash
-wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | sudo tee /usr/share/keyrings/elasticsearch-keyring.gpg > /dev/null
+curl -fsSL https://artifacts.elastic.co/GPG-KEY-elasticsearch | \
+  gpg --dearmor | sudo tee /usr/share/keyrings/elasticsearch-keyring.gpg > /dev/null
 ```
-
 #### 4.2 Ajouter le dépôt Elasticsearch
 
 ```bash
@@ -359,7 +359,7 @@ root_password_sha2 = <valeur_sha256>
 
 #### 6.3 Autres variables importantes à vérifier dans server.conf `/etc/graylog/server/server.conf` :
 
-- `root_timezone` : Définit le fuseau horaire utilisé par Graylog.  
+##### 6.31 - `root_timezone` : Définit le fuseau horaire utilisé par Graylog.  
 
 Exemple :  
 
@@ -367,17 +367,29 @@ Exemple :
 root_timezone = Europe/Paris
 ```
 
-- `web_listen_uri` : URL sur laquelle l’API web Graylog écoute.
+##### 6.32 - `http_publish_uri` : URL sur laquelle l’API web Graylog écoute.
 
 Exemple : 
 
 ```
-web_listen_uri = http://0.0.0.0:9000/api/
+http_bind_address = 0.0.0.0:9000
+http_publish_uri = http://<IP_locale>:9000/
 ```
+📌 Détails importants :
+
+🔹 http_bind_address
+Indique l’interface réseau et le port sur lesquels Graylog écoute.
+
+0.0.0.0:9000 signifie toutes les interfaces disponibles, sur le port 9000.
+
+🔹 http_publish_uri
+C’est l’URL publique utilisée par Graylog pour générer des liens dans l’interface web (notifications, API, etc.).
+
+Tu dois mettre ici l’adresse IP locale de ton serveur ou son nom DNS si applicable.
 
 Cette configuration permet à Graylog d’écouter sur toutes les interfaces réseau (utile pour accès distant).
 
-- `elasticsearch_hosts` : Adresse(s) du(des) serveur(s) Elasticsearch.
+##### 6.33 - `elasticsearch_hosts` : Adresse(s) du(des) serveur(s) Elasticsearch.
 
 Exemple :
 
