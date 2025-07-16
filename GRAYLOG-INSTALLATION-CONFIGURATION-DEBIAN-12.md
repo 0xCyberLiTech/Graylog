@@ -470,8 +470,6 @@ echo -n "MonMotDePasse" | sha256sum | awk '{print $1}'
 ```
 ex : 
 
-Ex :
-
 ```conf
 echo -n "S@B85-2025-SID" | sha256sum | awk '{print $1}'
 ```
