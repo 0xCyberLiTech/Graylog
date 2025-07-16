@@ -36,21 +36,21 @@
 
 ---
 
-# Installer Graylog sur Debian 12 afin de centraliser et analyser vos logs de manière plus conviviale.
+## Installer Graylog sur Debian 12 afin de centraliser et analyser vos logs de manière plus conviviale.
 
 ---
 
 ## Sommaire [-]
 
-## I. Présentation
-## II. Prérequis
-## III. Installation pas à pas de Graylog
-### A. Installation de MongoDB
-### B. Installation d'OpenSearch
-### C. Configurer Java (JVM)
-### D. Installation de Graylog
-### E. Graylog : créer un nouveau compte administrateur
-## IV. Conclusion
+### I. Présentation
+### II. Prérequis
+### III. Installation pas à pas de Graylog
+#### A. Installation de MongoDB
+#### B. Installation d'OpenSearch
+#### C. Configurer Java (JVM)
+#### D. Installation de Graylog
+#### E. Graylog : créer un nouveau compte administrateur
+### IV. Conclusion
 
 ---
 
