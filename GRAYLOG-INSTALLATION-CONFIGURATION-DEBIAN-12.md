@@ -45,11 +45,11 @@
 ### I. Présentation
 ### II. Prérequis
 ### III. Installation pas à pas de Graylog
-#### A. Installation de MongoDB
-#### B. Installation d'OpenSearch
-#### C. Configurer Java (JVM)
-#### D. Installation de Graylog
-#### E. Graylog : créer un nouveau compte administrateur
+#### - A. Installation de MongoDB
+#### - B. Installation d'OpenSearch
+#### - C. Configurer Java (JVM)
+#### - D. Installation de Graylog
+#### - E. Graylog : créer un nouveau compte administrateur
 ### IV. Conclusion
 
 ---
