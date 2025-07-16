@@ -36,60 +36,117 @@
 
 ---
 
-## 📘 Installation Graylog stable sur Debian 12.
-
-**Auteur** : CyberLiTech  
-**Date** : 2025-07  
-**Objectif** : Installer Graylog pas à pas sur Debian 12, avec des explications détaillées.
+# Installer Graylog sur Debian 12 afin de centraliser et analyser vos logs de manière plus conviviale.
 
 ---
 
-### Prérequis
+## Sommaire [-]
 
-- Un serveur Debian 12 à jour, accès root ou utilisateur avec `sudo`.
-- Connexion internet sur la machine.
-- Au moins 4 Go de RAM recommandés.
-- Temps estimé : environ 30-45 minutes.
+## I. Présentation
+## II. Prérequis
+## III. Installation pas à pas de Graylog
+### A. Installation de MongoDB
+### B. Installation d'OpenSearch
+### C. Configurer Java (JVM)
+### D. Installation de Graylog
+### E. Graylog : créer un nouveau compte administrateur
+## IV. Conclusion
 
 ---
 
-### Étape 1 : Installer sudo si ce n'est pas déja fait :
+## I. 🛰️ Présentation de **Graylog**.
 
-### Rappel sur la commande  `sudo` :
+### 🔍 Qu'est-ce que Graylog ?
 
-- sudo (superuser do) permet d’exécuter une commande avec les privilèges administrateur (root) sans se connecter en root.
+**Graylog** est une plateforme open source de **gestion centralisée des journaux** (logs) permettant la **collecte**, **l’analyse**, **la recherche** et **la visualisation** en temps réel de données issues de différents systèmes, serveurs, applications ou équipements réseau.
 
-- C’est utile pour les opérations qui nécessitent des droits élevés, comme l’installation de logiciels, la modification de fichiers système, etc.
+Il est particulièrement utilisé en **cybersécurité**, en **monitoring**, et pour la **traçabilité** des événements systèmes.
 
-- Par défaut, la plupart des distributions Linux l’ont installé, mais il peut arriver qu’il manque sur certaines installations minimales.
+---
 
-Se connecter en root :
+### ⚙️ Fonctionnalités clés.
+
+- 🧲 **Collecte de logs** multi-sources : syslog, fichiers journaux, flux réseau, etc.
+- 🔎 **Moteur de recherche puissant** basé sur **Elasticsearch**.
+- 📊 **Dashboards interactifs** : création de graphiques et widgets personnalisés.
+- 📁 **Archivage et rotation automatique** des logs.
+- 🛡️ **Détection d'incidents** et d'anomalies.
+- 📦 Extensible avec des **plugins** et des **pipelines de traitement**.
+
+---
+
+### 🏗️ Architecture.
+
+Graylog repose sur :
+- **MongoDB** (base de données de configuration),
+- **Elasticsearch** ou **OpenSearch** (moteur d’indexation et de recherche),
+- **Graylog Server** (cœur applicatif),
+- **Graylog Web Interface** (interface graphique de consultation).
+
+---
+
+### 📈 Cas d’usages typiques.
+
+- 🛡️ Surveillance de la sécurité (SIEM léger),
+- 🖥️ Supervision des serveurs (logs Apache/Nginx, SSH, etc.),
+- 📡 Analyse des événements réseau,
+- 📦 Suivi des conteneurs Docker, Kubernetes,
+- 🔐 Détection d'intrusion ou analyse forensic.
+
+---
+
+### ✅ Avantages.
+
+- Interface web moderne et intuitive,
+- Filtrage avancé avec requêtes personnalisées,
+- Très bonne performance même avec un grand volume de logs,
+- Open source avec une **édition communautaire gratuite**,
+- Évolutif en version **Entreprise ou Cloud** pour les environnements critiques.
+
+---
+
+## 🚀 Pourquoi utiliser Graylog ?
+
+Graylog simplifie la gestion des logs dans un environnement distribué, en rendant possible l’**agrégation et l’analyse rapide** de millions d’événements. C’est une solution efficace pour :
+
+- Répondre aux exigences de conformité (RGPD, PCI-DSS…),
+- Identifier rapidement les anomalies et incidents,
+- Faciliter le diagnostic et le dépannage système.
+
+---
+
+## II. Prérequis pour l'installation de Graylog
+
+Avant de procéder à l’installation de Graylog, assurez-vous que les prérequis suivants sont respectés.
+
+### Composants requis
+
+- **MongoDB 6** (versions supportées : ≥ 5.0.7 et ≤ 7.x)  
+- **OpenSearch** (fork open source d’Elasticsearch développé par Amazon — versions supportées : de 1.1.x à 2.15.x)  
+- **OpenJDK 17**
+
+### Configuration système recommandée
+
+- **Système d’exploitation** : Debian 12 (autres distributions GNU/Linux également compatibles, ou installation via Docker)  
+- **Mémoire vive (RAM)** : 8 Go minimum  
+- **Espace disque** : 256 Go minimum
+
+> **Remarque** : Ces spécifications sont fournies à titre indicatif. Le dimensionnement dépend du volume de logs à traiter. Graylog peut gérer aussi bien quelques mégaoctets que plusieurs téraoctets de données par jour.
+
+### Préparation de la machine
+
+Avant de commencer l’installation :
+
+- Attribuez une **adresse IP statique** à la machine ;
+- Installez les **dernières mises à jour** du système ;
+- Vérifiez que le **fuseau horaire** est correctement configuré ;
+- Définissez un **serveur NTP** pour la synchronisation de l’heure.
 
 ```bash
-su -
+sudo timedatectl set-timezone Europe/Paris
 ```
 
-Mettre à jour la liste des paquets (optionnel mais recommandé) :
-
-```bash
-apt update
-```
-
-Installer sudo :
-
-```bash
-apt install sudo
-```
-
-Ajouter votre utilisateur au groupe sudo (remplacez votre_utilisateur par votre nom d’utilisateur) :
-
-```bash
-usermod -aG sudo votre_utilisateur
-```
-
-Se déconnecter puis se reconnecter pour que les changements prennent effet.
-
-Avant toute installation, on met à jour la liste des paquets et les paquets installés pour éviter des conflits.
+### Mise à jour du système
 
 ```bash
 sudo apt update && sudo apt upgrade -y
@@ -97,59 +154,33 @@ sudo apt update && sudo apt upgrade -y
 
 ---
 
-### Étape 2 : Installer Java (OpenJDK 17)
+## III. Installation pas à pas de Graylog
 
-Graylog nécessite Java 17 (OpenJDK). Debian 12 le propose en paquet officiel.
+Mise à jour du cache des paquets et installation d'outils nécessaires pour la suite.
 
-```bash
-sudo apt install openjdk-17-jre-headless -y
-```
-
-*Vérification* :
 
 ```bash
-java -version
+sudo apt-get update
+```
+```bash
+sudo apt-get install curl lsb-release ca-certificates gnupg2 pwgen
 ```
 
-Tu dois obtenir quelque chose comme :
+### A. Installation de MongoDB
 
-```
-openjdk version "17.0.x" 202x-xx-xx
-```
-
----
-
-### Étape 3 : Installer MongoDB 8.0
-
-Graylog utilise MongoDB pour stocker les métadonnées.
-
-#### 3.1 Paquets de base
+Commençons par installer MongoDB, récupération de la clé GPG correspondante au dépôt MongoDB.
 
 ```bash
-sudo apt-get install -y gnupg curl
+curl -fsSL https://www.mongodb.org/static/pgp/server-6.0.asc | sudo gpg -o /usr/share/keyrings/mongodb-server-6.0.gpg --dearmor
 ```
 
-#### 3.2 Clé GPG officielle MongoDB 8.0
+Ajoutons le dépôt de MongoDB 6 pour Debian 12 :
 
 ```bash
-curl -fsSL https://www.mongodb.org/static/pgp/server-8.0.asc \
-  | sudo gpg --dearmor -o /usr/share/keyrings/mongodb-server-8.0.gpg
+echo "deb [ signed-by=/usr/share/keyrings/mongodb-server-6.0.gpg] http://repo.mongodb.org/apt/debian bullseye/mongodb-org/6.0 main" | sudo tee /etc/apt/sources.list.d/mongodb-org-6.0.list
 ```
 
-#### 3.3 Dépôt pour Debian 12 (bookworm).
-
-Nettoyer d’anciennes lignes ou doublons (facultatif mais conseillé).
-Assure‑toi qu’il n’y a qu’un seul fichier .list et qu’il contient exactement :
-
-sudo rm -f /etc/apt/sources.list.d/mongodb-org-8.0.list
-
-```bash
-echo "deb [signed-by=/usr/share/keyrings/mongodb-server-8.0.gpg] \
-  http://repo.mongodb.org/apt/debian bookworm/mongodb-org/8.0 main" \
-  | sudo tee /etc/apt/sources.list.d/mongodb-org-8.0.list
-```
-
-#### 3.4 Mise à jour de l’index et installation.
+Allons mettre à jour le cache des paquets et tenter d'installer MongoDB :
 
 ```bash
 sudo apt-get update
@@ -159,341 +190,285 @@ sudo apt-get update
 sudo apt-get install -y mongodb-org
 ```
 
-#### 3.5 Lancer et activer le service.
+L'installation de MongoDB ne peut pas être effectuée, car il manque une dépendance : libssl1.1. Nous allons devoir installer ce paquet manuellement avant de pouvoir poursuivre parce que Debian 12 ne l'a pas dans ses dépôts.
+
+```
+Les paquets suivants contiennent des dépendances non satisfaites :
+ mongodb-org-mongos : Dépend: libssl1.1 (>= 1.1.1) mais il n'est pas installable
+ mongodb-org-server : Dépend: libssl1.1 (>= 1.1.1) mais il n'est pas installable
+E: Impossible de corriger les problèmes, des paquets défectueux sont en mode « garder en l'état ».
+```
+
+Nous allons télécharger le paquet DEB nommé "libssl1.1_1.1.1f-1ubuntu2.23_amd64.deb" (version la plus récente) avec la commande wget, puis procéder à son installation via la commande dpkg. Ce qui donne les deux commandes suivantes :
 
 ```bash
-sudo systemctl enable --now mongod
-```
-
-#### 3.6 Redémarrer le service mongod.
-
-```bash
-sudo systemctl restart mongod
-```
-
-#### 3.7 Vérification du statut
-
-Vérification :
-
-mongod --version
-
-```bash
-db version v8.0.11
-Build Info: {
-    "version": "8.0.11",
-    "gitVersion": "bed99f699da6cb2b74262aa6d473446c41476643",
-    "openSSLVersion": "OpenSSL 3.0.16 11 Feb 2025",
-    "modules": [],
-    "allocator": "tcmalloc-google",
-    "environment": {
-        "distmod": "debian12",
-        "distarch": "x86_64",
-        "target_arch": "x86_64"
-    }
-}
-```
-
-### Étape 4 : Installer Elasticsearch.
-
-Graylog utilise Elasticsearch comme moteur de recherche.
-
-#### 4.1 Paquets de base.
-
-```bash
-sudo apt-get install -y gnupg ca-certificates curl apt-transport-https
-```
-
-#### 4.2 Nettoyer d’anciennes lignes ou doublons (facultatif mais conseillé).
-
-Assure‑toi qu’il n’y a qu’un seul fichier .list et qu’il contient exactement :
-
-deb [signed-by=/usr/share/keyrings/elasticsearch-keyring.gpg] \
-  https://artifacts.elastic.co/packages/8.x/apt stable main
-
-```bash
-sudo rm -f /etc/apt/sources.list.d/elastic-8.x.list
-```
-
-#### 4.3 Importer la clé *au format binaire* (indispensable).
-
-```bash
-curl -fsSL https://artifacts.elastic.co/GPG-KEY-elasticsearch \
-  | gpg --dearmor | sudo tee /usr/share/keyrings/elasticsearch-8.gpg >/dev/null
-```
-
-#### 4.4 Recréer le dépôt (une seule ligne, pas de doublon).
-
-```bash
-echo "deb [signed-by=/usr/share/keyrings/elasticsearch-8.gpg] \
-  https://artifacts.elastic.co/packages/8.x/apt stable main" \
-  | sudo tee /etc/apt/sources.list.d/elastic-8.x.list
-```
-
-#### 4.5 Recharger l’index.
-
-```bash
-sudo apt update
-```
-
-#### 4.6 Vérifier qu’un paquet est proposé.
-
-```bash
-apt-cache policy elasticsearch
-```
-
-#### 4.7 Installer (mode silencieux).
-
-```bash
-sudo apt install -y elasticsearch
-```
-
-##### 4.8 HTTPS ?
-
-Avant la version 8, installer Elasticsearch posait parfois des questions interactives (mot de passe, configuration TLS, etc.) ou bien il fallait configurer certaines choses manuellement ensuite.
-
-Depuis la 8.x :
-
-L’installation ne te pose plus de question.
-
-Par défaut, Elasticsearch 8.x active :
-
-🔐 HTTPS/TLS sur le port 9200
-🔐 Sécurité avec mot de passe (authentification native)
-🔐 Certificats auto-signés générés automatiquement
-
-C’est ça que signifie « non-interactive » : tout est activé automatiquement sans interaction, ce qui peut bloquer Graylog (qui attend un Elasticsearch sans sécurité ni HTTPS par défaut).
-
-Est-ce qu'on peut désactiver HTTPS et la sécurité dans Elasticsearch 8.x ?
-Oui, c’est possible. Voici comment faire.
-
-🛠️ Comment désactiver HTTPS et la sécurité dans Elasticsearch 8.x
-Édite le fichier de configuration :
-
-```bash
-sudo nano /etc/elasticsearch/elasticsearch.yml
-```
-
-Ajoute ou modifie les lignes suivantes (en bas du fichier par exemple) :
-
-```
-xpack.security.enabled: false
-xpack.security.transport.ssl.enabled: false
-xpack.security.http.ssl.enabled: false
-```
-
-Ces options :
-
-- désactivent le système d’authentification de X-Pack,
-- désactivent l’utilisation de TLS/HTTPS.
-- Tu peux ensuite redémarrer le service :
-
-```bash
-sudo systemctl restart elasticsearch
-```
-
-Et tester avec :
-
-```bash
-curl http://localhost:9200
+wget http://archive.ubuntu.com/ubuntu/pool/main/o/openssl/libssl1.1_1.1.1f-1ubuntu2.23_amd64.deb
 ```
 
 ```bash
-{
-  "name" : "srv-labo",
-  "cluster_name" : "elasticsearch",
-  "cluster_uuid" : "Bveck-i5SSCnkY490hWErQ",
-  "version" : {
-    "number" : "8.18.3",
-    "build_flavor" : "default",
-    "build_type" : "deb",
-    "build_hash" : "28fc77664903e7de48ba5632e5d8bfeb5e3ed39c",
-    "build_date" : "2025-06-18T22:08:41.171261054Z",
-    "build_snapshot" : false,
-    "lucene_version" : "9.12.1",
-    "minimum_wire_compatibility_version" : "7.17.0",
-    "minimum_index_compatibility_version" : "7.0.0"
-  },
-  "tagline" : "You Know, for Search"
-}
+sudo dpkg -i libssl1.1_1.1.1f-1ubuntu2.23_amd64.deb
 ```
 
-Tu devrais maintenant obtenir une réponse JSON sans HTTPS ni demande d’authentification.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#### 4.4 Configurer Elasticsearch
-
-Éditer le fichier `/etc/elasticsearch/elasticsearch.yml` :
+Relançons l'installation de MongoDB :
 
 ```bash
-sudo nano /etc/elasticsearch/elasticsearch.yml
+sudo apt-get install -y mongodb-org
 ```
 
-Dans le fichier /etc/elasticsearch/elasticsearch.yml, tu dois ajouter ou modifier ces lignes précisément pour que la configuration soit correcte.
-
-Concrètement :
-
-Si ces lignes n’existent pas encore dans le fichier, tu les ajoutes à la fin du fichier.
-
-Si elles existent déjà, il faut les retrouver et les modifier pour qu'elles correspondent exactement à :
-
-```
-# --- Réseau minimal pour un nœud de dev -------------------
-network.host: 127.0.0.1
-http.port: 9200
-discovery.type: single-node
-
-# --- (Optionnel) Désactiver la sécurité / TLS -------------
-xpack.security.enabled: false
-xpack.security.http.ssl.enabled: false
-xpack.security.transport.ssl.enabled: false
-```
-
-> *Explication* :  
-> - `network.host` définit l'interface réseau écoutée (ici uniquement localhost pour la sécurité).  
-> - `discovery.type: single-node` indique que c'est un cluster à un seul nœud.
-
-Sauvegarde et ferme (`Ctrl+O`, `Entrée`, `Ctrl+X`).
-
-Ces réglages permettent à Elasticsearch de fonctionner en mode "single-node" (pas de cluster multi-nœuds), d’écouter uniquement sur l’interface locale (localhost) pour des raisons de sécurité, et d’utiliser le port 9200 par défaut.
-
-#### 4.5 Démarrer et activer Elasticsearch
+Ensuite, nous relançons le service MongoDB et activons son démarrage automatique au lancement du serveur Debian.
 
 ```bash
 sudo systemctl daemon-reload
-sudo systemctl enable elasticsearch
-sudo systemctl start elasticsearch
 ```
-
-#### 4.6 Vérifier qu'Elasticsearch fonctionne
 
 ```bash
-curl -X GET "localhost:9200"
+sudo systemctl enable mongod.service
+
 ```
-
-Tu dois obtenir une réponse JSON avec le nom du cluster.
-
-Ce que tu dois voir si tout est OK :
-
-Une réponse en JSON qui ressemble à ça (exemple simplifié) :
 
 ```bash
-{
-  "name" : "nom-de-ton-serveur",
-  "cluster_name" : "elasticsearch",
-  "cluster_uuid" : "un-identifiant-unique",
-  "version" : {
-    "number" : "8.x.x",
-    "build_flavor" : "default",
-    "build_type" : "deb",
-    "build_hash" : "...",
-    "build_date" : "...",
-    "build_snapshot" : false,
-    "lucene_version" : "...",
-    "minimum_wire_compatibility_version" : "...",
-    "minimum_index_compatibility_version" : "..."
-  },
-  "tagline" : "You Know, for Search"
-}
+sudo systemctl restart mongod.service
 ```
-
----
-
-### Étape 5 : Installer Graylog
-
-Vous pouvez retrouver la liste des dépots disponnible : https://packages.graylog2.org/packages
-
-#### 5.1 Ajouter la clé et le dépôt Graylog
 
 ```bash
-wget https://packages.graylog2.org/repo/packages/graylog-5.1-repository_latest.deb
-sudo dpkg -i graylog-5.1-repository_latest.deb
-sudo apt update
+sudo systemctl --type=service --state=active | grep mongod
 ```
-Pour :
 
-#### 6.3 Ajouter la clé et le dépôt Graylog
+MongoDB est installé, nous pouvons passer à l'installation du prochain composant.
+
+
+### B. Installation d'OpenSearch.
+
+A présent nous allons passer à l'installation d'OpenSearch. La commande suivante permet d’ajouter la clé de signature pour les paquets OpenSearch :
 
 ```bash
-wget https://packages.graylog2.org/repo/packages/graylog-6.3-repository_latest.deb
-sudo dpkg -i graylog-6.3-repository_latest.deb
-sudo apt update
+curl -o- https://artifacts.opensearch.org/publickeys/opensearch.pgp | sudo gpg --dearmor --batch --yes -o /usr/share/keyrings/opensearch-keyring
 ```
 
-#### 5.2 Installer Graylog server
+Puis, ajoutez le dépôt OpenSearch pour que nous puissions télécharger le paquet avec apt par la suite :
 
 ```bash
-sudo apt install graylog-server -y
+echo "deb [signed-by=/usr/share/keyrings/opensearch-keyring] https://artifacts.opensearch.org/releases/bundle/opensearch/2.x/apt stable main" | sudo tee /etc/apt/sources.list.d/opensearch-2.x.list
+```
+Mettons à jour votre cache de paquets :
+
+```bash
+sudo apt-get update
+```
+Procédons ensuite à l’installation d’OpenSearch, en veillant à définir un mot de passe sécurisé pour le compte administrateur de l’instance.
+Dans cet exemple, le mot de passe utilisé est : MonMotDePasse, mais il est fortement recommandé de choisir votre propre mot de passe robuste.
+
+⚠️ Évitez les mots de passe faibles comme P@ssword, car cela entraînera une erreur à la fin de l’installation. Depuis la version 2.12 d’OpenSearch, l’installation impose un mot de passe répondant aux critères suivants :
+
+Minimum 8 caractères :
+
+Contient au moins :
+
+- Une lettre minuscule
+- Une lettre majuscule
+- Un chiffre
+- Un caractère spécial
+
+```bash
+sudo env OPENSEARCH_INITIAL_ADMIN_PASSWORD=CLT-Connect2025# apt-get install opensearch
 ```
 
----
+Patientons pendant l'installation...
 
-### Étape 6 : Configuration de Graylog
+Quand c'est terminé, prenons le temps d'effectuer la configuration minimale. Ouvrons le fichier de configuration au format YAML :
 
-#### 6.1 Générer un mot de passe secret (secret key)
+```bash
+sudo nano /etc/opensearch/opensearch.yml
+```
 
-Graylog nécessite une clé secrète pour sécuriser les sessions.
+Configurons les options suivantes :
+
+```bash
+cluster.name: graylog
+node.name: ${HOSTNAME}
+path.data: /var/lib/opensearch
+path.logs: /var/log/opensearch
+discovery.type: single-node
+network.host: 127.0.0.1
+action.auto_create_index: false
+plugins.security.disabled: true
+```
+Cette configuration OpenSearch est destinée à configurer un nœud unique. 
+
+#### Paramètres de configuration d’OpenSearch pour Graylog
+
+##### 📘 Explication des paramètres
+
+Voici le rôle des principaux paramètres à définir dans le fichier `opensearch.yml` :
+
+- **`cluster.name: graylog`**  
+  ➤ Définit le nom du cluster OpenSearch. Ici, il est nommé `graylog`. Ce nom identifie l’ensemble des nœuds du cluster.
+
+- **`node.name: ${HOSTNAME}`**  
+  ➤ Attribue automatiquement au nœud le nom de la machine Linux locale (`${HOSTNAME}`). Même en environnement mono-nœud, il est conseillé de nommer le nœud.
+
+- **`path.data: /var/lib/opensearch`**  
+  ➤ Spécifie l’emplacement local où OpenSearch stocke ses données.
+
+- **`path.logs: /var/log/opensearch`**  
+  ➤ Indique le répertoire de stockage des fichiers journaux d’OpenSearch.
+
+- **`discovery.type: single-node`**  
+  ➤ Configure OpenSearch pour un fonctionnement en mode mono-nœud. Idéal pour les environnements de test.
+
+- **`network.host: 127.0.0.1`**  
+  ➤ Limite l’écoute d’OpenSearch à l’interface locale (loopback). Suffisant pour un usage local avec Graylog.
+
+- **`action.auto_create_index: false`**  
+  ➤ Désactive la création automatique d’index. Cette configuration est nécessaire pour que Graylog gère correctement les index.
+
+- **`plugins.security.disabled: true`**  
+  ➤ Désactive les fonctionnalités de sécurité intégrées (authentification, gestion des utilisateurs, chiffrement TLS).  
+  ⚠️ Ce paramètre est à utiliser uniquement pour les environnements de test ou de développement. **À éviter en production.**
+
+##### 🔧 Conseils de configuration
+
+- Certaines options peuvent déjà exister dans le fichier `opensearch.yml`, mais être commentées avec un `#`.  
+  ➤ Il suffit alors de retirer le `#` et de modifier la valeur si nécessaire.
+
+Pour finir Enregistrons et fermons ce fichier.
+
+### C. Configurer Java (JVM)
+
+#### Nous devons configurer Java Virtual Machine utilisé par OpenSearch afin d'ajuster la quantité de mémoire que peut utiliser ce service. Éditons le fichier de configuration suivant :
+
+```bash
+sudo nano /etc/opensearch/jvm.options
+```
+
+- Avec la configuration déployée ici, OpenSearch démarrera avec une mémoire allouée de 4 Go et pourra atteindre jusqu'à 4 Go, il n'y aura donc pas de variation de mémoire pendant le fonctionnement.
+
+- Ici, la configuration tient compte du fait que la machine virtuelle dispose d'un total de 8 Go de RAM. Les deux paramètres doivent avoir la même valeur. Ceci implique de remplacer ces lignes :
+
+```
+-Xms1g
+-Xmx1g
+```
+
+Par ces lignes :
+
+```
+-Xms4g
+-Xmx4g
+```
+
+Fermons ce fichier après l'avoir enregistré.
+
+#### 🔍 Vérification du paramètre vm.max_map_count :
+
+En complément de la configuration d’OpenSearch, il est important de vérifier la valeur du paramètre vm.max_map_count au niveau du noyau Linux.
+
+Ce paramètre contrôle le nombre maximal de zones mémoire mappées par processus. OpenSearch (comme Elasticsearch) recommande une valeur minimale de 262144, afin d’éviter des erreurs lors de la gestion de la mémoire.
+
+💡 Sur une installation récente de Debian 12, cette valeur est généralement déjà correctement définie. Par précaution, nous allons tout de même la vérifier.
+
+Pour cela, exécutons la commande suivante :
+
+```bash
+cat /proc/sys/vm/max_map_count
+```
+
+Si nous obtenons une valeur différente de "262144", exécutons la commande suivante, sinon ce n'est pas nécessaire.
+
+```bash
+sudo sysctl -w vm.max_map_count=262144
+```
+
+Enfin, activons le démarrage automatique d'OpenSearch et lançons le service associé.
+
+
+```bash
+sudo systemctl daemon-reload
+```
+
+```bash
+sudo systemctl enable opensearch
+```
+
+```bash
+sudo systemctl restart opensearch
+```
+
+Si nous affichons l'état de votre système, nous devons voir un processus Java avec 4 Go de RAM.
+
+```bash
+top
+```
+
+Passons à la prochaine étape : l'installation tant attendue, celle de Graylog !
+
+### D. Installation de Graylog
+
+Pour installer la dernière version de Graylog 6.1, il suffit d’exécuter les quatre commandes suivantes. Celles-ci permettent de télécharger et d’installer le serveur Graylog sur votre machine :
+
+```bash
+wget https://packages.graylog2.org/repo/packages/graylog-6.1-repository_latest.deb
+```
+
+```bash
+sudo dpkg -i graylog-6.1-repository_latest.deb
+```
+
+```bash
+sudo apt-get update
+```
+
+```bash
+sudo apt-get install graylog-server
+```
+
+#### 🔧 Configuration préalable de Graylog :
+
+Avant de lancer Graylog, il est nécessaire de modifier certaines options de configuration.
+
+Commençons par définir ces deux paramètres essentiels :
+
+password_secret : cette clé unique et aléatoire est utilisée par Graylog pour sécuriser le stockage des mots de passe utilisateurs, un peu comme une clé de salage (salt).
+
+root_password_sha2 : il s'agit du mot de passe administrateur par défaut, stocké sous forme de hachage SHA-256.
+
+Pour débuter, nous allons générer une clé aléatoire de 96 caractères à utiliser comme valeur pour password_secret.
 
 ```bash
 pwgen -N 1 -s 96
 ```
 
-Si `pwgen` n’est pas installé, installer avec :
+Si `pwgen` n’est pas installé, installons le avec :
 
 ```bash
 sudo apt install pwgen -y
 ```
 
-Relance la commande `pwgen` :
-
-```bash
-pwgen -N 1 -s 96
-```
-
-Par exemple, cela va te donner un résultat comme :
-
 ```bash
 7p0gEqEgNyyusvPj58H4CU7bOyr7MWKd5gOQFhcLWNwOljOX5DJi0VA2LK4q86HMEipmEbAmc8WMfitHLgKQuY2a0S3jzDm0 (96 caractères)
 ```
 
-Copie la sortie (une longue chaîne alphanumérique), tu en auras besoin après.
-
-#### 6.2 Modifier la configuration principale
-
-Ouvre le fichier :
+Copions la valeur retournée, puis ouvrons le fichier de configuration de Graylog :
 
 ```bash
 sudo nano /etc/graylog/server/server.conf
 ```
 
-Trouve et modifie les paramètres suivants :
+Collez la clé au niveau du paramètre password_secret = .
 
-- `password_secret` : colle la clé générée plus haut avec `pwgen -N 1 -s 96`.
+Enregistrez et fermez le fichier.
 
-```conf
-password_secret = <ta_cle_secrete>
-```
+🔐 Définition du mot de passe administrateur
+Vous devez ensuite configurer le mot de passe du compte admin créé par défaut.
 
-- `root_password_sha2` : c’est le mot de passe admin (chiffré en SHA-256).
+Dans le fichier de configuration, il faut stocker le hash du mot de passe, ce qui nécessite de le générer au préalable.
 
-Pour créer le mot de passe de l’utilisateur admin :
+L’exemple ci-dessous montre comment obtenir le hash SHA-256 du mot de passe 'MonMotDePasse'. Pensez à remplacer cette valeur par votre propre mot de passe.
 
-Tape la commande suivante pour hasher ton mot de passe admin (remplace "MonMotDePasse" par celui que tu veux utiliser) :
-
-```conf
+```bash
 echo -n "MonMotDePasse" | sha256sum | awk '{print $1}'
 ```
+ex : 
 
 Ex :
 
@@ -501,135 +476,65 @@ Ex :
 echo -n "S@B85-2025-SID" | sha256sum | awk '{print $1}'
 ```
 
-Colle la valeur (sans espace) dans la ligne :
+Copions la valeur obtenue en sortie (sans le tiret en bout de ligne).
 
-```conf
-root_password_sha2 = <valeur_sha256>
-```
-
-#### 6.3 Autres variables importantes à vérifier dans server.conf `/etc/graylog/server/server.conf` :
-
-##### 6.31 - `root_timezone` : Définit le fuseau horaire utilisé par Graylog.  
-
-Exemple :  
-
-```conf
-root_timezone = Europe/Paris
-```
-
-##### 6.32 - `http_publish_uri` : URL sur laquelle l’API web Graylog écoute.
-
-Exemple : 
-
-```
-http_bind_address = 0.0.0.0:9000
-http_publish_uri = http://<IP_locale>:9000/
-```
-📌 Détails importants :
-
-🔹 http_bind_address
-Indique l’interface réseau et le port sur lesquels Graylog écoute.
-
-0.0.0.0:9000 signifie toutes les interfaces disponibles, sur le port 9000.
-
-🔹 http_publish_uri
-C’est l’URL publique utilisée par Graylog pour générer des liens dans l’interface web (notifications, API, etc.).
-
-Tu dois mettre ici l’adresse IP locale de ton serveur ou son nom DNS si applicable.
-
-Cette configuration permet à Graylog d’écouter sur toutes les interfaces réseau (utile pour accès distant).
-
-Exemple final recommandé :
-
-```
-http_bind_address = 0.0.0.0:9000
-http_publish_uri = http://192.168.1.100:9000/
-```
-
-##### 6.33 - `elasticsearch_hosts` : Adresse(s) du(des) serveur(s) Elasticsearch.
-
-Exemple :
-
-```
-elasticsearch_hosts = http://127.0.0.1:9200
-```
-
-Par défaut, Graylog se connecte à Elasticsearch local.
-
-N’oublie pas de sauvegarder et redémarrer Graylog après modification.
-
----
-
-### Étape 7 : Démarrer Graylog
+Ouvrons de nouveau le fichier de configuration de Graylog :
 
 ```bash
-sudo systemctl daemon-reload
-sudo systemctl enable graylog-server
-sudo systemctl start graylog-server
+sudo nano /etc/graylog/server/server.conf
 ```
 
----
+Collons la valeur au niveau de l'option root_password_sha2 = .
 
-### Étape 8 : Vérifier que Graylog fonctionne
+⚙️ Configuration de l'adresse d'écoute HTTP :
 
-Tu peux regarder les logs :
+Profitez de votre présence dans le fichier de configuration pour définir le paramètre http_bind_address.
+
+Attribuons-lui la valeur 0.0.0.0:9000 afin que l’interface web de Graylog soit accessible sur le port 9000, depuis toutes les adresses IP du serveur.
+
+🔗 Configuration de la connexion à OpenSearch :
+
+Ensuite, configurons l’option elasticsearch_hosts en lui assignant la valeur http://127.0.0.1:9200.
+
+Cela permet de déclarer l’instance locale d’OpenSearch à laquelle Graylog va se connecter. Cette étape est indispensable, notamment parce que nous n’utilisons pas de Graylog Data Node. Sans cette configuration, la suite de l’installation ne pourra pas se poursuivre.
+
+Enregistrons et fermonsle fichier.
+
+Cette commande configure Graylog pour qu’il se lance automatiquement au démarrage du système et démarre immédiatement le service Graylog.
 
 ```bash
-sudo journalctl -u graylog-server -f
+sudo systemctl enable --now graylog-server
 ```
 
-La première ligne importante attendue est :
+Une fois cette étape terminée, ouvrez un navigateur et connectez-vous à Graylog en utilisant l’adresse IP (ou le nom) du serveur, suivi du port 9000.
 
-```
-Server running, Graylog web interface is available.
-```
+À titre d’information :
 
----
+Il n’y a pas si longtemps, lors de la première connexion à Graylog, une fenêtre d’authentification similaire à celle ci-dessous apparaissait. Il fallait alors saisir l’identifiant admin ainsi que le mot de passe associé.
 
-### Étape 9 : Accéder à l’interface web Graylog
+Cependant, il arrivait parfois que la connexion échoue sans raison apparente, ce qui pouvait être source de frustration.
 
-- Ouvre un navigateur web et rends-toi sur :
-
-```
-http://<adresse_ip_de_ton_serveur>:9000/
-```
-
-- Connecte-toi avec :
-
-  - Login : `admin`
-  - Mot de passe : celui que tu as défini (étape 6.2)
-
----
-
-### Résumé rapide
-
-| Composant      | Port       | Rôle                                      |
-|----------------|------------|-------------------------------------------|
-| MongoDB        | 27017      | Base de données pour métadonnées          |
-| Elasticsearch  | 9200       | Moteur de recherche                        |
-| Graylog server | 9000       | Interface web / collecte des logs         |
-
----
-
-### Conseils supplémentaires
-
-- Si tu veux accéder à Graylog via HTTPS plus tard, tu devras configurer un reverse proxy (ex : Nginx) avec certificat SSL.
-- N’hésite pas à consulter la documentation officielle Graylog : https://docs.graylog.org/
-- Pour assurer la sécurité, ne laisse pas Elasticsearch ou MongoDB exposés publiquement.
-
----
-
-### Nettoyage
-
-Tu peux supprimer le paquet du dépôt Graylog si tu le souhaites :
+Il fallait alors revenir à la ligne de commande sur le serveur Graylog pour consulter les journaux. Ces derniers indiquaient qu’un mot de passe temporaire, spécifié dans les logs, devait être utilisé lors de la première connexion.
 
 ```bash
-rm graylog-5.1-repository_latest.deb
+tail -f /var/log/graylog-server/server.log
 ```
+
+Il suffisait ensuite de se reconnecter avec l’utilisateur admin et le mot de passe temporaire pour accéder à l’interface.
+
+Aujourd’hui, ce procédé n’est plus nécessaire : il suffit d’utiliser directement le compte admin avec le mot de passe configuré lors de la mise en place en ligne de commande.
+
+### E. Graylog : créer un nouveau compte administrateur
+
+Au lieu d’utiliser le compte admin par défaut fourni avec Graylog, il est recommandé de créer votre propre compte administrateur.
+
+Pour cela, accédez au menu « System », puis sélectionnez « Users and Teams ». Cliquez ensuite sur le bouton « Create user », remplissez le formulaire avec les informations souhaitées, et attribuez à ce compte le rôle administrateur.
 
 ---
 
-## Fin de la procédure d'installation
+## IV. Conclusion
+
+Félicitations, vous avez installé Graylog sur une machine Debian 12 ! Vous pouvez maintenant centraliser, indexer et analyser vos logs depuis une interface unique et puissante.
 
 ---
 
