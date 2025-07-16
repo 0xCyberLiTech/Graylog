@@ -54,9 +54,9 @@
 
 ---
 
-## I. 🛰️ Présentation de **Graylog**.
+### I. 🛰️ Présentation de **Graylog**.
 
-### 🔍 Qu'est-ce que Graylog ?
+#### 🔍 Qu'est-ce que Graylog ?
 
 **Graylog** est une plateforme open source de **gestion centralisée des journaux** (logs) permettant la **collecte**, **l’analyse**, **la recherche** et **la visualisation** en temps réel de données issues de différents systèmes, serveurs, applications ou équipements réseau.
 
@@ -64,7 +64,7 @@ Il est particulièrement utilisé en **cybersécurité**, en **monitoring**, et 
 
 ---
 
-### ⚙️ Fonctionnalités clés.
+#### ⚙️ Fonctionnalités clés.
 
 - 🧲 **Collecte de logs** multi-sources : syslog, fichiers journaux, flux réseau, etc.
 - 🔎 **Moteur de recherche puissant** basé sur **Elasticsearch**.
@@ -75,7 +75,7 @@ Il est particulièrement utilisé en **cybersécurité**, en **monitoring**, et 
 
 ---
 
-### 🏗️ Architecture.
+#### 🏗️ Architecture.
 
 Graylog repose sur :
 - **MongoDB** (base de données de configuration),
@@ -85,7 +85,7 @@ Graylog repose sur :
 
 ---
 
-### 📈 Cas d’usages typiques.
+#### 📈 Cas d’usages typiques.
 
 - 🛡️ Surveillance de la sécurité (SIEM léger),
 - 🖥️ Supervision des serveurs (logs Apache/Nginx, SSH, etc.),
@@ -95,7 +95,7 @@ Graylog repose sur :
 
 ---
 
-### ✅ Avantages.
+#### ✅ Avantages.
 
 - Interface web moderne et intuitive,
 - Filtrage avancé avec requêtes personnalisées,
@@ -105,7 +105,7 @@ Graylog repose sur :
 
 ---
 
-## 🚀 Pourquoi utiliser Graylog ?
+#### 🚀 Pourquoi utiliser Graylog ?
 
 Graylog simplifie la gestion des logs dans un environnement distribué, en rendant possible l’**agrégation et l’analyse rapide** de millions d’événements. C’est une solution efficace pour :
 
@@ -115,17 +115,17 @@ Graylog simplifie la gestion des logs dans un environnement distribué, en renda
 
 ---
 
-## II. Prérequis pour l'installation de Graylog
+### II. Prérequis pour l'installation de Graylog
 
 Avant de procéder à l’installation de Graylog, assurez-vous que les prérequis suivants sont respectés.
 
-### Composants requis
+#### Composants requis
 
 - **MongoDB 6** (versions supportées : ≥ 5.0.7 et ≤ 7.x)  
 - **OpenSearch** (fork open source d’Elasticsearch développé par Amazon — versions supportées : de 1.1.x à 2.15.x)  
 - **OpenJDK 17**
 
-### Configuration système recommandée
+#### Configuration système recommandée
 
 - **Système d’exploitation** : Debian 12 (autres distributions GNU/Linux également compatibles, ou installation via Docker)  
 - **Mémoire vive (RAM)** : 8 Go minimum  
@@ -133,7 +133,7 @@ Avant de procéder à l’installation de Graylog, assurez-vous que les prérequ
 
 > **Remarque** : Ces spécifications sont fournies à titre indicatif. Le dimensionnement dépend du volume de logs à traiter. Graylog peut gérer aussi bien quelques mégaoctets que plusieurs téraoctets de données par jour.
 
-### Préparation de la machine
+#### Préparation de la machine
 
 Avant de commencer l’installation :
 
@@ -146,7 +146,7 @@ Avant de commencer l’installation :
 sudo timedatectl set-timezone Europe/Paris
 ```
 
-### Mise à jour du système
+#### Mise à jour du système
 
 ```bash
 sudo apt update && sudo apt upgrade -y
@@ -154,7 +154,7 @@ sudo apt update && sudo apt upgrade -y
 
 ---
 
-## III. Installation pas à pas de Graylog
+### III. Installation pas à pas de Graylog
 
 Mise à jour du cache des paquets et installation d'outils nécessaires pour la suite.
 
@@ -166,7 +166,7 @@ sudo apt-get update
 sudo apt-get install curl lsb-release ca-certificates gnupg2 pwgen
 ```
 
-### A. Installation de MongoDB
+#### A. Installation de MongoDB
 
 Commençons par installer MongoDB, récupération de la clé GPG correspondante au dépôt MongoDB.
 
@@ -237,7 +237,7 @@ sudo systemctl --type=service --state=active | grep mongod
 MongoDB est installé, nous pouvons passer à l'installation du prochain composant.
 
 
-### B. Installation d'OpenSearch.
+#### B. Installation d'OpenSearch.
 
 A présent nous allons passer à l'installation d'OpenSearch. La commande suivante permet d’ajouter la clé de signature pour les paquets OpenSearch :
 
@@ -333,9 +333,9 @@ Voici le rôle des principaux paramètres à définir dans le fichier `opensearc
 
 Pour finir Enregistrons et fermons ce fichier.
 
-### C. Configurer Java (JVM)
+#### C. Configurer Java (JVM)
 
-#### Nous devons configurer Java Virtual Machine utilisé par OpenSearch afin d'ajuster la quantité de mémoire que peut utiliser ce service. Éditons le fichier de configuration suivant :
+##### Nous devons configurer Java Virtual Machine utilisé par OpenSearch afin d'ajuster la quantité de mémoire que peut utiliser ce service. Éditons le fichier de configuration suivant :
 
 ```bash
 sudo nano /etc/opensearch/jvm.options
@@ -359,7 +359,7 @@ Par ces lignes :
 
 Fermons ce fichier après l'avoir enregistré.
 
-#### 🔍 Vérification du paramètre vm.max_map_count :
+##### 🔍 Vérification du paramètre vm.max_map_count :
 
 En complément de la configuration d’OpenSearch, il est important de vérifier la valeur du paramètre vm.max_map_count au niveau du noyau Linux.
 
@@ -458,7 +458,7 @@ Collez la clé au niveau du paramètre password_secret = .
 
 Enregistrez et fermez le fichier.
 
-🔐 Définition du mot de passe administrateur
+#### 🔐 Définition du mot de passe administrateur
 Vous devez ensuite configurer le mot de passe du compte admin créé par défaut.
 
 Dans le fichier de configuration, il faut stocker le hash du mot de passe, ce qui nécessite de le générer au préalable.
@@ -486,13 +486,13 @@ sudo nano /etc/graylog/server/server.conf
 
 Collons la valeur au niveau de l'option root_password_sha2 = .
 
-⚙️ Configuration de l'adresse d'écoute HTTP :
+#### ⚙️ Configuration de l'adresse d'écoute HTTP :
 
 Profitez de votre présence dans le fichier de configuration pour définir le paramètre http_bind_address.
 
 Attribuons-lui la valeur 0.0.0.0:9000 afin que l’interface web de Graylog soit accessible sur le port 9000, depuis toutes les adresses IP du serveur.
 
-🔗 Configuration de la connexion à OpenSearch :
+#### 🔗 Configuration de la connexion à OpenSearch :
 
 Ensuite, configurons l’option elasticsearch_hosts en lui assignant la valeur http://127.0.0.1:9200.
 
@@ -532,7 +532,7 @@ Pour cela, accédez au menu « System », puis sélectionnez « Users and Teams 
 
 ---
 
-## IV. Conclusion
+### IV. Conclusion
 
 Félicitations, vous avez installé Graylog sur une machine Debian 12 ! Vous pouvez maintenant centraliser, indexer et analyser vos logs depuis une interface unique et puissante.
 
