@@ -9,6 +9,8 @@
 </p>
 
 ![GitHub release (latest by date)](https://img.shields.io/github/v/release/0xCyberLiTech/Graylog?label=version&logo=github)
+[![Changelog](https://img.shields.io/badge/📄%20CHANGELOG-Graylog-blue)](./CHANGELOG.md)
+
 
 </div>
 
