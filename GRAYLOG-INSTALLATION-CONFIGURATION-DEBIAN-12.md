@@ -156,34 +156,39 @@ sudo apt update && sudo apt upgrade -y
 
 ### III. Installation pas à pas de Graylog
 
-Mise à jour du cache des paquets et installation d'outils nécessaires pour la suite.
-
+Mise à jour du cache des paquets et installation de paquets supplémentaires pour la suite :
 
 ```bash
 sudo apt-get update
 ```
+
 ```bash
 sudo apt-get install curl lsb-release ca-certificates gnupg2 pwgen
 ```
 
 #### A. Installation de MongoDB
 
-Commençons par installer MongoDB, récupération de la clé GPG correspondante au dépôt MongoDB.
+Commençez par installer MongoDB, puis récupérez la clé GPG correspondante au dépôt MongoDB.
 
 ```bash
 curl -fsSL https://www.mongodb.org/static/pgp/server-6.0.asc | sudo gpg -o /usr/share/keyrings/mongodb-server-6.0.gpg --dearmor
 ```
 
-Ajoutons le dépôt de MongoDB 6 pour Debian 12 :
+Ajoutez le dépôt de MongoDB 6 pour Debian 12 :
 
 ```bash
 echo "deb [ signed-by=/usr/share/keyrings/mongodb-server-6.0.gpg] http://repo.mongodb.org/apt/debian bullseye/mongodb-org/6.0 main" | sudo tee /etc/apt/sources.list.d/mongodb-org-6.0.list
 ```
 
-Allons mettre à jour le cache des paquets et tenter d'installer MongoDB :
+Allez mettre à jour le cache des paquets et tenter d'installer MongoDB :
 
 ```bash
 sudo apt-get update
+```
+
+```
+Réception de :4 http://repo.mongodb.org/apt/debian bullseye/mongodb-org/6.0 InRelease [2 951 B]
+Réception de :5 http://repo.mongodb.org/apt/debian bullseye/mongodb-org/6.0/main amd64 Packages [105 kB]
 ```
 
 ```bash
@@ -192,21 +197,31 @@ sudo apt-get install -y mongodb-org
 
 L'installation de MongoDB ne peut pas être effectuée, car il manque une dépendance : libssl1.1. Nous allons devoir installer ce paquet manuellement avant de pouvoir poursuivre parce que Debian 12 ne l'a pas dans ses dépôts.
 
+On peut constatez :
+
 ```
-Les paquets suivants contiennent des dépendances non satisfaites :
+Les paquets suivants contiennent des dépendances non satisfaites :
  mongodb-org-mongos : Dépend: libssl1.1 (>= 1.1.1) mais il n'est pas installable
  mongodb-org-server : Dépend: libssl1.1 (>= 1.1.1) mais il n'est pas installable
-E: Impossible de corriger les problèmes, des paquets défectueux sont en mode « garder en l'état ».
+E: Impossible de corriger les problèmes, des paquets défectueux sont en mode « garder en l'état ».
 ```
 
-Nous allons télécharger le paquet DEB nommé "libssl1.1_1.1.1f-1ubuntu2.23_amd64.deb" (version la plus récente) avec la commande wget, puis procéder à son installation via la commande dpkg. Ce qui donne les deux commandes suivantes :
+Vous allez télécharger le paquet DEB nommé "libssl1.1_1.1.1f-1ubuntu2.24_amd64.deb" (version la plus récente) avec la commande wget, puis procéder à son installation via la commande dpkg. Ce qui donne les deux commandes suivantes :
 
 ```bash
-wget http://archive.ubuntu.com/ubuntu/pool/main/o/openssl/libssl1.1_1.1.1f-1ubuntu2.23_amd64.deb
+wget http://archive.ubuntu.com/ubuntu/pool/main/o/openssl/libssl1.1_1.1.1f-1ubuntu2.24_amd64.deb
 ```
 
 ```bash
-sudo dpkg -i libssl1.1_1.1.1f-1ubuntu2.23_amd64.deb
+sudo dpkg -i libssl1.1_1.1.1f-1ubuntu2.24_amd64.deb
+```
+On peut constatez :
+
+```bash
+Préparation du dépaquetage de libssl1.1_1.1.1f-1ubuntu2.24_amd64.deb ...
+Dépaquetage de libssl1.1:amd64 (1.1.1f-1ubuntu2.24) ...
+Paramétrage de libssl1.1:amd64 (1.1.1f-1ubuntu2.24) ...
+Traitement des actions différées (« triggers ») pour libc-bin (2.36-9+deb12u10) ...
 ```
 
 Relançons l'installation de MongoDB :
@@ -215,7 +230,13 @@ Relançons l'installation de MongoDB :
 sudo apt-get install -y mongodb-org
 ```
 
-Ensuite, nous relançons le service MongoDB et activons son démarrage automatique au lancement du serveur Debian.
+On peut constatez l'installation du paquet mongodb-org :
+
+```bash
+54% [2 mongodb-mongosh 48,3 MB/57,0 MB 85%]   
+```
+
+Ensuite, vous relancez le service MongoDB et activez son démarrage automatique au lancement du serveur Debian.
 
 ```bash
 sudo systemctl daemon-reload
@@ -223,7 +244,6 @@ sudo systemctl daemon-reload
 
 ```bash
 sudo systemctl enable mongod.service
-
 ```
 
 ```bash
@@ -234,7 +254,7 @@ sudo systemctl restart mongod.service
 sudo systemctl --type=service --state=active | grep mongod
 ```
 
-MongoDB est installé, nous pouvons passer à l'installation du prochain composant.
+MongoDB est installé, vous pouvez passer à l'installation du prochain composant.
 
 
 #### B. Installation d'OpenSearch.
