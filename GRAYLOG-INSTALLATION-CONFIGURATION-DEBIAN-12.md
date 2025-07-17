@@ -259,7 +259,7 @@ MongoDB est installé, vous pouvez passer à l'installation du prochain composan
 
 #### B. Installation d'OpenSearch.
 
-A présent nous allons passer à l'installation d'OpenSearch. La commande suivante permet d’ajouter la clé de signature pour les paquets OpenSearch :
+A présent vous allez passer à l'installation d'OpenSearch. La commande suivante permet d’ajouter la clé de signature pour les paquets OpenSearch :
 
 ```bash
 curl -o- https://artifacts.opensearch.org/publickeys/opensearch.pgp | sudo gpg --dearmor --batch --yes -o /usr/share/keyrings/opensearch-keyring
@@ -270,12 +270,12 @@ Puis, ajoutez le dépôt OpenSearch pour que nous puissions télécharger le paq
 ```bash
 echo "deb [signed-by=/usr/share/keyrings/opensearch-keyring] https://artifacts.opensearch.org/releases/bundle/opensearch/2.x/apt stable main" | sudo tee /etc/apt/sources.list.d/opensearch-2.x.list
 ```
-Mettons à jour votre cache de paquets :
+Mettez à jour votre cache de paquets :
 
 ```bash
 sudo apt-get update
 ```
-Procédons ensuite à l’installation d’OpenSearch, en veillant à définir un mot de passe sécurisé pour le compte administrateur de l’instance.
+Procédez ensuite à l’installation d’OpenSearch, en veillant à définir un mot de passe sécurisé pour le compte administrateur de l’instance.
 Dans cet exemple, le mot de passe utilisé est : MonMotDePasse, mais il est fortement recommandé de choisir votre propre mot de passe robuste.
 
 ⚠️ Évitez les mots de passe faibles comme P@ssword, car cela entraînera une erreur à la fin de l’installation. Depuis la version 2.12 d’OpenSearch, l’installation impose un mot de passe répondant aux critères suivants :
@@ -293,15 +293,15 @@ Contient au moins :
 sudo env OPENSEARCH_INITIAL_ADMIN_PASSWORD=CLT-Connect2025# apt-get install opensearch
 ```
 
-Patientons pendant l'installation...
+Patientez pendant l'installation...
 
-Quand c'est terminé, prenons le temps d'effectuer la configuration minimale. Ouvrons le fichier de configuration au format YAML :
+Quand c'est terminé, prenez le temps d'effectuer la configuration minimale. Ouvrez le fichier de configuration au format YAML :
 
 ```bash
 sudo nano /etc/opensearch/opensearch.yml
 ```
 
-Configurons les options suivantes :
+Configurez les options suivantes :
 
 ```bash
 cluster.name: graylog
@@ -399,7 +399,7 @@ Si nous obtenons une valeur différente de "262144", exécutons la commande suiv
 sudo sysctl -w vm.max_map_count=262144
 ```
 
-Enfin, activons le démarrage automatique d'OpenSearch et lançons le service associé.
+Enfin, activez le démarrage automatique d'OpenSearch et lançons le service associé.
 
 
 ```bash
@@ -420,7 +420,18 @@ Si nous affichons l'état de votre système, nous devons voir un processus Java 
 top
 ```
 
-Passons à la prochaine étape : l'installation tant attendue, celle de Graylog !
+```bash
+top - 10:40:47 up  1:42,  1 user,  load average: 0,42, 0,13, 0,05
+Tâches: 219 total,   1 en cours, 218 en veille,   0 arrêté,   0 zombie
+%Cpu(s):  0,2 ut,  0,0 sy,  0,0 ni, 99,7 id,  0,1 wa,  0,0 hi,  0,0 si,  0,0 st
+MiB Mem :  15883,2 total,   6655,0 libr,   5822,7 util,   3916,1 tamp/cache
+MiB Éch :    977,0 total,    977,0 libr,      0,0 util.  10060,5 dispo Mem
+
+    PID UTIL.     PR  NI    VIRT    RES    SHR S  %CPU  %MEM    TEMPS+ COM.
+   3963 opensea+  20   0 9982,9m   4,4g  27064 S   1,3  28,7   0:41.54 java
+```
+
+Passez à la prochaine étape : l'installation tant attendue, celle de Graylog !
 
 ### D. Installation de Graylog
 
@@ -446,7 +457,7 @@ sudo apt-get install graylog-server
 
 Avant de lancer Graylog, il est nécessaire de modifier certaines options de configuration.
 
-Commençons par définir ces deux paramètres essentiels :
+Commencez par définir ces deux paramètres essentiels :
 
 password_secret : cette clé unique et aléatoire est utilisée par Graylog pour sécuriser le stockage des mots de passe utilisateurs, un peu comme une clé de salage (salt).
 
@@ -458,17 +469,11 @@ Pour débuter, nous allons générer une clé aléatoire de 96 caractères à ut
 pwgen -N 1 -s 96
 ```
 
-Si `pwgen` n’est pas installé, installons le avec :
-
-```bash
-sudo apt install pwgen -y
-```
-
 ```bash
 7p0gEqEgNyyusvPj58H4CU7bOyr7MWKd5gOQFhcLWNwOljOX5DJi0VA2LK4q86HMEipmEbAmc8WMfitHLgKQuY2a0S3jzDm0 (96 caractères)
 ```
 
-Copions la valeur retournée, puis ouvrons le fichier de configuration de Graylog :
+Copiez la valeur retournée, puis ouvrez le fichier de configuration de Graylog :
 
 ```bash
 sudo nano /etc/graylog/server/server.conf
@@ -494,7 +499,7 @@ ex :
 echo -n "S@B85-2025-SID" | sha256sum | awk '{print $1}'
 ```
 
-Copions la valeur obtenue en sortie (sans le tiret en bout de ligne).
+Copiez la valeur obtenue en sortie (sans le tiret en bout de ligne).
 
 Ouvrons de nouveau le fichier de configuration de Graylog :
 
@@ -508,7 +513,7 @@ Collons la valeur au niveau de l'option root_password_sha2 = .
 
 Profitez de votre présence dans le fichier de configuration pour définir le paramètre http_bind_address.
 
-Attribuons-lui la valeur 0.0.0.0:9000 afin que l’interface web de Graylog soit accessible sur le port 9000, depuis toutes les adresses IP du serveur.
+Attribuez-lui la valeur 0.0.0.0:9000 afin que l’interface web de Graylog soit accessible sur le port 9000, depuis toutes les adresses IP du serveur.
 
 #### 🔗 Configuration de la connexion à OpenSearch :
 
