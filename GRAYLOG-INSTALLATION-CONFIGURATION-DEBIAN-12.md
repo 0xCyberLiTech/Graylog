@@ -511,6 +511,20 @@ Collons la valeur au niveau de l'option root_password_sha2 = .
 
 #### ⚙️ Configuration de l'adresse d'écoute HTTP :
 
+Modifier l’option « http_biend_address » par :
+
+```bash
+http_bind_address = 10.200.200.101:9000
+```
+
+Modifier l’option « elasticsearch » par :
+
+```bash
+elasticsearch_hosts = http://10.200.200.101:9200
+```
+
+Enregistrer et quitter.
+
 Profitez de votre présence dans le fichier de configuration pour définir le paramètre http_bind_address.
 
 Attribuez-lui la valeur 0.0.0.0:9000 afin que l’interface web de Graylog soit accessible sur le port 9000, depuis toutes les adresses IP du serveur.
@@ -568,8 +582,3 @@ Félicitations, vous avez installé Graylog sur une machine Debian 12 ! Vous pou
 <p align="center">
   <b>🔒 Un guide proposé par <a href="https://github.com/0xCyberLiTech">0xCyberLiTech</a> • Pour des tutoriels accessibles à tous. 🔒</b>
 </p>
-
-
-
-
-
