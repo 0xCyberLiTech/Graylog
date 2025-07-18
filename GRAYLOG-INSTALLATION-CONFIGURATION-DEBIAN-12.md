@@ -309,7 +309,7 @@ node.name: ${HOSTNAME}
 path.data: /var/lib/opensearch
 path.logs: /var/log/opensearch
 discovery.type: single-node
-network.host: 127.0.0.1
+network.host: 1O.200.200.101
 action.auto_create_index: false
 plugins.security.disabled: true
 ```
