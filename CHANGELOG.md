@@ -13,11 +13,6 @@ Toutes les modifications notables de ce projet seront consignées ici, selon le 
   - ✅ MongoDB 6 (via dépôt officiel)
   - ✅ OpenSearch 2.x (fork libre d’Elasticsearch)
   - ✅ OpenJDK 17 (via `apt`)
-- Configuration sécurisée et commentée
-- Ajout des scripts :
-  - `install.sh` : déploiement automatisé
-  - `update.sh` : mise à jour des composants
-- Création de la documentation dans le dossier `docs/`
 - Accès à l’interface Web sur le port `9000`
 - Compatibilité testée sur Debian 12 minimal
 
