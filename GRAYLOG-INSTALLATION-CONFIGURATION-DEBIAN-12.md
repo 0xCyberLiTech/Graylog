@@ -547,19 +547,36 @@ Une fois cette étape terminée, ouvrez un navigateur et connectez-vous à Grayl
 
 À titre d’information :
 
-Il n’y a pas si longtemps, lors de la première connexion à Graylog, une fenêtre d’authentification similaire à celle ci-dessous apparaissait. Il fallait alors saisir l’identifiant admin ainsi que le mot de passe associé.
+Un message apparait dans la console Web de Graylog
 
-Cependant, il arrivait parfois que la connexion échoue sans raison apparente, ce qui pouvait être source de frustration.
-
-Il fallait alors revenir à la ligne de commande sur le serveur Graylog pour consulter les journaux. Ces derniers indiquaient qu’un mot de passe temporaire, spécifié dans les logs, devait être utilisé lors de la première connexion.
-
-```bash
-tail -f /var/log/graylog-server/server.log
+```
+There is a node without any running inputs
+(triggered a few seconds ago)
+There is a node without any running inputs. This means that you are not receiving any messages from this node at this point in time. This is most probably an indication of an error or misconfiguration. You can click here to solve this.
 ```
 
-Il suffisait ensuite de se reconnecter avec l’utilisateur admin et le mot de passe temporaire pour accéder à l’interface.
+```
+Il y a un nœud sans aucune entrée en cours d'exécution (déclenché il y a quelques secondes)
+Cela signifie que vous ne recevez aucun message de ce nœud à ce stade.
+```
 
-Aujourd’hui, ce procédé n’est plus nécessaire : il suffit d’utiliser directement le compte admin avec le mot de passe configuré lors de la mise en place en ligne de commande.
+Ce message d’alerte de l’interface Graylog est tout à fait normal juste après l’installation :
+
+✅ Pourquoi ce message s'affiche ?
+Graylog fonctionne comme un collecteur de logs centralisé, mais il a besoin qu’au moins une "input" soit créée pour commencer à recevoir des messages (logs syslog, GELF, journaux Windows, etc.).
+
+✅ Comment résoudre le message : "you are not receiving any messages from this node"
+
+1) - Va dans l'interface web de Graylog (port 9000)
+2) - Dans le menu latéral, clique sur :
+ - System → Inputs
+3) - Dans le menu déroulant « Select input », choisis un type d’entrée à activer, par exemple :
+ - Syslog UDP (si tu veux recevoir des logs syslog via UDP)Syslog TCP
+ - GELF UDP / TCP (format Graylog Extended Log Format)
+ - Beats input (si tu envoies des logs avec Filebeat/Winlogbeat)
+4) - Clique sur « Launch new input »
+ - Remplis les paramètres (interface d’écoute, port, nom personnalisé, etc.)
+ - Clique sur « Save »
 
 ### E. Graylog : créer un nouveau compte administrateur
 
