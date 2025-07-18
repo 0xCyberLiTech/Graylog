@@ -525,18 +525,6 @@ elasticsearch_hosts = http://10.200.200.101:9200
 
 Enregistrer et quitter.
 
-Profitez de votre présence dans le fichier de configuration pour définir le paramètre http_bind_address.
-
-Attribuez-lui la valeur 0.0.0.0:9000 afin que l’interface web de Graylog soit accessible sur le port 9000, depuis toutes les adresses IP du serveur.
-
-#### 🔗 Configuration de la connexion à OpenSearch :
-
-Ensuite, configurons l’option elasticsearch_hosts en lui assignant la valeur http://127.0.0.1:9200.
-
-Cela permet de déclarer l’instance locale d’OpenSearch à laquelle Graylog va se connecter. Cette étape est indispensable, notamment parce que nous n’utilisons pas de Graylog Data Node. Sans cette configuration, la suite de l’installation ne pourra pas se poursuivre.
-
-Enregistrons et fermonsle fichier.
-
 Cette commande configure Graylog pour qu’il se lance automatiquement au démarrage du système et démarre immédiatement le service Graylog.
 
 ```bash
