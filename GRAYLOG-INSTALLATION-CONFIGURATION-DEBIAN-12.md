@@ -115,7 +115,7 @@ Graylog simplifie la gestion des logs dans un environnement distribué, en renda
 
 ---
 
-### II. Prérequis pour l'installation de Graylog
+### II. Prérequis.
 
 Avant de procéder à l’installation de Graylog, assurez-vous que les prérequis suivants sont respectés.
 
