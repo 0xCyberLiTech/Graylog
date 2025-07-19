@@ -566,7 +566,9 @@ Graylog fonctionne comme un collecteur de logs centralisé, mais il a besoin qu�
  - Remplis les paramètres (interface d’écoute, port, nom personnalisé, etc.)
  - Clique sur « Save »
 
-##### E. Graylog : créer un nouveau compte administrateur
+##### E. Graylog 
+
+Créer un nouveau compte administrateur
 
 Au lieu d’utiliser le compte admin par défaut fourni avec Graylog, il est recommandé de créer votre propre compte administrateur.
 
