@@ -54,7 +54,7 @@
 
 ---
 
-### I. 🛰️ Présentation de **Graylog**.
+### I. 🛰️ Présentation.
 
 #### 🔍 Qu'est-ce que Graylog ?
 
@@ -115,7 +115,7 @@ Graylog simplifie la gestion des logs dans un environnement distribué, en renda
 
 ---
 
-### II. Prérequis.
+### II. 🛰️ Prérequis.
 
 Avant de procéder à l’installation de Graylog, assurez-vous que les prérequis suivants sont respectés.
 
@@ -154,7 +154,7 @@ sudo apt update && sudo apt upgrade -y
 
 ---
 
-### III. Installation pas à pas de Graylog
+### III. 🛰️ Installation pas à pas de Graylog
 
 Mise à jour du cache des paquets et installation de paquets supplémentaires pour la suite :
 
@@ -576,7 +576,7 @@ Pour cela, accédez au menu « System », puis sélectionnez « Users and Teams 
 
 ---
 
-### IV. Conclusion
+### IV. 🛰️ Conclusion.
 
 Félicitations, vous avez installé Graylog sur une machine Debian 12 ! Vous pouvez maintenant centraliser, indexer et analyser vos logs depuis une interface unique et puissante.
 
