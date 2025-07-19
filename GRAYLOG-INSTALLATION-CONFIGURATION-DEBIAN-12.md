@@ -36,7 +36,7 @@
 
 ---
 
-## Installer Graylog sur Debian 12 afin de centraliser et analyser vos logs de manière plus conviviale.
+# Installer Graylog sur Debian 12.
 
 ---
 
