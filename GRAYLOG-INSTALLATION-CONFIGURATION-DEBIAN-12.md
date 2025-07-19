@@ -40,7 +40,7 @@
 
 ---
 
-## Sommaire [-]
+## Sommaire :
 
 <div align="center">
 
