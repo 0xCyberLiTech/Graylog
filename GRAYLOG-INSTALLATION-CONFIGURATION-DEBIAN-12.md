@@ -58,6 +58,23 @@
 
 </div>
 
+<div align="center">
+
+| Section | Description | Accès Direct |
+|:---:|:---|:---:|
+| **1.** | Présentation | [<img src="https://img.shields.io/badge/ACCÉDER-blue?style=for-the-badge&logo=github&logoColor=white">](#i-présentation) |
+| **2.** | Prérequis | [<img src="https://img.shields.io/badge/ACCÉDER-blue?style=for-the-badge&logo=github&logoColor=white">](#ii-prérequis) |
+| **3.** | Installation pas à pas de Graylog | [<img src="https://img.shields.io/badge/ACCÉDER-blue?style=for-the-badge&logo=github&logoColor=white">](#iii-installation-pas-à-pas-de-graylog) |
+| **3.A** | ↳ Installation de MongoDB | [<img src="https://img.shields.io/badge/ACCÉDER-lightgrey?style=flat-square&logo=github">](#a-installation-de-mongodb) |
+| **3.B** | ↳ Installation d'OpenSearch | [<img src="https://img.shields.io/badge/ACCÉDER-lightgrey?style=flat-square&logo=github">](#b-installation-dopensearch) |
+| **3.C** | ↳ Configuration de Java (JVM) | [<img src="https://img.shields.io/badge/ACCÉDER-lightgrey?style=flat-square&logo=github">](#c-configuration-de-java-jvm) |
+| **3.D** | ↳ Installation de Graylog | [<img src="https://img.shields.io/badge/ACCÉDER-lightgrey?style=flat-square&logo=github">](#d-installation-de-graylog) |
+| **3.E** | ↳ Création d’un compte administrateur | [<img src="https://img.shields.io/badge/ACCÉDER-lightgrey?style=flat-square&logo=github">](#e-création-dun-compte-administrateur) |
+| **4.** | Conclusion | [<img src="https://img.shields.io/badge/ACCÉDER-blue?style=for-the-badge&logo=github&logoColor=white">](#iv-conclusion) |
+
+</div>
+
+
 ---
 
 ### I. Présentation.
