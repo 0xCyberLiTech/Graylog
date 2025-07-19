@@ -52,6 +52,16 @@
 #### - E. Graylog : créer un nouveau compte administrateur
 ### IV. Conclusion
 
+1. [Présentation](#i-présentation)  
+2. [Prérequis](#ii-prérequis)  
+3. [Installation pas à pas de Graylog](#iii-installation-pas-à-pas-de-graylog)  
+   - [A. Installation de MongoDB](#a-installation-de-mongodb)  
+   - [B. Installation d'OpenSearch](#b-installation-dopensearch)  
+   - [C. Configuration de Java (JVM)](#c-configuration-de-java-jvm)  
+   - [D. Installation de Graylog](#d-installation-de-graylog)  
+   - [E. Création d’un compte administrateur](#e-création-dun-compte-administrateur)  
+4. [Conclusion](#iv-conclusion)
+
 ---
 
 ### I. 🛰️ Présentation de **Graylog**.
