@@ -42,16 +42,6 @@
 
 ## Sommaire [-]
 
-### I. Présentation
-### II. Prérequis
-### III. Installation pas à pas de Graylog
-#### - A. Installation de MongoDB
-#### - B. Installation d'OpenSearch
-#### - C. Configurer Java (JVM)
-#### - D. Installation de Graylog
-#### - E. Graylog : créer un nouveau compte administrateur
-### IV. Conclusion
-
 1. [Présentation](#i-présentation)  
 2. [Prérequis](#ii-prérequis)  
 3. [Installation pas à pas de Graylog](#iii-installation-pas-à-pas-de-graylog)  
@@ -176,7 +166,7 @@ sudo apt-get update
 sudo apt-get install curl lsb-release ca-certificates gnupg2 pwgen
 ```
 
-#### A. Installation de MongoDB
+##### A. Installation de MongoDB
 
 Commençez par installer MongoDB, puis récupérez la clé GPG correspondante au dépôt MongoDB.
 
@@ -213,7 +203,7 @@ On peut constatez :
 Les paquets suivants contiennent des dépendances non satisfaites :
  mongodb-org-mongos : Dépend: libssl1.1 (>= 1.1.1) mais il n'est pas installable
  mongodb-org-server : Dépend: libssl1.1 (>= 1.1.1) mais il n'est pas installable
-E: Impossible de corriger les problèmes, des paquets défectueux sont en mode « garder en l'état ».
+Impossible de corriger les problèmes, des paquets défectueux sont en mode « garder en l'état ».
 ```
 
 Vous allez télécharger le paquet DEB nommé "libssl1.1_1.1.1f-1ubuntu2.24_amd64.deb" (version la plus récente) avec la commande wget, puis procéder à son installation via la commande dpkg. Ce qui donne les deux commandes suivantes :
@@ -267,7 +257,7 @@ sudo systemctl --type=service --state=active | grep mongod
 MongoDB est installé, vous pouvez passer à l'installation du prochain composant.
 
 
-#### B. Installation d'OpenSearch.
+##### B. Installation d'OpenSearch.
 
 A présent vous allez passer à l'installation d'OpenSearch. La commande suivante permet d’ajouter la clé de signature pour les paquets OpenSearch :
 
@@ -325,9 +315,9 @@ plugins.security.disabled: true
 ```
 Cette configuration OpenSearch est destinée à configurer un nœud unique. 
 
-#### Paramètres de configuration d’OpenSearch pour Graylog
+##### Paramètres de configuration d’OpenSearch pour Graylog
 
-##### 📘 Explication des paramètres
+###### 📘 Explication des paramètres
 
 Voici le rôle des principaux paramètres à définir dans le fichier `opensearch.yml` :
 
@@ -356,16 +346,16 @@ Voici le rôle des principaux paramètres à définir dans le fichier `opensearc
   ➤ Désactive les fonctionnalités de sécurité intégrées (authentification, gestion des utilisateurs, chiffrement TLS).  
   ⚠️ Ce paramètre est à utiliser uniquement pour les environnements de test ou de développement. **À éviter en production.**
 
-##### 🔧 Conseils de configuration
+###### 🔧 Conseils de configuration
 
 - Certaines options peuvent déjà exister dans le fichier `opensearch.yml`, mais être commentées avec un `#`.  
   ➤ Il suffit alors de retirer le `#` et de modifier la valeur si nécessaire.
 
 Pour finir Enregistrons et fermons ce fichier.
 
-#### C. Configurer Java (JVM)
+##### C. Configurer Java (JVM)
 
-##### Nous devons configurer Java Virtual Machine utilisé par OpenSearch afin d'ajuster la quantité de mémoire que peut utiliser ce service. Éditons le fichier de configuration suivant :
+###### Nous devons configurer Java Virtual Machine utilisé par OpenSearch afin d'ajuster la quantité de mémoire que peut utiliser ce service. Éditons le fichier de configuration suivant :
 
 ```bash
 sudo nano /etc/opensearch/jvm.options
@@ -389,7 +379,7 @@ Par ces lignes :
 
 Fermons ce fichier après l'avoir enregistré.
 
-##### 🔍 Vérification du paramètre vm.max_map_count :
+###### 🔍 Vérification du paramètre vm.max_map_count :
 
 En complément de la configuration d’OpenSearch, il est important de vérifier la valeur du paramètre vm.max_map_count au niveau du noyau Linux.
 
@@ -443,7 +433,7 @@ MiB Éch :    977,0 total,    977,0 libr,      0,0 util.  10060,5 dispo Mem
 
 Passez à la prochaine étape : l'installation tant attendue, celle de Graylog !
 
-### D. Installation de Graylog
+##### D. Installation de Graylog
 
 Pour installer la dernière version de Graylog 6.1, il suffit d’exécuter les quatre commandes suivantes. Celles-ci permettent de télécharger et d’installer le serveur Graylog sur votre machine :
 
@@ -463,7 +453,7 @@ sudo apt-get update
 sudo apt-get install graylog-server
 ```
 
-#### 🔧 Configuration préalable de Graylog :
+###### 🔧 Configuration préalable de Graylog :
 
 Avant de lancer Graylog, il est nécessaire de modifier certaines options de configuration.
 
@@ -493,7 +483,7 @@ Collez la clé au niveau du paramètre password_secret = .
 
 Enregistrez et fermez le fichier.
 
-#### 🔐 Définition du mot de passe administrateur
+###### 🔐 Définition du mot de passe administrateur
 Vous devez ensuite configurer le mot de passe du compte admin créé par défaut.
 
 Dans le fichier de configuration, il faut stocker le hash du mot de passe, ce qui nécessite de le générer au préalable.
@@ -519,7 +509,7 @@ sudo nano /etc/graylog/server/server.conf
 
 Collons la valeur au niveau de l'option root_password_sha2 = .
 
-#### ⚙️ Configuration de l'adresse d'écoute HTTP :
+###### ⚙️ Configuration de l'adresse d'écoute HTTP :
 
 Modifier l’option « http_biend_address » par :
 
@@ -576,7 +566,7 @@ Graylog fonctionne comme un collecteur de logs centralisé, mais il a besoin qu�
  - Remplis les paramètres (interface d’écoute, port, nom personnalisé, etc.)
  - Clique sur « Save »
 
-### E. Graylog : créer un nouveau compte administrateur
+##### E. Graylog : créer un nouveau compte administrateur
 
 Au lieu d’utiliser le compte admin par défaut fourni avec Graylog, il est recommandé de créer votre propre compte administrateur.
 
