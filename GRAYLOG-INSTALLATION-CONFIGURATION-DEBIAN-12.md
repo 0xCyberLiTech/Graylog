@@ -353,7 +353,7 @@ Voici le rôle des principaux paramètres à définir dans le fichier `opensearc
 
 Pour finir Enregistrons et fermons ce fichier.
 
-##### C. Configurer Java (JVM)
+##### C. Configuration de Java (JVM)
 
 ###### Nous devons configurer Java Virtual Machine utilisé par OpenSearch afin d'ajuster la quantité de mémoire que peut utiliser ce service. Éditons le fichier de configuration suivant :
 
