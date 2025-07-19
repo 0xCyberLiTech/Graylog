@@ -44,22 +44,6 @@
 
 <div align="center">
 
-| Section | Description |
-|:-------:|:------------:|
-| 1. | [Présentation](#i-présentation) |
-| 2. | [Prérequis](#ii-prérequis) |
-| 3. | [Installation pas à pas de Graylog](#iii-installation-pas-à-pas-de-graylog) |
-| 3.A | ↳ [Installation de MongoDB](#a-installation-de-mongodb) |
-| 3.B | ↳ [Installation d'OpenSearch](#b-installation-dopensearch) |
-| 3.C | ↳ [Configuration de Java (JVM)](#c-configuration-de-java-jvm) |
-| 3.D | ↳ [Installation de Graylog](#d-installation-de-graylog) |
-| 3.E | ↳ [Création d’un compte administrateur](#e-création-dun-compte-administrateur) |
-| 4. | [Conclusion](#iv-conclusion) |
-
-</div>
-
-<div align="center">
-
 | Section | Description | Accès Direct |
 |:---:|:---|:---:|
 | **1.** | Présentation | [<img src="https://img.shields.io/badge/ACCÉDER-blue?style=for-the-badge&logo=github&logoColor=white">](#i-présentation) |
