@@ -54,6 +54,26 @@
 | 3.E | ↳ [Création d’un compte administrateur](#e-création-dun-compte-administrateur) |
 | 4. | [Conclusion](#iv-conclusion) |
 
+<table>
+  <thead>
+    <tr>
+      <th style="text-align:center;">Section</th>
+      <th style="text-align:center;">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td align="center">1.</td><td align="center"><a href="#i-présentation">Présentation</a></td></tr>
+    <tr><td align="center">2.</td><td align="center"><a href="#ii-prérequis">Prérequis</a></td></tr>
+    <tr><td align="center">3.</td><td align="center"><a href="#iii-installation-pas-à-pas-de-graylog">Installation pas à pas de Graylog</a></td></tr>
+    <tr><td align="center">3.A</td><td align="center">↳ <a href="#a-installation-de-mongodb">Installation de MongoDB</a></td></tr>
+    <tr><td align="center">3.B</td><td align="center">↳ <a href="#b-installation-dopensearch">Installation d'OpenSearch</a></td></tr>
+    <tr><td align="center">3.C</td><td align="center">↳ <a href="#c-configuration-de-java-jvm">Configuration de Java (JVM)</a></td></tr>
+    <tr><td align="center">3.D</td><td align="center">↳ <a href="#d-installation-de-graylog">Installation de Graylog</a></td></tr>
+    <tr><td align="center">3.E</td><td align="center">↳ <a href="#e-création-dun-compte-administrateur">Création d’un compte administrateur</a></td></tr>
+    <tr><td align="center">4.</td><td align="center"><a href="#iv-conclusion">Conclusion</a></td></tr>
+  </tbody>
+</table>
+
 ---
 
 ### I. Présentation.
