@@ -120,15 +120,18 @@ net start nxlog
 
 ## 🟢 4. Côté Graylog : configurer l’entrée GELF UDP.
 
-### -1). Connectez-vous à l'interface Web Graylog.
-### -2). Allez dans System → Inputs.
-### -3). Dans Select input, choisissez GELF UDP.
-### -4). Cliquez sur Launch new input.
-### -5). Choisissez un nom (ex : Logs Windows) et définissez :
-### 	- Bind address : 0.0.0.0 (ou IP de votre serveur)
-### 	- Port : 12201
-### 	- Laissez les autres valeurs par défaut :
-### -6). Cliquez sur Launch.
+### 🛠️ Création d'une entrée GELF UDP sur Graylog
+
+1. **Connectez-vous** à l'interface Web de Graylog.
+2. Allez dans le menu **System → Inputs**.
+3. Dans **Select input**, choisissez **GELF UDP**.
+4. Cliquez sur **Launch new input**.
+5. Remplissez les champs suivants :
+   - **Nom** : par exemple `Logs Windows`
+   - **Bind address** : `0.0.0.0` *(ou l’adresse IP de votre serveur Debian)*
+   - **Port** : `12201`
+   - Laissez les autres paramètres par défaut.
+6. Cliquez sur **Launch** pour activer l’entrée.
 
 ---
 
