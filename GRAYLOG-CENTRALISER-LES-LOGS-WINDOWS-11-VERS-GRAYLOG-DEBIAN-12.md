@@ -125,14 +125,14 @@ net start nxlog
 ### -3). Dans Select input, choisissez GELF UDP.
 ### -4). Cliquez sur Launch new input.
 ### -5). Choisissez un nom (ex : Logs Windows) et définissez :
-	- Bind address : 0.0.0.0 (ou IP de votre serveur)
-	- Port : 12201
-	- Laissez les autres valeurs par défaut :
+### 	- Bind address : 0.0.0.0 (ou IP de votre serveur)
+### 	- Port : 12201
+### 	- Laissez les autres valeurs par défaut :
 ### -6). Cliquez sur Launch.
 
 ---
 
-✅ 5. Vérifier la réception des logs.
+## ✅ 5. Vérifier la réception des logs.
 
 ### -1). Allez dans Search (Recherche) dans Graylog.
 ### -2). Vous devriez voir apparaître des logs provenant de votre machine Windows.
