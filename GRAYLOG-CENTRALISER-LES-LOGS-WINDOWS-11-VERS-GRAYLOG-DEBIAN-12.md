@@ -48,9 +48,9 @@ Voici une procédure claire avec NXLog, car il est simple à configurer pour env
 
 ✅ Étapes pour envoyer les logs de Windows 11 vers Graylog avec NXLog
 
-## 🔧 1. Installer NXLog sur Windows 11
-
 ---
+
+## 🔧 1. Installer NXLog sur Windows 11
 
 Télécharger NXLog Community Edition depuis :
 
@@ -62,9 +62,9 @@ Par défaut, NXLog est installé dans :
 
 C:\Program Files\nxlog
 
-## ⚙️ 2. Configurer NXLog pour envoyer les logs à Graylog :
-
 ---
+
+## ⚙️ 2. Configurer NXLog pour envoyer les logs à Graylog :
 
 Éditez le fichier :
 
@@ -105,9 +105,9 @@ LogFile %ROOT%\data\nxlog.log
 
 🔁 Remplacez Host <IP_GRAYLOG_DEBIAN> par l’adresse IP de votre machine Debian (où Graylog est installé).
 
-## 🔁 3. Redémarrer le service NXLog.
-
 ---
+
+## 🔁 3. Redémarrer le service NXLog.
 
 Ouvrez une invite de commande en mode administrateur et tapez :
 
@@ -116,9 +116,9 @@ net stop nxlog
 net start nxlog
 ```
 
-## 🟢 4. Côté Graylog : configurer l’entrée GELF UDP.
-
 ---
+
+## 🟢 4. Côté Graylog : configurer l’entrée GELF UDP.
 
 ### -1). Connectez-vous à l'interface Web Graylog.
 ### -2). Allez dans System → Inputs.
@@ -130,9 +130,9 @@ net start nxlog
 	- Laissez les autres valeurs par défaut :
 ### -6). Cliquez sur Launch.
 
-✅ 5. Vérifier la réception des logs.
-
 ---
+
+✅ 5. Vérifier la réception des logs.
 
 ### -1). Allez dans Search (Recherche) dans Graylog.
 ### -2). Vous devriez voir apparaître des logs provenant de votre machine Windows.
