@@ -4,7 +4,7 @@
 </a>
 
 <p align="center">
-  <em>Tuto, Configuration rsyslog + Graylog sur Debian 12 .</em><br>
+  <em>Tuto, Configuration rsyslog + Graylog sur Debian 12 (même serveur).</em><br>
   <b>📊 Monitoring – 📈 Performance – ⚙️ Fiabilité</b>
 </p>
 
