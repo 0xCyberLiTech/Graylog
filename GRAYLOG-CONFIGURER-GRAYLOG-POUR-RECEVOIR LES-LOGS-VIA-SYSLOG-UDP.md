@@ -4,7 +4,7 @@
 </a>
 
 <p align="center">
-  <em>Tuto, installation & configuration de NXLog sur Windows 11.</em><br>
+  <em>Tuto, Configuration rsyslog + Graylog sur Debian 12 .</em><br>
   <b>📊 Monitoring – 📈 Performance – ⚙️ Fiabilité</b>
 </p>
 
@@ -36,7 +36,70 @@
 
 ---
 
+# Configuration rsyslog + Graylog sur Debian 12 (même serveur)
 
+## Objectif
+
+Envoyer les logs système de Debian 12 vers Graylog installé localement, en utilisant rsyslog et une entrée Syslog UDP.
+
+---
+
+## 1. Créer une entrée Syslog UDP dans Graylog
+
+1. Connectez-vous à l'interface Web Graylog.  
+2. Allez dans **System → Inputs**.  
+3. Sélectionnez **Syslog UDP**.  
+4. Cliquez sur **Launch new input**.  
+5. Configurez :  
+   - **Bind address** : `127.0.0.1`  
+   - **Port** : `5140`  
+   - Laissez les autres paramètres par défaut.  
+6. Cliquez sur **Launch**.
+
+---
+
+## 2. Configurer rsyslog pour envoyer les logs à Graylog localement
+
+1. Créez ou éditez le fichier :  
+   `/etc/rsyslog.d/90-graylog.conf`
+
+2. Ajoutez la ligne suivante pour envoyer tous les logs vers Graylog via UDP :
+
+    ```
+    *.* @127.0.0.1:5140
+    ```
+
+> Le `@` indique que la transmission utilise UDP.
+
+3. Sauvegardez et fermez le fichier.
+
+---
+
+## 3. Redémarrer rsyslog
+
+```bash
+sudo systemctl restart rsyslog
+```
+
+---
+
+## 4. Vérifier la réception des logs dans Graylog
+
+- Dans Graylog, allez dans **Search**.  
+- Vous devriez voir les logs système envoyés depuis Debian.  
+- Filtrez éventuellement par `source:127.0.0.1` ou hostname local.
+
+---
+
+## Remarques
+
+- Le port `5140` est utilisé car le port `514` nécessite des droits root.  
+- Pour une transmission plus fiable, vous pouvez utiliser TCP (`@@127.0.0.1:5140`) à la place d’UDP.  
+- Cette configuration fonctionne uniquement sur le même serveur (localhost).
+
+---
+
+# Fin de la configuration
 
 ---
 
