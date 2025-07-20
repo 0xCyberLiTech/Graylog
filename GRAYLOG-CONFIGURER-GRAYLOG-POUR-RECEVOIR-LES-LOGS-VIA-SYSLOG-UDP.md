@@ -99,10 +99,6 @@ sudo systemctl restart rsyslog
 
 ---
 
-# Fin de la configuration
-
----
-
 **Mise à jour :** Juillet 2025
 
 ---
