@@ -36,6 +36,11 @@
 
 ---
 
+<h1 align="center"> 🚧 **Page en cours de développement non finalisée** 🚧</h1>
+<h3 align="center"> 🔧 Travail en cours... Merci de revenir plus tard !</h3>
+
+---
+
 # Centraliser les logs de Windows 11 sur Graylog Debian 12.
 
 ---
