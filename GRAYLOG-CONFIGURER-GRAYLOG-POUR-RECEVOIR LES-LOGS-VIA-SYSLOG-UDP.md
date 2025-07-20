@@ -36,9 +36,9 @@
 
 ---
 
-# Configuration rsyslog + Graylog sur Debian 12 (même serveur)
+# Configuration rsyslog + Graylog sur Debian 12 (même serveur).
 
-## Objectif
+## Objectif :
 
 Envoyer les logs système de Debian 12 vers Graylog installé localement, en utilisant rsyslog et une entrée Syslog UDP.
 
