@@ -59,6 +59,7 @@ Légende des couleurs des boutons :
 | Catégorie | Sujet | Accès Rapide |
 |:---:|:---|:---:|
 | **Installation** | Installation & configuration de Graylog sur Debian 12.| [<img src="https://img.shields.io/badge/EXPLORER-orange?style=for-the-badge&logo=github&logoColor=white">](GRAYLOG-INSTALLATION-CONFIGURATION-DEBIAN-12.md) |
+| **Configuration** | Centraliser les logs de Windows 11 sur Graylog Debian 12.| [<img src="https://img.shields.io/badge/EXPLORER-orange?style=for-the-badge&logo=github&logoColor=white">](GRAYLOG-INSTALLATION-CONFIGURATION-DEBIAN-12.md) |
 
 </div>
 
