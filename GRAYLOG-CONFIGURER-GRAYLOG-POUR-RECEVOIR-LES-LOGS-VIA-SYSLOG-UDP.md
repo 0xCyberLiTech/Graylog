@@ -36,6 +36,11 @@
 
 ---
 
+<h1 align="center"> 🚧 **Page en cours de développement non finalisée** 🚧</h1>
+<h3 align="center"> 🔧 Travail en cours... Merci de revenir plus tard !</h3>
+
+---
+
 # Configuration rsyslog + Graylog sur Debian 12 (même serveur).
 
 ## Objectif :
