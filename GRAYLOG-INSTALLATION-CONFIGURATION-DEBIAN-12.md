@@ -540,6 +540,8 @@ sudo systemctl enable --now graylog-server
 
 Une fois cette étape terminée, ouvrez un navigateur et connectez-vous à Graylog en utilisant l’adresse IP (ou le nom) du serveur, suivi du port 9000.
 
+![Graylog-Login](./images/Graylog.png)
+
 À titre d’information :
 
 Un message apparait dans la console Web de Graylog
