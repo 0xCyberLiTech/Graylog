@@ -179,6 +179,48 @@ Pour activer la compression entre NXLog et Graylog :
 
 ---
 
+Fichier nxlog.conf en version prête à copier :
+
+```
+define ROOT C:\Program Files\nxlog
+Moduledir %ROOT%\modules
+CacheDir %ROOT%\data
+Pidfile %ROOT%\data\nxlog.pid
+SpoolDir %ROOT%\data
+LogFile %ROOT%\data\nxlog.log
+
+<Extension gelf>
+    Module xm_gelf
+</Extension>
+
+<Input in>
+    Module im_msvistalog
+    Query <QueryList>
+        <Query Id="0">
+            <!-- Journaux de sécurité : erreurs et critiques -->
+            <Select Path="Security">*[System[(Level=1 or Level=2)]]</Select>
+            <!-- Journaux système : erreurs et critiques -->
+            <Select Path="System">*[System[(Level=1 or Level=2)]]</Select>
+            <!-- Journaux applicatifs : uniquement les erreurs -->
+            <Select Path="Application">*[System[(Level=1 or Level=2)]]</Select>
+        </Query>
+    </Query>
+</Input>
+
+<Output out>
+    Module om_udp
+    Host <IP_DE_TON_GRAYLOG>
+    Port 12201
+    OutputType GELF
+</Output>
+
+<Route r>
+    Path in => out
+</Route>
+```
+
+---
+
 ## 🧩 Pour aller plus loin
 
 - Ajouter un **pipeline Graylog** pour enrichir/filtrer davantage les logs
@@ -188,7 +230,6 @@ Pour activer la compression entre NXLog et Graylog :
 ---
 
 🛠 Maintenu par [TonNom ou @GitHubID] — basé sur un déploiement Graylog 6.x sur Debian 12
-
 
 ---
 
