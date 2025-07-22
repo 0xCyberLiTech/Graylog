@@ -41,7 +41,7 @@
 
 ---
 
-# 🔬 Mise en place d'un dashboard personnalisé pour les logs Windows dans Graylog
+## 🔬 Mise en place d'un dashboard personnalisé pour les logs Windows dans Graylog
 
 ## 🔎 Objectif
 Créer un **dashboard personnalisé Graylog** permettant de visualiser les logs critiques, système, et sécurité des machines Windows, avec des widgets clairs et filtrables.
