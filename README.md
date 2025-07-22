@@ -65,6 +65,7 @@ Légende des couleurs des boutons :
 | **Configuration** | Filtrage et enrichissement des logs avec les Pipelines Graylog.| [<img src="https://img.shields.io/badge/EXPLORER-red?style=for-the-badge&logo=github&logoColor=white">]() |
 | **Configuration** | Configurer une alerte en cas d'événement critique de niveau 1.| [<img src="https://img.shields.io/badge/EXPLORER-red?style=for-the-badge&logo=github&logoColor=white">]() |
 | **Configuration** | Mettre en place un dashboard personnalisé pour Windows.| [<img src="https://img.shields.io/badge/EXPLORER-red?style=for-the-badge&logo=github&logoColor=white">]() |
+| **Configuration** | Visualiser les connexions entrantes/sortantes d’un pare-feu.| [<img src="https://img.shields.io/badge/EXPLORER-red?style=for-the-badge&logo=github&logoColor=white">]() |
 
 </div>
 
