@@ -4,7 +4,7 @@
 </a>
 
 <p align="center">
-  <em>Tuto, mettre en place un dashboard personnalisé pour Windows.</em><br>
+  <em>Tuto, filtrage et enrichissement des logs avec les Pipelines Graylog.</em><br>
   <b>📊 Monitoring – 📈 Performance – ⚙️ Fiabilité</b>
 </p>
 
