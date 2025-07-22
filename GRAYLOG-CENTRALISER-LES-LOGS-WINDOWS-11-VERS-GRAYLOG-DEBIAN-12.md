@@ -38,8 +38,6 @@
 
 # Centraliser les logs de Windows 11 sur Graylog Debian 12.
 
----
-
 Pour récupérer les logs de votre PC Windows 11 sur votre instance Graylog installée sur Debian 12, vous devez configurer un agent sur Windows qui envoie les logs à Graylog. 
 
 Le plus utilisé est NXLog. 
