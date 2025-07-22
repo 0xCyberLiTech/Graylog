@@ -40,6 +40,133 @@
 <h3 align="center"> 🔧 Travail en cours... Merci de revenir plus tard !</h3>
 
 ---
+# Filtrage et enrichissement des logs avec les Pipelines Graylog
+
+## ✨ Objectif
+Configurer des pipelines dans Graylog pour :
+- Filtrer les logs entrants (par contenu, source, type, etc.)
+- Enrichir les messages avec des champs personnalisés
+- Rediriger ou supprimer des messages inutiles
+
+---
+
+## 📆 1. Concepts de base
+
+### ✅ Pipeline
+Un ensemble de règles (stages) qui sont appliquées dans l’ordre pour modifier ou filtrer des messages.
+
+### ✅ Rule
+Une règle écrite en langage de pipeline Graylog, contenant :
+- une **condition** (`when`)
+- une ou plusieurs **actions** (`then`)
+
+### ✅ Stage
+Une étape dans un pipeline contenant une ou plusieurs règles.
+
+---
+
+## 🛠️ 2. Activer les Pipelines
+
+1. Aller dans **System > Pipelines**
+2. Créer un **nouveau pipeline** (`Create pipeline`)
+3. Créer les **règles** associées (`Manage rules`)
+4. Connecter le pipeline à un ou plusieurs **streams** (`Connect pipeline to stream`)
+
+---
+
+## 🥪 3. Exemple 1 – Supprimer les logs inutiles
+
+### 🎯 Objectif
+Supprimer les messages contenant `WindowsUpdateClient`
+
+### 📂 Rule
+```ruby
+rule "drop_windows_update"
+when
+  contains(to_string($message.message), "WindowsUpdateClient")
+then
+  drop_message();
+end
+```
+
+---
+
+## 🥪 4. Exemple 2 – Ajouter un champ personnalisé selon l’IP source
+
+### 🎯 Objectif
+Si l’adresse IP source est dans le réseau interne, ajouter `source_zone: internal`
+
+### 📂 Rule
+```ruby
+rule "tag_internal_source"
+when
+  cidr_match("192.168.0.0/16", to_string($message.source))
+then
+  set_field("source_zone", "internal");
+end
+```
+
+---
+
+## 🥪 5. Exemple 3 – Extraire un nom d’utilisateur
+
+### 🎯 Objectif
+Extraire le nom d'utilisateur d'un message de type :
+> "Login attempt failed for user 'admin' from 10.0.0.5"
+
+### 📂 Rule
+```ruby
+rule "extract_username"
+when
+  contains(to_string($message.message), "Login attempt")
+then
+  let username = regex(".+user '([^']+)'", to_string($message.message));
+  set_field("username", username["0"]);
+end
+```
+
+---
+
+## 🥪 6. Exemple 4 – Réécrire ou enrichir un champ
+
+### 🎯 Objectif
+Changer `level` de "WARN" en "WARNING"
+
+### 📂 Rule
+```ruby
+rule "standardize_warn_level"
+when
+  to_string($message.level) == "WARN"
+then
+  set_field("level", "WARNING");
+end
+```
+
+---
+
+## 🔄 7. Connexion à un Stream
+
+Pour appliquer tes règles :
+
+1. Créer un **Stream** (ex: "Logs Applicatifs Windows")
+2. Ajouter une **règle de stream** pour filtrer (ex: `source` contient `windows`)
+3. Connecter le **pipeline** à ce stream via `Manage Connections`
+
+---
+
+## 🧰 8. Astuces utiles
+
+- Utilise `debug()` pour tester une valeur dans les logs Graylog.
+- `drop_message()` supprime le message.
+- `remove_field()` supprime un champ inutile.
+- Les **pipelines sont chaînables** en plusieurs stages avec priorités.
+
+---
+
+## 📁 9. Références utiles
+
+- [Documentation officielle Graylog - Pipelines](https://docs.graylog.org/docs/pipelines/pipelines)
+- [Fonctions de pipeline disponibles](https://docs.graylog.org/docs/pipelines/functions)
 
 ---
 
