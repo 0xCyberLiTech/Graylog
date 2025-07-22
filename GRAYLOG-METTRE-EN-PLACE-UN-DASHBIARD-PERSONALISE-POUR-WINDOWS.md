@@ -4,7 +4,7 @@
 </a>
 
 <p align="center">
-  <em>Tuto, optimisation des logs Windows vers Graylog.</em><br>
+  <em>Tuto, mettre en place un dashboard personnalisé pour Windows.</em><br>
   <b>📊 Monitoring – 📈 Performance – ⚙️ Fiabilité</b>
 </p>
 
