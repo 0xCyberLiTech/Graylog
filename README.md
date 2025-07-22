@@ -62,10 +62,7 @@ Légende des couleurs des boutons :
 | **Configuration** | Centraliser les logs de Windows 11 sur Graylog Debian 12.| [<img src="https://img.shields.io/badge/EXPLORER-brightgreen?style=for-the-badge&logo=github&logoColor=white">](GRAYLOG-CENTRALISER-LES-LOGS-WINDOWS-11-VERS-GRAYLOG-DEBIAN-12.md) |
 | **Configuration** | Configuration rsyslog + Graylog sur Debian 12 (même serveur).| [<img src="https://img.shields.io/badge/EXPLORER-orange?style=for-the-badge&logo=github&logoColor=white">](GRAYLOG-CONFIGURER-GRAYLOG-POUR-RECEVOIR-LES-LOGS-VIA-SYSLOG-UDP.md) |
 | **Configuration** | Optimisation des logs Windows vers Graylog.| [<img src="https://img.shields.io/badge/EXPLORER-orange?style=for-the-badge&logo=github&logoColor=white">](GRAYLOG-OPTIMISATION-ENVOI-DE-LOGS-WINDOWS-VERS-GRAYLOG.md) |
-| **Configuration** | Optimisation des logs Windows vers Graylog.| [<img src="https://img.shields.io/badge/EXPLORER-orange?style=for-the-badge&logo=github&logoColor=white">](GRAYLOG-PIPELINE-GRAYLOG-FILTRAGE.md) |
-
-
-
+| **Configuration** | Filtrage et enrichissement des logs avec les Pipelines Graylog.| [<img src="https://img.shields.io/badge/EXPLORER-orange?style=for-the-badge&logo=github&logoColor=white">](GRAYLOG-PIPELINE-GRAYLOG-FILTRAGE.md) |
 
 </div>
 
