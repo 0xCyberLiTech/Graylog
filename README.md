@@ -68,6 +68,8 @@ Légende des couleurs des boutons :
 | **Configuration** | Visualiser les connexions entrantes/sortantes d’un pare-feu.| [<img src="https://img.shields.io/badge/EXPLORER-red?style=for-the-badge&logo=github&logoColor=white">]() |
 | **Configuration** | Superviser les connexions SSH ou les tentatives de brute force.| [<img src="https://img.shields.io/badge/EXPLORER-red?style=for-the-badge&logo=github&logoColor=white">]() |
 | **Configuration** | Collecter les logs de tous les serveurs d’une infrastructure Linux.| [<img src="https://img.shields.io/badge/EXPLORER-red?style=for-the-badge&logo=github&logoColor=white">]() |
+| **Configuration** | Auditer les accès aux services critiques (ex : bases de données).| [<img src="https://img.shields.io/badge/EXPLORER-red?style=for-the-badge&logo=github&logoColor=white">]() |
+
 
 </div>
 
