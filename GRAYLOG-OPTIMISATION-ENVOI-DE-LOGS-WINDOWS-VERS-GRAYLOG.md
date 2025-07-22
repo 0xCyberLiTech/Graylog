@@ -41,6 +41,154 @@
 
 ---
 
+# 🎯 Optimisation de l’envoi de logs Windows vers Graylog
+
+## 📝 Objectif
+
+Limiter les logs envoyés par NXLog au strict nécessaire afin de :
+
+- Réduire la consommation de bande passante
+- Éviter la saturation du disque sur le serveur Graylog
+- Conserver uniquement les événements critiques ou utiles
+
+---
+
+## 🖥️ 1. Côté Windows – Configuration de NXLog
+
+### ✅ Étapes
+
+1. Installer [NXLog Community Edition](https://nxlog.co/products/nxlog-community-edition/download)
+2. Remplacer le fichier `nxlog.conf` par la configuration ci-dessous
+3. Redémarrer le service `nxlog` (`services.msc` ou PowerShell)
+
+### ⚙️ Fichier `nxlog.conf` optimisé
+
+```ini
+define ROOT C:\Program Files\nxlog
+Moduledir %ROOT%\modules
+CacheDir %ROOT%\data
+Pidfile %ROOT%\data\nxlog.pid
+SpoolDir %ROOT%\data
+LogFile %ROOT%\data\nxlog.log
+
+<Extension gelf>
+    Module xm_gelf
+</Extension>
+
+<Input in>
+    Module im_msvistalog
+    Query <QueryList>
+        <Query Id="0">
+            <!-- Journaux de sécurité : erreurs et critiques -->
+            <Select Path="Security">*[System[(Level=1 or Level=2)]]</Select>
+            <!-- Journaux système : erreurs et critiques -->
+            <Select Path="System">*[System[(Level=1 or Level=2)]]</Select>
+            <!-- Journaux applicatifs : uniquement les erreurs -->
+            <Select Path="Application">*[System[(Level=1 or Level=2)]]</Select>
+        </Query>
+    </Query>
+</Input>
+
+<Output out>
+    Module om_udp
+    Host <IP_DE_TON_GRAYLOG>
+    Port 12201
+    OutputType GELF
+</Output>
+
+<Route r>
+    Path in => out
+</Route>
+```
+
+> 💡 N'oublie pas de remplacer `<IP_DE_TON_GRAYLOG>` par l'adresse IP de ton serveur Graylog.
+
+### 📌 Niveaux d’événements Windows
+
+| Niveau | Signification     |
+|--------|-------------------|
+| 1      | Critical          |
+| 2      | Error             |
+| 3      | Warning           |
+| 4      | Information (ignoré ici) |
+| 5      | Verbose (ignoré ici)     |
+
+---
+
+## 🧱 2. Côté serveur – Configuration de Graylog
+
+### 📦 A. Créer une entrée GELF UDP (si non déjà existante)
+
+1. Accéder à l’interface Graylog
+2. Aller dans **System > Inputs**
+3. Sélectionner `GELF UDP` → Lancer une nouvelle entrée
+4. Port par défaut : `12201`
+5. Lier à l’adresse `0.0.0.0` ou à une IP spécifique
+
+---
+
+### 🔁 B. Configurer la rotation des index
+
+1. Menu : **System > Indices**
+2. Sélectionner `Default index set` ou ton index personnalisé
+3. **Index rotation strategy** :
+   - Type : `Index Size` ou `Message Count`
+   - Exemple : 2 GB maximum par index
+4. **Max number of indices** : par exemple `5` ou `10`
+5. **Index retention strategy** : `Delete` (supprime les anciens automatiquement)
+
+| Option                        | Recommandation               |
+|------------------------------|------------------------------|
+| Rotation par taille          | 2 Go                         |
+| Nombre d’index conservés     | 5 (donc max 10 Go)           |
+| Stratégie de rétention       | Supprimer les anciens index |
+
+---
+
+## 🔄 Optionnel : Passer en TCP + compression
+
+Pour activer la compression entre NXLog et Graylog :
+
+1. Côté NXLog :
+
+```ini
+<Output out>
+    Module om_tcp
+    Host <IP_DE_TON_GRAYLOG>
+    Port 12201
+    OutputType GELF
+</Output>
+```
+
+2. Côté Graylog :
+   - Créer une **entrée GELF TCP** dans `System > Inputs`
+   - Port : `12201` (ou un autre dédié)
+
+> 🔐 Avantage : fiabilité + possibilité de compression
+>  
+> 📉 Inconvénient : plus de configuration + besoin de sécuriser le canal (SSL/TLS recommandé)
+
+---
+
+## ✅ Résultat attendu
+
+- Seuls les logs **critiques et erreurs** sont envoyés
+- Réduction de la **bande passante**
+- Moindre **consommation d’espace disque**
+- Journaux utiles pour la sécurité ou le diagnostic uniquement
+
+---
+
+## 🧩 Pour aller plus loin
+
+- Ajouter un **pipeline Graylog** pour enrichir/filtrer davantage les logs
+- Configurer une **alerte** en cas d’événement critique (niveau 1)
+- Mettre en place un **dashboard** personnalisé pour Windows
+
+---
+
+🛠 Maintenu par [TonNom ou @GitHubID] — basé sur un déploiement Graylog 6.x sur Debian 12
+
 
 ---
 
