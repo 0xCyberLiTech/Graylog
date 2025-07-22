@@ -41,7 +41,7 @@
 
 ---
 
-# 🚨 Configuration d'une alerte Graylog pour événement critique (niveau 1)
+## 🚨 Configuration d'une alerte Graylog pour événement critique (niveau 1)
 
 ## 🔎 Objectif
 Configurer une alerte dans Graylog dès qu'un **message critique de niveau 1** est reçu, avec une notification par e-mail ou webhook.
