@@ -37,15 +37,17 @@
 
 ---
 
-### 🧭 Sommaire
+### 🧭 **Sommaire**
 
-<div align="center">
+<div align="center" style="margin-bottom: 10px;">
 
-🟢 **Actif** — Accessible  
-🟠 **Partiel** — Partiellement disponible  
-🔴 **Inactif** — À venir
+🟢 **Actif** – Dépôt totalement accessible  
+🟠 **Partiel** – Dépôt partiellement accessible  
+🔴 **Inactif** – Dépôt inaccessible ou indisponible
 
 </div>
+
+---
 
 <br/>
 
