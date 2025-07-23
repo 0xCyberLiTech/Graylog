@@ -1,4 +1,5 @@
 <div align="center">
+
 <a href="https://github.com/0xCyberLiTech">
   <img src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&size=32&pause=1000&color=D14A4A&center=true&vCenter=true&width=1000&lines=SUPERVISION+CENTRALISÉE+AVEC+GRAYLOG;Détection+des+menaces+•+Logs+structurés+•+Alertes;Tutoriel+pédagogique+100%+Debian+12" alt="Typing SVG" />
 </a>
@@ -11,18 +12,15 @@
 ![GitHub release (latest by date)](https://img.shields.io/github/v/release/0xCyberLiTech/Graylog?label=version&logo=github)
 [![Changelog](https://img.shields.io/badge/📄%20CHANGELOG-Graylog-blue)](./CHANGELOG.md)
 
-
 </div>
 
 ---
 
-### 👨‍💻 **À propos de moi.**
+### 👨‍💻 À propos de moi
 
 > Ce dépôt constitue mon laboratoire numérique où je consigne rigoureusement mes apprentissages et expérimentations.
 > Passionné par l'écosystème Linux et la cybersécurité, je documente mon parcours et mes projets sur mon GitHub.
 > Vous y trouverez des guides pratiques sur la supervision (Zabbix, Nagios), la conteneurisation (Docker) et la sécurisation de serveurs Debian.
-> Mon objectif : partager mes connaissances de manière claire et pédagogique.
-> N'hésitez pas à y jeter un œil : https://github.com/0xcyberlitech
 
 <p align="center">
   <a href="https://skillicons.dev">
@@ -32,117 +30,162 @@
 
 ---
 
-### 🎯 **Objectif de ce dépôt.**
+### 🎯 Objectif de ce dépôt
 
-> Ce dépôt a pour vocation de centraliser un ensemble de notions clés concernant la journalisation des logs avec Graylog. Il s'adresse aux passionnés, étudiants et professionnels souhaitant mieux comprendre les enjeux de cet équipement de
-> sécurité fondamental, apprendre à mettre en place ses configurations efficaces, et se familiariser avec les concepts et bonnes pratiques pour maintenir la performance et la stabilité de leurs systèmes
-> d'information face aux menaces externes.
-
-### 🧭 **Sommaire :**
+> Ce dépôt centralise les notions clés liées à la supervision centralisée avec Graylog.  
+> Il s'adresse aux passionnés, étudiants et professionnels souhaitant comprendre les enjeux, mettre en place une solution robuste et adopter les bonnes pratiques de supervision et journalisation des événements.
 
 ---
 
-<div align="center" style="margin-bottom: 10px;">
-
-Légende des couleurs des boutons :
-
-🟢 **Actif** – Dépôt totalement accessible  
-🟠 **Partiel** – Dépôt partiellement accessible  
-🔴 **Inactif** – Dépôt inaccessible ou indisponible
-
-</div>
-
----
+### 🧭 Sommaire
 
 <div align="center">
 
-| Catégorie | Sujet | Accès Rapide |
-|:---:|:---|:---:|
-| **Installation** | Installation & configuration de Graylog sur Debian 12.| [<img src="https://img.shields.io/badge/EXPLORER-brightgreen?style=for-the-badge&logo=github&logoColor=white">](GRAYLOG-INSTALLATION-CONFIGURATION-DEBIAN-12.md) |
-| **Configuration** | Centraliser les logs de Windows 11 sur Graylog Debian 12.| [<img src="https://img.shields.io/badge/EXPLORER-brightgreen?style=for-the-badge&logo=github&logoColor=white">](GRAYLOG-CENTRALISER-LES-LOGS-WINDOWS-11-VERS-GRAYLOG-DEBIAN-12.md) |
-| **Configuration** | Configuration rsyslog + Graylog sur Debian 12 (même serveur).| [<img src="https://img.shields.io/badge/EXPLORER-orange?style=for-the-badge&logo=github&logoColor=white">](GRAYLOG-CONFIGURER-GRAYLOG-POUR-RECEVOIR-LES-LOGS-VIA-SYSLOG-UDP.md) |
-| **Configuration** | Optimisation des logs Windows vers Graylog.| [<img src="https://img.shields.io/badge/EXPLORER-orange?style=for-the-badge&logo=github&logoColor=white">](GRAYLOG-OPTIMISATION-ENVOI-DE-LOGS-WINDOWS-VERS-GRAYLOG.md) |
-| **Configuration** | Filtrage et enrichissement des logs avec les Pipelines Graylog.| [<img src="https://img.shields.io/badge/EXPLORER-orange?style=for-the-badge&logo=github&logoColor=white">](GRAYLOG-FILTRAGE-ET-ENRICHISSEMENT-DES-LOGS-AVEC-LES-PIPELINES-GRAYLOG.md) |
-| **Configuration** | Configurer une alerte en cas d'événement critique de niveau 1.| [<img src="https://img.shields.io/badge/EXPLORER-orange?style=for-the-badge&logo=github&logoColor=white">](GRAYLOG-CONFIGURER-UNE-ALERTE-EN-CAS-D-EVENEMENT-CRITIQUE-DE-NIVEAU-1.md) |
-| **Configuration** | Mettre en place un dashboard personnalisé pour Windows.| [<img src="https://img.shields.io/badge/EXPLORER-orange?style=for-the-badge&logo=github&logoColor=white">](GRAYLOG-METTRE-EN-PLACE-UN-DASHBIOARD-PERSONALISE-POUR-WINDOWS.md) |
-| **Configuration** | Visualiser les connexions entrantes/sortantes d’un pare-feu.| [<img src="https://img.shields.io/badge/EXPLORER-red?style=for-the-badge&logo=github&logoColor=white">]() |
-| **Configuration** | Superviser les connexions SSH ou les tentatives de brute force.| [<img src="https://img.shields.io/badge/EXPLORER-red?style=for-the-badge&logo=github&logoColor=white">]() |
-| **Configuration** | Collecter les logs de tous les serveurs d’une infrastructure Linux.| [<img src="https://img.shields.io/badge/EXPLORER-red?style=for-the-badge&logo=github&logoColor=white">]() |
-| **Configuration** | Auditer les accès aux services critiques (ex : bases de données).| [<img src="https://img.shields.io/badge/EXPLORER-red?style=for-the-badge&logo=github&logoColor=white">]() |
+🟢 **Actif** — Accessible  
+🟠 **Partiel** — Partiellement disponible  
+🔴 **Inactif** — À venir
 
 </div>
+
+<br/>
+
+<table align="center">
+<thead>
+<tr>
+<th>Catégorie</th>
+<th>Sujet</th>
+<th>Accès</th>
+</tr>
+</thead>
+<tbody>
+
+<tr>
+<td><b>Installation</b></td>
+<td>Installation & configuration de Graylog sur Debian 12</td>
+<td><a href="GRAYLOG-INSTALLATION-CONFIGURATION-DEBIAN-12.md"><img src="https://img.shields.io/badge/EXPLORER-brightgreen?style=for-the-badge&logo=github&logoColor=white" /></a></td>
+</tr>
+
+<tr>
+<td><b>Configuration</b></td>
+<td>Centraliser les logs de Windows 11 sur Graylog</td>
+<td><a href="GRAYLOG-CENTRALISER-LES-LOGS-WINDOWS-11-VERS-GRAYLOG-DEBIAN-12.md"><img src="https://img.shields.io/badge/EXPLORER-brightgreen?style=for-the-badge&logo=github&logoColor=white" /></a></td>
+</tr>
+
+<tr>
+<td><b>Configuration</b></td>
+<td>rsyslog + Graylog (même serveur)</td>
+<td><a href="GRAYLOG-CONFIGURER-GRAYLOG-POUR-RECEVOIR-LES-LOGS-VIA-SYSLOG-UDP.md"><img src="https://img.shields.io/badge/EXPLORER-orange?style=for-the-badge&logo=github&logoColor=white" /></a></td>
+</tr>
+
+<tr>
+<td><b>Configuration</b></td>
+<td>Optimisation des logs Windows vers Graylog</td>
+<td><a href="GRAYLOG-OPTIMISATION-ENVOI-DE-LOGS-WINDOWS-VERS-GRAYLOG.md"><img src="https://img.shields.io/badge/EXPLORER-orange?style=for-the-badge&logo=github&logoColor=white" /></a></td>
+</tr>
+
+<tr>
+<td><b>Configuration</b></td>
+<td>Filtrage & enrichissement avec Pipelines</td>
+<td><a href="GRAYLOG-FILTRAGE-ET-ENRICHISSEMENT-DES-LOGS-AVEC-LES-PIPELINES-GRAYLOG.md"><img src="https://img.shields.io/badge/EXPLORER-orange?style=for-the-badge&logo=github&logoColor=white" /></a></td>
+</tr>
+
+<tr>
+<td><b>Configuration</b></td>
+<td>Créer une alerte critique (niveau 1)</td>
+<td><a href="GRAYLOG-CONFIGURER-UNE-ALERTE-EN-CAS-D-EVENEMENT-CRITIQUE-DE-NIVEAU-1.md"><img src="https://img.shields.io/badge/EXPLORER-orange?style=for-the-badge&logo=github&logoColor=white" /></a></td>
+</tr>
+
+<tr>
+<td><b>Configuration</b></td>
+<td>Dashboard personnalisé pour Windows</td>
+<td><a href="GRAYLOG-METTRE-EN-PLACE-UN-DASHBIOARD-PERSONALISE-POUR-WINDOWS.md"><img src="https://img.shields.io/badge/EXPLORER-orange?style=for-the-badge&logo=github&logoColor=white" /></a></td>
+</tr>
+
+<tr>
+<td><b>Configuration</b></td>
+<td>Connexions pare-feu entrantes/sortantes</td>
+<td><img src="https://img.shields.io/badge/EXPLORER-red?style=for-the-badge&logo=github&logoColor=white" /></td>
+</tr>
+
+<tr>
+<td><b>Configuration</b></td>
+<td>Supervision brute force / SSH</td>
+<td><img src="https://img.shields.io/badge/EXPLORER-red?style=for-the-badge&logo=github&logoColor=white" /></td>
+</tr>
+
+<tr>
+<td><b>Configuration</b></td>
+<td>Collecte des logs d’infra Linux complète</td>
+<td><img src="https://img.shields.io/badge/EXPLORER-red?style=for-the-badge&logo=github&logoColor=white" /></td>
+</tr>
+
+<tr>
+<td><b>Configuration</b></td>
+<td>Audit des accès aux services critiques</td>
+<td><img src="https://img.shields.io/badge/EXPLORER-red?style=for-the-badge&logo=github&logoColor=white" /></td>
+</tr>
+
+</tbody>
+</table>
 
 ---
 
 ## 🧠 Introduction à Graylog
 
-### Qu'est-ce que Graylog ?
+### 🔍 Qu'est-ce que Graylog ?
 
-**Graylog** est une solution de gestion centralisée des journaux (*logs*) conçue pour collecter, stocker, analyser et visualiser des données de log provenant de différentes sources du système informatique.
+Graylog est une solution centralisée de gestion des logs, utilisée pour :
 
-Il est particulièrement utilisé dans les domaines suivants :
-- 🔒 **Cybersécurité** : détection d’activités suspectes et d’intrusions.
-- 🛠️ **Supervision système** : surveillance de l’état des serveurs, applications et réseaux.
-- 📊 **Audit et conformité** : conservation des traces pour répondre à des obligations légales (RGPD, PCI-DSS, etc.).
-
----
-
-### À quoi sert Graylog concrètement ?
-
-Graylog agit comme un **centre de pilotage des événements** :
-
-- 📥 **Collecte** des logs provenant de : serveurs Linux/Windows, routeurs, pare-feu, applications, etc.
-- 🧹 **Normalisation** des données pour les rendre lisibles et exploitables.
-- 🔎 **Recherche** rapide grâce à Elasticsearch.
-- 📈 **Visualisation** à travers des tableaux de bord personnalisables.
-- ⚠️ **Alertes** automatiques en cas d'événements critiques.
-- 🗄️ **Archivage** sécurisé des données de log.
+- 🔒 **Détection d’anomalies** (intrusions, erreurs, comportements suspects)
+- 📈 **Surveillance** des services, applications, systèmes
+- 📚 **Conformité** réglementaire (RGPD, ISO 27001, PCI-DSS)
 
 ---
 
-### Comment ça fonctionne ?
+### 🛠️ Fonctionnalités clés
 
-Graylog repose sur plusieurs composants clés :
-| Composant       | Rôle                                                                 |
-|----------------|----------------------------------------------------------------------|
-| **MongoDB**     | Stocke les métadonnées et les configurations de Graylog             |
-| **Elasticsearch** | Sert de moteur de recherche pour interroger les logs               |
-| **Graylog Server** | Composant principal qui reçoit, traite et affiche les logs        |
-| **Interface Web** | Permet à l'utilisateur d'interagir avec les données via un navigateur |
+- **Collecte multi-sources** : Linux, Windows, équipements réseau…
+- **Analyse avancée** via Elasticsearch
+- **Tableaux de bord** dynamiques et personnalisables
+- **Alertes automatiques** et filtrage via pipelines
+- **Archivage** longue durée
 
 ---
 
-### Pourquoi utiliser Graylog ?
+### ⚙️ Architecture technique
 
-- ✅ Interface web moderne, ergonomique et accessible
-- 🚀 Capacité à gérer un grand volume de logs
-- 🧩 Architecture modulaire et évolutive
-- 🔐 Idéal pour la détection d’anomalies, de fuites ou d’attaques
-- 💡 Parfait pour les analystes SOC, admins systèmes, DevOps et responsables conformité
-
----
-
-### Cas d’usage typiques
-
-- Collecter les logs de tous les serveurs d’une infrastructure Linux.
-- Superviser les connexions SSH ou les tentatives de brute force.
-- Être alerté en cas de crash applicatif ou de saturation CPU/RAM.
-- Visualiser les connexions entrantes/sortantes d’un pare-feu.
-- Auditer les accès aux services critiques (ex : bases de données).
+| Composant         | Fonction                                            |
+|-------------------|-----------------------------------------------------|
+| `MongoDB`         | Stocke les métadonnées et configurations            |
+| `Elasticsearch`   | Indexe et interroge les données                     |
+| `Graylog Server`  | Collecte, traite et route les messages              |
+| `Interface Web`   | Console d’administration intuitive et visuelle     |
 
 ---
 
-### Conclusion
+### ✅ Pourquoi adopter Graylog ?
 
-Graylog est un outil puissant de centralisation et d’analyse des logs, **indispensable dans un contexte de supervision et de cybersécurité**. Il permet de garder le contrôle, d’agir rapidement en cas de problème, et d’assurer la traçabilité de toutes les activités système.
+- Interface ergonomique & responsive
+- Déploiement modulaire (test → production)
+- Prise en main rapide pour les débutants
+- Idéal pour les **analystes SOC**, **admins sys**, **DevOps** & **formateurs**
 
 ---
 
-**Mise à jour :** Juillet 2025
+### 📚 Cas d’usage
+
+- Visualisation des journaux système
+- Alertes en cas de crash, pic CPU/RAM
+- Suivi des connexions SSH & brute force
+- Analyse des flux réseau sortants/entrants
+- Traçabilité des actions sur bases de données
+
+---
+
+**🗓️ Mise à jour :** Juillet 2025
 
 ---
 
 <p align="center">
   <b>🔒 Un guide proposé par <a href="https://github.com/0xCyberLiTech">0xCyberLiTech</a> • Pour des tutoriels accessibles à tous. 🔒</b>
 </p>
-
