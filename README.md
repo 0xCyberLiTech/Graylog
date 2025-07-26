@@ -111,25 +111,28 @@
 <tr>
 <td><b>Configuration</b></td>
 <td>Connexions pare-feu entrantes/sortantes</td>
-<td><img src="https://img.shields.io/badge/EXPLORER-red?style=for-the-badge&logo=github&logoColor=white" /></td>
+<td><a href="https://github.com/0xCyberLiTech/Graylog"><img src="https://img.shields.io/badge/EXPLORER-red?style=for-the-badge&logo=github&logoColor=white" /></a></td>
 </tr>
 
 <tr>
 <td><b>Configuration</b></td>
 <td>Supervision brute force / SSH</td>
-<td><img src="https://img.shields.io/badge/EXPLORER-red?style=for-the-badge&logo=github&logoColor=white" /></td>
+<td><a href="https://github.com/0xCyberLiTech/Graylog"><img src="https://img.shields.io/badge/EXPLORER-red?style=for-the-badge&logo=github&logoColor=white" /></a></td>
+</tr>
 </tr>
 
 <tr>
 <td><b>Configuration</b></td>
 <td>Collecte des logs d’infra Linux complète</td>
-<td><img src="https://img.shields.io/badge/EXPLORER-red?style=for-the-badge&logo=github&logoColor=white" /></td>
+<td><a href="https://github.com/0xCyberLiTech/Graylog"><img src="https://img.shields.io/badge/EXPLORER-red?style=for-the-badge&logo=github&logoColor=white" /></a></td>
+</tr>
 </tr>
 
 <tr>
 <td><b>Configuration</b></td>
 <td>Audit des accès aux services critiques</td>
-<td><img src="https://img.shields.io/badge/EXPLORER-red?style=for-the-badge&logo=github&logoColor=white" /></td>
+<td><a href="https://github.com/0xCyberLiTech/Graylog"><img src="https://img.shields.io/badge/EXPLORER-red?style=for-the-badge&logo=github&logoColor=white" /></a></td>
+</tr>
 </tr>
 
 </tbody>
