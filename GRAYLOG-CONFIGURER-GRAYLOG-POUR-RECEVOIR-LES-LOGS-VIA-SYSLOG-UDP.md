@@ -1,18 +1,19 @@
 <div align="center">
-<a href="https://github.com/0xCyberLiTech">
-  <img src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&size=32&pause=1000&color=D14A4A&center=true&vCenter=true&width=1000&lines=SUPERVISION+CENTRALISÉE+AVEC+GRAYLOG;Détection+des+menaces+•+Logs+structurés+•+Alertes;Tutoriel+pédagogique+100%+Debian+12" alt="Typing SVG" />
-</a>
-
-<p align="center">
-  <em>Tuto, Configuration rsyslog + Graylog sur Debian 12 (même serveur).</em><br>
-  <b>📊 Monitoring – 📈 Performance – ⚙️ Fiabilité</b>
-</p>
-
-[![🔗 Profil GitHub](https://img.shields.io/badge/Profil-GitHub-181717?logo=github&style=flat-square)](https://github.com/0xCyberLiTech)
-[![📦 Dernière version](https://img.shields.io/github/v/release/0xCyberLiTech/Graylog?label=version&style=flat-square&color=blue)](https://github.com/0xCyberLiTech/Graylog/releases/latest)
-[![📄 CHANGELOG](https://img.shields.io/badge/📄%20Changelog-Graylog-blue?style=flat-square)](https://github.com/0xCyberLiTech/Graylog/blob/main/CHANGELOG.md)
-[![📂 Dépôts publics](https://img.shields.io/badge/Dépôts-publics-blue?style=flat-square)](https://github.com/0xCyberLiTech?tab=repositories)
-[![👥 Contributeurs](https://img.shields.io/badge/👥%20Contributeurs-cliquez%20ici-007ec6?style=flat-square)](https://github.com/0xCyberLiTech/Graylog/graphs/contributors)
+  
+  <a href="https://github.com/0xCyberLiTech">
+    <img src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&size=32&pause=1000&color=D14A4A&center=true&vCenter=true&width=1000&lines=SUPERVISION+CENTRALISÉE+AVEC+GRAYLOG;Détection+des+menaces+•+Logs+structurés+•+Alertes;Tutoriel+pédagogique+100%+Debian+12" alt="Typing SVG" />
+  </a>
+  
+  <p align="center">
+    <em>Tuto, Configuration rsyslog + Graylog sur Debian 12 (même serveur).</em><br>
+    <b>📊 Monitoring – 📈 Performance – ⚙️ Fiabilité</b>
+  </p>
+  
+  [![🔗 Profil GitHub](https://img.shields.io/badge/Profil-GitHub-181717?logo=github&style=flat-square)](https://github.com/0xCyberLiTech)
+  [![📦 Dernière version](https://img.shields.io/github/v/release/0xCyberLiTech/Graylog?label=version&style=flat-square&color=blue)](https://github.com/0xCyberLiTech/Graylog/releases/latest)
+  [![📄 CHANGELOG](https://img.shields.io/badge/📄%20Changelog-Graylog-blue?style=flat-square)](https://github.com/0xCyberLiTech/Graylog/blob/main/CHANGELOG.md)
+  [![📂 Dépôts publics](https://img.shields.io/badge/Dépôts-publics-blue?style=flat-square)](https://github.com/0xCyberLiTech?tab=repositories)
+  [![👥 Contributeurs](https://img.shields.io/badge/👥%20Contributeurs-cliquez%20ici-007ec6?style=flat-square)](https://github.com/0xCyberLiTech/Graylog/graphs/contributors)
 
 </div>
 
@@ -107,10 +108,6 @@ sudo systemctl restart rsyslog
 - Le port `5140` est utilisé car le port `514` nécessite des droits root.  
 - Pour une transmission plus fiable, vous pouvez utiliser TCP (`@@127.0.0.1:5140`) à la place d’UDP.  
 - Cette configuration fonctionne uniquement sur le même serveur (localhost).
-
----
-
-**Mise à jour :** Juillet 2025
 
 ---
 
