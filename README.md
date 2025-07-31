@@ -131,7 +131,7 @@
 <tr>
 <td><b>Configuration</b></td>
 <td>Audit des accès aux services critiques</td>
-<td><a href="https://github.com/0xCyberLiTech/Graylog"><img src="https://img.shields.io/badge/EXPLORER-red?style=for-the-badge&logo=github&logoColor=white" /></a></td>
+<td><a href="https://github.com/0xCyberLiTech/Graylog"><img src="https://img.shields.io/badge/EXPLORER-FF0048?style=for-the-badge&logo=github&logoColor=white" /></a></td>
 </tr>
 </tr>
 
