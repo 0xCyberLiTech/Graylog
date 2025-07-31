@@ -101,7 +101,8 @@
 <tr>
 <td><b>Configuration</b></td>
 <td>Dashboard personnalisé pour Windows</td>
-<td><a href="GRAYLOG-METTRE-EN-PLACE-UN-DASHBIOARD-PERSONALISE-POUR-WINDOWS.md"><img src="https://img.shields.io/badge/EXPLORER-orange?style=for-the-badge&logo=github&logoColor=white" /></a></td>
+<td><a href="https://github.com/0xCyberLiTech/Graylog"><img src="https://img.shields.io/badge/EXPLORER-FF6C00?style=for-the-badge&logo=github&logoColor=white" /></a></td>
+  badge&logo=github&logoColor=white" /></a></td>
 </tr>
 
 <tr>
