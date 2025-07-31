@@ -48,8 +48,7 @@
 
 🟢 **Actif** – Dépôt totalement accessible  
 🟠 **Partiel** – Dépôt partiellement accessible  
-![●](https://img.shields.io/badge/%20-%23FF003C?style=flat-square&labelColor=FF003C) **Inactif** – Dépôt inaccessible
-
+![●](https://img.shields.io/badge/%20-%23FF003C?style=flat&labelColor=FF003C) **Inactif** – Dépôt inaccessible
 
 
 
