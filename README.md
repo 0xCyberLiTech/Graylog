@@ -111,13 +111,13 @@
 <tr>
 <td><b>Configuration</b></td>
 <td>Connexions pare-feu entrantes/sortantes</td>
-<td><a href="https://github.com/0xCyberLiTech/Graylog"><img src="https://img.shields.io/badge/EXPLORER-red?style=for-the-badge&logo=github&logoColor=white" /></a></td>
+<td><a href="https://github.com/0xCyberLiTech/Graylog"><img src="https://img.shields.io/badge/EXPLORER-FF003C?style=for-the-badge&logo=github&logoColor=white" /></a></td>
 </tr>
 
 <tr>
 <td><b>Configuration</b></td>
 <td>Supervision brute force / SSH</td>
-<td><a href="https://github.com/0xCyberLiTech/Graylog"><img src="https://img.shields.io/badge/EXPLORER-red?style=for-the-badge&logo=github&logoColor=white" /></a></td>
+<td><a href="https://github.com/0xCyberLiTech/Graylog"><img src="https://img.shields.io/badge/EXPLORER-FF003C?style=for-the-badge&logo=github&logoColor=white" /></a></td>
 </tr>
 </tr>
 
