@@ -44,9 +44,9 @@
 
 ### **Sommaire**
 
-![●  ](https://img.shields.io/badge/--%23FF6C00?style=plastic&labelColor=FF6C00&logoColor=FF6C00) **Actif** – Dépôt totalement accessible  
-![●  ](https://img.shields.io/badge/--%23FF6C00?style=plastic&labelColor=FF6C00&logoColor=FF6C00) **Partiel** – Dépôt partiellement accessible  
-![●  ](https://img.shields.io/badge/--%23FF003C?style=plastic&labelColor=FF003C&logoColor=FF003C) **Inactif** – Dépôt inaccessible
+![●](https://img.shields.io/badge/--%23FF6C00?style=plastic&labelColor=FF6C00&logoColor=FF6C00) **Actif** – Dépôt totalement accessible  
+![●](https://img.shields.io/badge/--%23FF6C00?style=plastic&labelColor=FF6C00&logoColor=FF6C00) **Partiel** – Dépôt partiellement accessible  
+![●](https://img.shields.io/badge/--%23FF003C?style=plastic&labelColor=FF003C&logoColor=FF003C) **Inactif** – Dépôt inaccessible
 
 ---
 
