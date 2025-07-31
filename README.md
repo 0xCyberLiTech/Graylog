@@ -50,7 +50,7 @@
 🟠 **Partiel** – Dépôt partiellement accessible  
 🔴 **Inactif** – Dépôt inaccessible ou indisponible
 
-<span style="display:inline-block; width:1em; height:1em; border-radius:50%; background-color:#FF003C; vertical-align:middle; margin-right:0.3em;"></span> <strong>Inactif</strong> – Dépôt inaccessible ou indisponible
+![Inactif](https://img.shields.io/badge/Inactif-%23FF003C?style=flat-square&logo=&logoColor=white)
 
 
 </div>
