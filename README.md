@@ -42,11 +42,15 @@
 
 ---
 
-### **Sommaire**
+### 🧭 **Sommaire**
 
-> ![●](https://img.shields.io/badge/--%2339FF14?style=plastic&labelColor=39FF14&logoColor=39FF14) **Actif** – Dépôt totalement accessible
-> ![●](https://img.shields.io/badge/--%23FF6C00?style=plastic&labelColor=FF6C00&logoColor=FF6C00) **Partiel** – Dépôt partiellement accessible  
-> ![●](https://img.shields.io/badge/--%23FF003C?style=plastic&labelColor=FF003C&logoColor=FF003C) **Inactif** – Dépôt inaccessible
+<div align="center" style="margin-bottom: 10px;">
+
+🟢 **Actif** – Dépôt totalement accessible  
+🟠 **Partiel** – Dépôt partiellement accessible  
+🔴 **Inactif** – Dépôt inaccessible ou indisponible
+
+</div>
 
 ---
 
@@ -101,34 +105,33 @@
 <tr>
 <td><b>Configuration</b></td>
 <td>Dashboard personnalisé pour Windows</td>
-<td><a href="https://github.com/0xCyberLiTech/Graylog"><img src="https://img.shields.io/badge/EXPLORER-FF6C00?style=for-the-badge&logo=github&logoColor=white" /></a></td>
-  badge&logo=github&logoColor=white" /></a></td>
+<td><a href="GRAYLOG-METTRE-EN-PLACE-UN-DASHBIOARD-PERSONALISE-POUR-WINDOWS.md"><img src="https://img.shields.io/badge/EXPLORER-orange?style=for-the-badge&logo=github&logoColor=white" /></a></td>
 </tr>
 
 <tr>
 <td><b>Configuration</b></td>
 <td>Connexions pare-feu entrantes/sortantes</td>
-<td><a href="https://github.com/0xCyberLiTech/Graylog"><img src="https://img.shields.io/badge/EXPLORER-FF003C?style=for-the-badge&logo=github&logoColor=white" /></a></td>
+<td><a href="https://github.com/0xCyberLiTech/Graylog"><img src="https://img.shields.io/badge/EXPLORER-red?style=for-the-badge&logo=github&logoColor=white" /></a></td>
 </tr>
 
 <tr>
 <td><b>Configuration</b></td>
 <td>Supervision brute force / SSH</td>
-<td><a href="https://github.com/0xCyberLiTech/Graylog"><img src="https://img.shields.io/badge/EXPLORER-FF003C?style=for-the-badge&logo=github&logoColor=white" /></a></td>
+<td><a href="https://github.com/0xCyberLiTech/Graylog"><img src="https://img.shields.io/badge/EXPLORER-red?style=for-the-badge&logo=github&logoColor=white" /></a></td>
 </tr>
 </tr>
 
 <tr>
 <td><b>Configuration</b></td>
 <td>Collecte des logs d’infra Linux complète</td>
-<td><a href="https://github.com/0xCyberLiTech/Graylog"><img src="https://img.shields.io/badge/EXPLORER-FF003C?style=for-the-badge&logo=github&logoColor=white" /></a></td>
+<td><a href="https://github.com/0xCyberLiTech/Graylog"><img src="https://img.shields.io/badge/EXPLORER-red?style=for-the-badge&logo=github&logoColor=white" /></a></td>
 </tr>
 </tr>
 
 <tr>
 <td><b>Configuration</b></td>
 <td>Audit des accès aux services critiques</td>
-<td><a href="https://github.com/0xCyberLiTech/Graylog"><img src="https://img.shields.io/badge/EXPLORER-FF003C?style=for-the-badge&logo=github&logoColor=white" /></a></td>
+<td><a href="https://github.com/0xCyberLiTech/Graylog"><img src="https://img.shields.io/badge/EXPLORER-red?style=for-the-badge&logo=github&logoColor=white" /></a></td>
 </tr>
 </tr>
 
