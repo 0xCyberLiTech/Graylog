@@ -18,5 +18,15 @@ Toutes les modifications notables de ce projet seront consignées ici, selon le 
 
 ---
 
+## [v1.1.0] - 2025-08-21
+
+### Sécurisation et organisation
+
+- Ajout d’un fichier `.gitignore` pour renforcer la sécurité et éviter la publication de fichiers sensibles ou inutiles
+- Vérification et organisation des fichiers du dépôt
+- Mise en place de bonnes pratiques pour la gestion des fichiers et dossiers
+
+---
+
 ## 📌 À venir (prochaine version)
 
