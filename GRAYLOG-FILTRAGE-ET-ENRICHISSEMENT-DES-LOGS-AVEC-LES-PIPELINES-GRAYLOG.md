@@ -9,7 +9,7 @@
   <br></br>
   
   <p align="center">
-    <em>Tuto, filtrage et enrichissement des logs avec les Pipelines Graylog.</em><br>
+    <em>Filtrage & enrichissement avec Pipelines.</em><br>
     <b>📊 Monitoring – 📈 Performance – ⚙️ Fiabilité</b>
   </p>
   
