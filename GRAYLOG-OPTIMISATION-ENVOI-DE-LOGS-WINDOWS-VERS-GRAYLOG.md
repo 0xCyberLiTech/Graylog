@@ -9,7 +9,7 @@
   <br></br>
   
   <p align="center">
-    <em>Tuto, optimisation des logs Windows vers Graylog.</em><br>
+    <em>Optimisation des logs Windows vers Graylog.</em><br>
     <b>📊 Monitoring – 📈 Performance – ⚙️ Fiabilité</b>
   </p>
   
