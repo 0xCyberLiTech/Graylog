@@ -9,7 +9,7 @@
   <br></br>
   
   <p align="center">
-    <em>Tuto, configurer une alerte en cas d'événement critique de niveau 1.</em><br>
+    <em>Créer une alerte critique (niveau 1).</em><br>
     <b>📊 Monitoring – 📈 Performance – ⚙️ Fiabilité</b>
   </p>
   
