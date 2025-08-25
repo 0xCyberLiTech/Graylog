@@ -9,7 +9,7 @@
   <br></br>
   
   <p align="center">
-    <em>Tuto, mettre en place un dashboard personnalisé pour Windows.</em><br>
+    <em>Dashboard personnalisé pour Windows.</em><br>
     <b>📊 Monitoring – 📈 Performance – ⚙️ Fiabilité</b>
   </p>
   
