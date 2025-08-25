@@ -9,7 +9,7 @@
   <br></br>
   
   <p align="center">
-    <em>Tuto, installation & configuration de NXLog sur Windows 11.</em><br>
+    <em>Centraliser les logs de Windows 11 sur Graylog.</em><br>
     <b>📊 Monitoring – 📈 Performance – ⚙️ Fiabilité</b>
   </p>
   
