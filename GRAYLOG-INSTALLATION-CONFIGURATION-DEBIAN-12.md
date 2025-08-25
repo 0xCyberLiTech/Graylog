@@ -9,7 +9,7 @@
   <br></br>
   
   <p align="center">
-    <em>Tuto, installation & configurations d'un serveur Graylog 6.3 sur Debian 12.</em><br>
+    <em>Installation & configuration de Graylog sur Debian 12.</em><br>
     <b>📊 Monitoring – 📈 Performance – ⚙️ Fiabilité</b>
   </p>
   
