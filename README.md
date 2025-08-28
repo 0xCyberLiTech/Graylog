@@ -34,7 +34,7 @@
 </div>
 
 <!--
-Optimisation SEO : astuces, cybersécurité, Linux, sécurité informatique, tutoriels, guides, administration système, scripts Bash, Debian, graylog, ressources techniques, étudiants, professionnels, formation, réseau, IT, bonnes pratiques, passionnés.
+Optimisation SEO : astuces, cybersécurité, Linux, sécurité informatique, tutoriels, guides, administration système, scripts Bash, Debian, rsyslog, graylog, ressources techniques, étudiants, professionnels, formation, réseau, IT, bonnes pratiques, passionnés.
 -->
 
 <div align="center">
