@@ -125,7 +125,7 @@ Le contenu est structuré, accessible et optimisé SEO pour répondre aux besoin
 <tr>
 <td><b>Configuration</b></td>
 <td>Dashboard personnalisé pour Windows</td>
-<td><a href="GRAYLOG-METTRE-EN-PLACE-UN-DASHBIOARD-PERSONALISE-POUR-WINDOWS.md"><img src="https://img.shields.io/badge/EXPLORER-orange?style=for-the-badge&logo=github&logoColor=white" /></a></td>
+<td><a href="GRAYLOG-METTRE-EN-PLACE-UN-DASHBIOARD-PERSONALISE-POUR-WINDOWS.md"><img src="https://img.shields.io/badge/EXPLORER-f1c232?style=for-the-badge&logo=github&logoColor=white" /></a></td>
 </tr>
 
 <tr>
