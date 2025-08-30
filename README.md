@@ -86,6 +86,10 @@ Le contenu est structuré, accessible et optimisé SEO pour répondre aux besoin
 </thead>
 <tbody>
 
+| **CYBERSECURITE** | Fondamentaux & bonnes pratiques             | [![Explorer](https://img.shields.io/badge/EXPLORER-4CAF50?style=for-the-badge&logo=github&logoColor=white)](https://github.com/0xCyberLiTech/Cybersecurite/blob/main/README.md) |
+
+
+
 <tr>
 <td><b>Installation</b></td>
 <td>Installation & configuration de Graylog sur Debian 12</td>
