@@ -101,25 +101,25 @@ Le contenu est structuré, accessible et optimisé SEO pour répondre aux besoin
 <tr>
 <td><b>Configuration</b></td>
 <td>rsyslog + Graylog (même serveur)</td>
-<td><a href="GRAYLOG-CONFIGURER-GRAYLOG-POUR-RECEVOIR-LES-LOGS-VIA-SYSLOG-UDP.md"><img src="https://img.shields.io/badge/EXPLORER-orange?style=for-the-badge&logo=github&logoColor=white" /></a></td>
+<td><a href="GRAYLOG-CONFIGURER-GRAYLOG-POUR-RECEVOIR-LES-LOGS-VIA-SYSLOG-UDP.md"><img src="https://img.shields.io/badge/EXPLORER-f1c232?style=for-the-badge&logo=github&logoColor=white" /></a></td>
 </tr>
 
 <tr>
 <td><b>Configuration</b></td>
 <td>Optimisation des logs Windows vers Graylog</td>
-<td><a href="GRAYLOG-OPTIMISATION-ENVOI-DE-LOGS-WINDOWS-VERS-GRAYLOG.md"><img src="https://img.shields.io/badge/EXPLORER-orange?style=for-the-badge&logo=github&logoColor=white" /></a></td>
+<td><a href="GRAYLOG-OPTIMISATION-ENVOI-DE-LOGS-WINDOWS-VERS-GRAYLOG.md"><img src="https://img.shields.io/badge/EXPLORER-f1c232?style=for-the-badge&logo=github&logoColor=white" /></a></td>
 </tr>
 
 <tr>
 <td><b>Configuration</b></td>
 <td>Filtrage & enrichissement avec Pipelines</td>
-<td><a href="GRAYLOG-FILTRAGE-ET-ENRICHISSEMENT-DES-LOGS-AVEC-LES-PIPELINES-GRAYLOG.md"><img src="https://img.shields.io/badge/EXPLORER-orange?style=for-the-badge&logo=github&logoColor=white" /></a></td>
+<td><a href="GRAYLOG-FILTRAGE-ET-ENRICHISSEMENT-DES-LOGS-AVEC-LES-PIPELINES-GRAYLOG.md"><img src="https://img.shields.io/badge/EXPLORER-f1c232?style=for-the-badge&logo=github&logoColor=white" /></a></td>
 </tr>
 
 <tr>
 <td><b>Configuration</b></td>
 <td>Créer une alerte critique (niveau 1)</td>
-<td><a href="GRAYLOG-CONFIGURER-UNE-ALERTE-EN-CAS-D-EVENEMENT-CRITIQUE-DE-NIVEAU-1.md"><img src="https://img.shields.io/badge/EXPLORER-orange?style=for-the-badge&logo=github&logoColor=white" /></a></td>
+<td><a href="GRAYLOG-CONFIGURER-UNE-ALERTE-EN-CAS-D-EVENEMENT-CRITIQUE-DE-NIVEAU-1.md"><img src="https://img.shields.io/badge/EXPLORER-f1c232?style=for-the-badge&logo=github&logoColor=white" /></a></td>
 </tr>
 
 <tr>
