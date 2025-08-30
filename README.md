@@ -95,7 +95,7 @@ Le contenu est structuré, accessible et optimisé SEO pour répondre aux besoin
 <tr>
 <td><b>Configuration</b></td>
 <td>Centraliser les logs de Windows 11 sur Graylog</td>
-<td><a href="GRAYLOG-CENTRALISER-LES-LOGS-WINDOWS-11-VERS-GRAYLOG-DEBIAN-12.md"><img src="https://img.shields.io/badge/EXPLORER-brightgreen?style=for-the-badge&logo=github&logoColor=white" /></a></td>
+<td><a href="GRAYLOG-CENTRALISER-LES-LOGS-WINDOWS-11-VERS-GRAYLOG-DEBIAN-12.md"><img src="https://img.shields.io/badge/EXPLORER-4CAF50?style=for-the-badge&logo=github&logoColor=white" /></a></td>
 </tr>
 
 <tr>
