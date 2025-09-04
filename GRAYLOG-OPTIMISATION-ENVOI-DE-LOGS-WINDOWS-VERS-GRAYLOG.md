@@ -33,10 +33,6 @@
 
 </div>
 
-<!--
-Optimisation SEO : mots-clés Graylog, 0xCyberLiTech, Linux, sécurité informatique, tutoriels, guides, administration système, scripts Bash, Debian, logs, rsyslog, graylog, ressources techniques, étudiants, professionnels, formation, réseau, IT, bonnes pratiques, passionnés.
--->
-
 <div align="center">
   <img src="https://img.icons8.com/fluency/96/000000/cyber-security.png" alt="CyberSec" width="80"/>
 </div>
@@ -264,3 +260,4 @@ net start nxlog
 <div align="center">
   <b>🔒 Un guide proposé par <a href="https://github.com/0xCyberLiTech">0xCyberLiTech</a> • Pour des tutoriels accessibles à tous. 🔒</b>
 </div>
+
