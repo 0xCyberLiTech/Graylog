@@ -70,6 +70,8 @@ Le contenu est structuré, accessible et optimisé SEO pour répondre aux besoin
 
 ---
 
+<div align="center">
+
 | Catégorie         | Sujet                                                 | Accès |
 |-------------------|-------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | **Installation**  | Installation & configuration de Graylog sur Debian 12 | [![Explorer](https://img.shields.io/badge/EXPLORER-4CAF50?style=for-the-badge&logo=github&logoColor=white)](GRAYLOG-INSTALLATION-CONFIGURATION-DEBIAN-12.md)                           |
@@ -83,6 +85,8 @@ Le contenu est structuré, accessible et optimisé SEO pour répondre aux besoin
 | **Configuration** | Supervision brute force / SSH                         | [![Explorer](https://img.shields.io/badge/EXPLORER-red?style=for-the-badge&logo=github&logoColor=white)](https://github.com/0xCyberLiTech/Graylog/blob/main/README.md)                 |
 | **Configuration** | Collecte des logs d’infra Linux complète              | [![Explorer](https://img.shields.io/badge/EXPLORER-red?style=for-the-badge&logo=github&logoColor=white)](https://github.com/0xCyberLiTech/Graylog/blob/main/README.md)                 |
 | **Configuration** | Audit des accès aux services critiques                | [![Explorer](https://img.shields.io/badge/EXPLORER-red?style=for-the-badge&logo=github&logoColor=white)](https://github.com/0xCyberLiTech/Graylog/blob/main/README.md)                 |
+
+</div>
 
 ---
 
