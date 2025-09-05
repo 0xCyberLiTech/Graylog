@@ -70,89 +70,19 @@ Le contenu est structuré, accessible et optimisé SEO pour répondre aux besoin
 
 ---
 
-<br/>
-
-<table align="center">
-<thead>
-<tr>
-<th>Catégorie</th>
-<th>Sujet</th>
-<th>Accès</th>
-</tr>
-</thead>
-<tbody>
-
-<tr>
-<td><b>Installation</b></td>
-<td>Installation & configuration de Graylog sur Debian 12</td>
-<td><a href="GRAYLOG-INSTALLATION-CONFIGURATION-DEBIAN-12.md"><img src="https://img.shields.io/badge/EXPLORER-4CAF50?style=for-the-badge&logo=github&logoColor=white" /></a></td>
-</tr>
-
-<tr>
-<td><b>Configuration</b></td>
-<td>Centraliser les logs de Windows 11 sur Graylog</td>
-<td><a href="GRAYLOG-CENTRALISER-LES-LOGS-WINDOWS-11-VERS-GRAYLOG-DEBIAN-12.md"><img src="https://img.shields.io/badge/EXPLORER-4CAF50?style=for-the-badge&logo=github&logoColor=white" /></a></td>
-</tr>
-
-<tr>
-<td><b>Configuration</b></td>
-<td>rsyslog + Graylog (même serveur)</td>
-<td><a href="GRAYLOG-CONFIGURER-GRAYLOG-POUR-RECEVOIR-LES-LOGS-VIA-SYSLOG-UDP.md"><img src="https://img.shields.io/badge/EXPLORER-f1c232?style=for-the-badge&logo=github&logoColor=white" /></a></td>
-</tr>
-
-<tr>
-<td><b>Configuration</b></td>
-<td>Optimisation des logs Windows vers Graylog</td>
-<td><a href="GRAYLOG-OPTIMISATION-ENVOI-DE-LOGS-WINDOWS-VERS-GRAYLOG.md"><img src="https://img.shields.io/badge/EXPLORER-f1c232?style=for-the-badge&logo=github&logoColor=white" /></a></td>
-</tr>
-
-<tr>
-<td><b>Configuration</b></td>
-<td>Filtrage & enrichissement avec Pipelines</td>
-<td><a href="GRAYLOG-FILTRAGE-ET-ENRICHISSEMENT-DES-LOGS-AVEC-LES-PIPELINES-GRAYLOG.md"><img src="https://img.shields.io/badge/EXPLORER-f1c232?style=for-the-badge&logo=github&logoColor=white" /></a></td>
-</tr>
-
-<tr>
-<td><b>Configuration</b></td>
-<td>Créer une alerte critique (niveau 1)</td>
-<td><a href="GRAYLOG-CONFIGURER-UNE-ALERTE-EN-CAS-D-EVENEMENT-CRITIQUE-DE-NIVEAU-1.md"><img src="https://img.shields.io/badge/EXPLORER-f1c232?style=for-the-badge&logo=github&logoColor=white" /></a></td>
-</tr>
-
-<tr>
-<td><b>Configuration</b></td>
-<td>Dashboard personnalisé pour Windows</td>
-<td><a href="GRAYLOG-METTRE-EN-PLACE-UN-DASHBIOARD-PERSONALISE-POUR-WINDOWS.md"><img src="https://img.shields.io/badge/EXPLORER-f1c232?style=for-the-badge&logo=github&logoColor=white" /></a></td>
-</tr>
-
-<tr>
-<td><b>Configuration</b></td>
-<td>Connexions pare-feu entrantes/sortantes</td>
-<td><a href="https://github.com/0xCyberLiTech/Graylog/blob/main/README.md"><img src="https://img.shields.io/badge/EXPLORER-red?style=for-the-badge&logo=github&logoColor=white" /></a></td>
-</tr>
-
-<tr>
-<td><b>Configuration</b></td>
-<td>Supervision brute force / SSH</td>
-<td><a href="https://github.com/0xCyberLiTech/Graylog/blob/main/README.md"><img src="https://img.shields.io/badge/EXPLORER-red?style=for-the-badge&logo=github&logoColor=white" /></a></td>
-</tr>
-</tr>
-
-<tr>
-<td><b>Configuration</b></td>
-<td>Collecte des logs d’infra Linux complète</td>
-<td><a href="https://github.com/0xCyberLiTech/Graylog/blob/main/README.md"><img src="https://img.shields.io/badge/EXPLORER-red?style=for-the-badge&logo=github&logoColor=white" /></a></td>
-</tr>
-</tr>
-
-<tr>
-<td><b>Configuration</b></td>
-<td>Audit des accès aux services critiques</td>
-<td><a href="https://github.com/0xCyberLiTech/Graylog/blob/main/README.md"><img src="https://img.shields.io/badge/EXPLORER-red?style=for-the-badge&logo=github&logoColor=white" /></a></td>
-</tr>
-</tr>
-
-</tbody>
-</table>
+| Catégorie         | Sujet                                                 | Accès |
+|-------------------|-------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Installation**  | Installation & configuration de Graylog sur Debian 12 | [![Explorer](https://img.shields.io/badge/EXPLORER-4CAF50?style=for-the-badge&logo=github&logoColor=white)](GRAYLOG-INSTALLATION-CONFIGURATION-DEBIAN-12.md)                           |
+| **Configuration** | Centraliser les logs de Windows 11 sur Graylog        | [![Explorer](https://img.shields.io/badge/EXPLORER-4CAF50?style=for-the-badge&logo=github&logoColor=white)](GRAYLOG-CENTRALISER-LES-LOGS-WINDOWS-11-VERS-GRAYLOG-DEBIAN-12.md)         |
+| **Configuration** | rsyslog + Graylog (même serveur)                      | [![Explorer](https://img.shields.io/badge/EXPLORER-f1c232?style=for-the-badge&logo=github&logoColor=white)](GRAYLOG-CONFIGURER-GRAYLOG-POUR-RECEVOIR-LES-LOGS-VIA-SYSLOG-UDP.md)       |
+| **Configuration** | Optimisation des logs Windows vers Graylog            | [![Explorer](https://img.shields.io/badge/EXPLORER-f1c232?style=for-the-badge&logo=github&logoColor=white)](GRAYLOG-OPTIMISATION-ENVOI-DE-LOGS-WINDOWS-VERS-GRAYLOG.md)                |
+| **Configuration** | Filtrage & enrichissement avec Pipelines              | [![Explorer](https://img.shields.io/badge/EXPLORER-f1c232?style=for-the-badge&logo=github&logoColor=white)](GRAYLOG-FILTRAGE-ET-ENRICHISSEMENT-DES-LOGS-AVEC-LES-PIPELINES-GRAYLOG.md) |
+| **Configuration** | Créer une alerte critique (niveau 1)                  | [![Explorer](https://img.shields.io/badge/EXPLORER-f1c232?style=for-the-badge&logo=github&logoColor=white)](GRAYLOG-CONFIGURER-UNE-ALERTE-EN-CAS-D-EVENEMENT-CRITIQUE-DE-NIVEAU-1.md)  |
+| **Configuration** | Dashboard personnalisé pour Windows                   | [![Explorer](https://img.shields.io/badge/EXPLORER-f1c232?style=for-the-badge&logo=github&logoColor=white)](GRAYLOG-METTRE-EN-PLACE-UN-DASHBIOARD-PERSONALISE-POUR-WINDOWS.md)         |
+| **Configuration** | Connexions pare-feu entrantes/sortantes               | [![Explorer](https://img.shields.io/badge/EXPLORER-red?style=for-the-badge&logo=github&logoColor=white)](https://github.com/0xCyberLiTech/Graylog/blob/main/README.md)                 |
+| **Configuration** | Supervision brute force / SSH                         | [![Explorer](https://img.shields.io/badge/EXPLORER-red?style=for-the-badge&logo=github&logoColor=white)](https://github.com/0xCyberLiTech/Graylog/blob/main/README.md)                 |
+| **Configuration** | Collecte des logs d’infra Linux complète              | [![Explorer](https://img.shields.io/badge/EXPLORER-red?style=for-the-badge&logo=github&logoColor=white)](https://github.com/0xCyberLiTech/Graylog/blob/main/README.md)                 |
+| **Configuration** | Audit des accès aux services critiques                | [![Explorer](https://img.shields.io/badge/EXPLORER-red?style=for-the-badge&logo=github&logoColor=white)](https://github.com/0xCyberLiTech/Graylog/blob/main/README.md)                 |
 
 ---
 
