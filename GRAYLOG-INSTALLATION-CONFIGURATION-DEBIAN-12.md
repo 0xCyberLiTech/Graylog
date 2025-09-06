@@ -64,8 +64,6 @@ Le contenu est structuré, accessible et optimisé SEO pour répondre aux besoin
 
 ## Installer Graylog sur Debian 12.
 
----
-
 <div align="center" style="margin-bottom: 10px;">
 
 ### **Sommaire**
