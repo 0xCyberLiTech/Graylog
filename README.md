@@ -72,7 +72,7 @@ Le contenu est structuré, accessible et optimisé SEO pour répondre aux besoin
 
 <div align="center">
 
-| Catégorie         | Sujet                                                 | Accès |
+| Catégorie         | Sujet                                                 | Accès                                                                                                                                                                                  |
 |-------------------|-------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | **Installation**  | Installation & configuration de Graylog sur Debian 12 | [![Explorer](https://img.shields.io/badge/EXPLORER-4CAF50?style=for-the-badge&logo=github&logoColor=white)](GRAYLOG-INSTALLATION-CONFIGURATION-DEBIAN-12.md)                           |
 | **Configuration** | Centraliser les logs de Windows 11 sur Graylog        | [![Explorer](https://img.shields.io/badge/EXPLORER-4CAF50?style=for-the-badge&logo=github&logoColor=white)](GRAYLOG-CENTRALISER-LES-LOGS-WINDOWS-11-VERS-GRAYLOG-DEBIAN-12.md)         |
