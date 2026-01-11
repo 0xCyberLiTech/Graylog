@@ -153,6 +153,6 @@ Graylog est une solution centralisée de gestion des logs, utilisée pour :
 </div>
 
 <div align="center">
-  <b>🔒 Un guide proposé par <a href="https://github.com/0xCyberLiTech">0xCyberLiTech</a> • Pour des tutoriels accessibles à tous. 🔒</b>
+  <b>🔒 Un guide proposé par <a href="https://0xcyberlitech.com/">0xCyberLiTech</a> • Pour des tutoriels accessibles à tous. 🔒</b>
 </div>
 
