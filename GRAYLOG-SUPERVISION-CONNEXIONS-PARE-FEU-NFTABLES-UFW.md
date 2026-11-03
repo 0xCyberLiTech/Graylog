@@ -69,7 +69,6 @@ La visibilité temps réel sur les flux **bloqués (`BLOCK` / `DROP`)** et **aut
 Sous **Debian 13 (Trixie — Stable)** et **Debian 14 (Forky — Next-Gen)**, le pare-feu repose nativement sur le sous-système noyau **`nftables`** (piloté directement ou via **UFW**) et les événements kernel sont captés par **`systemd-journald`**.
 
 ```mermaid
-%%{init: {'theme': 'dark', 'themeVariables': { 'primaryColor': '#091326', 'primaryTextColor': '#f8fafc', 'primaryBorderColor': '#00d9ff', 'lineColor': '#00d9ff'}}}%%
 flowchart LR
     NET["[WAN/LAN] Paquets TCP/UDP/ICMP"] --> NFT["[KERNEL] Pare-feu nftables / UFW<br/>Log Prefix: [UFW BLOCK] / [NFT-DROP]"]
     NFT --> JOURNAL["[SYSTEMD] systemd-journald / rsyslog<br/>Flux Kernel (kern.warn)"]
